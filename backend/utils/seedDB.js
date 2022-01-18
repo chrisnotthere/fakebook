@@ -23,8 +23,8 @@ var users = []
 var posts = [];
 var comments = [];
 
-function userCreate(email, password, firstName, lastName, picture, about, posts, friends, friendRquests, cb) {
-  userdetail = { email, password, firstName, lastName, picture, about, posts, friends, friendRquests };
+function userCreate(email, password, firstName, lastName, picture, about, friends, friendRquests, cb) {
+  userdetail = { email, password, firstName, lastName, picture, about, friends, friendRquests };
 
   const user = new User(userdetail);
   user.save(function (err) {
@@ -53,8 +53,8 @@ function postCreate(user, text, comments, likes, timestamp, cb) {
   });
 }
 
-function commentCreate(user, text, post, likes, timestamp, cb) {
-  commentdetail = { user, text, post, likes, timestamp, };
+function commentCreate(user, text, likes, timestamp, cb) {
+  commentdetail = { user, text, likes, timestamp, };
 
   const comment = new Comment(commentdetail);
   comment.save(function (err) {
@@ -68,7 +68,7 @@ function commentCreate(user, text, post, likes, timestamp, cb) {
   });
 }
 
-// email, password, firstName, lastName, picture, about, posts, friends, friendRquests
+// email, password, firstName, lastName, picture, about, friends, friendRquests
 function createusers(cb) {
   async.parallel(
     [
@@ -80,7 +80,6 @@ function createusers(cb) {
           'Bunny',
           'pictureofbuggsbunny.jpg',
           'Bugs Bunny is an animated cartoon character, created in the late 1930s by Leon Schlesinger Productions and voiced originally by Mel Blanc. Bugs is best known for his starring roles in the Looney Tunes and Merrie Melodies series of animated short films, produced by Warner Bros.',
-          [posts[0], posts[1]],
           [users[1]],
           [],
           callback
@@ -94,7 +93,6 @@ function createusers(cb) {
           'Duck',
           'cartoonduck.jpg',
           'Daffy Duck is an animated cartoon character created by Warner Bros. Styled as an anthropomorphic black duck, he has appeared in cartoon series such as Looney Tunes and Merrie Melodies, in which he is usually depicted as a foil for Bugs Bunny.',
-          [posts[2]],
           [users[0]],
           [],
           callback
@@ -114,7 +112,7 @@ function createposts(cb) {
         postCreate(
           users[0],
           'Wow, is this a fake Facebook Post? Damn it looks so real!',
-          comments[0],
+          [comments[0], comments[1]],
           [users[0], users[1]],
           1642475557488,
           callback
@@ -136,7 +134,7 @@ function createposts(cb) {
         );
       }
       
-// user, text, post, likes, timestamp
+// user, text, likes, timestamp
 function createcomments(cb) {
   async.series(
     [
@@ -144,7 +142,6 @@ function createcomments(cb) {
         commentCreate(
           users[1],
           "Don't let it worry ya, Skipper. I'm just a crazy, darn fool duck. Hoo-hoo Hoo-hoo-hoo-hoo...",
-          posts[0],
           [users[1]],
           1642475557291,
           callback
@@ -154,7 +151,6 @@ function createcomments(cb) {
         commentCreate(
           users[0],
           "I knew I shoulda taken that left turn at Albuquerque!",
-          posts[0],
           [users[0], users[1]],
           1642475557299,
           callback
@@ -167,7 +163,7 @@ function createcomments(cb) {
 }
 
 async.series(
-  [createusers, createposts, createcomments],
+  [createusers, createcomments, createposts],
   // Optional callback
   function (err, results) {
     if (err) {
