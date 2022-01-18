@@ -12,12 +12,21 @@ const cors = require("cors");
 require('./config/mongoConfig');
 
 const indexRouter = require('./routes/index');
-const postRouter = require('./routes/post');
+const userRouter = require('./routes/users/users');
+const postRouter = require('./routes/posts/posts');
 
 const app = express();
 
+// define routes
 app.use('/', indexRouter);
+app.use('/users', userRouter);
 app.use('/posts', postRouter);
+
+// handle 404 
+app.use(function (req, res, next) {
+  res.status(404);
+  res.send('404: File Not Found');
+});
 
 app.use(cors);
 app.use(logger('dev'));
