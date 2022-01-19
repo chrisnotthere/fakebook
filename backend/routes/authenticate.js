@@ -5,9 +5,11 @@ const bcrypt = require("bcryptjs");
 const generateJWT = require('../utils/generateJWT');
 const { body, validationResult } = require("express-validator");
 const facebookTokenStrategy = require("../config/facebookConfig");
+const jwt = require('../config/JWTconfig')
 
 const passport = require("passport");
 passport.use(facebookTokenStrategy);
+passport.use(jwt);
 
 router.post( "/facebook/token",
   passport.authenticate("facebook-token"),
