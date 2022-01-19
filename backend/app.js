@@ -12,6 +12,7 @@ const cors = require("cors");
 require('./config/mongoConfig');
 
 const indexRouter = require('./routes/index');
+const authRouter = require('./routes/authenticate')
 const userRouter = require('./routes/users/users');
 const postRouter = require('./routes/posts/posts');
 
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 
 // define routes
 app.use('/', indexRouter);
+app.use('/auth', authRouter);
 app.use('/users', userRouter);
 app.use('/posts', postRouter);
 
