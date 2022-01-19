@@ -187,4 +187,9 @@ router.post('/testuser', function (req, res, next) {
   });
 });
 
+/* POST logout */
+router.post('/logout', function (req, res, next) {
+  res.json({ message: "POST logout of user account - not implemented" })
+});
+
 module.exports = router;

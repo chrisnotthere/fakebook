@@ -34,10 +34,10 @@ router.get('/', function (req, res, next) {
     });
 });
 
-/* POST logout */
-router.post('/logout', function (req, res, next) {
-  res.json({ message: "POST logout of user account - not implemented" })
-});
+// /* POST logout */
+// router.post('/logout', function (req, res, next) {
+//   res.json({ message: "POST logout of user account - not implemented" })
+// });
 
 /* GET one user */
 router.get('/:id', function (req, res, next) {
