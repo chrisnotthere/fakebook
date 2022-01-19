@@ -57,7 +57,7 @@ router.post('/signup',
 
       // data is valid, store data as new user in db
       const { email, password, firstName, lastName } = req.body;
-      const user = new User({ email, password, firstName, lastName})
+      const user = new User({ email, password, firstName, lastName })
       await user.save()
       const token = await generateJWT(user);
       return res.status(201).json({ message: "Sign up successful", user: user, token: token });
@@ -104,9 +104,9 @@ router.post('/login',
           console.log('--incorrect email--');
           return res.status(401).json({ message: "incorrect email" })
         }
-    
+
         bcrypt.compare(password, user.password, (err, response) => {
-          if (err){
+          if (err) {
             // handle error
             console.log('--there was an error!--');
             return res.status(500).json({ message: "there was an error!" })
@@ -114,13 +114,13 @@ router.post('/login',
           if (response) {
             //passwords match, create token and send to client
             console.log('--passwords match!--');
-            const token = generateJWT(user); 
+            const token = generateJWT(user);
 
             return res.status(200).json({
               message: "Login success!",
               token,
               user,
-            })        
+            })
           } else {
             // passwords do not match!
             console.log('--passwords do not match!--');
@@ -132,9 +132,46 @@ router.post('/login',
   }
 );
 
-/* POST login test account */
+/* POST login to test account */
 router.post('/testuser', function (req, res, next) {
-  res.json({ message: "POST login to test account - not implemented" })
+  // find user that matches .env test user credentials
+  const email = process.env.TEST_EMAIL;
+  const password = process.env.TEST_PASSWORD;
+  console.log(email, password);
+  //check if email is in DB
+  User.findOne({ email: email }, (err, user) => {
+    if (err) {
+      console.log('--there was an error--');
+      return res.status(401).json({ message: "there was an error" })
+    }
+    if (!user) {
+      console.log('--incorrect email--');
+      return res.status(401).json({ message: "incorrect email" })
+    }
+
+    bcrypt.compare(password, user.password, (err, response) => {
+      if (err) {
+        // handle error
+        console.log('--there was an error!--');
+        return res.status(500).json({ message: "there was an error!" })
+      }
+      if (response) {
+        //passwords match, create token and send to client
+        console.log('--passwords match!--');
+        const token = generateJWT(user);
+
+        return res.status(200).json({
+          message: "Login success!",
+          token,
+          user,
+        })
+      } else {
+        // passwords do not match!
+        console.log('--passwords do not match!--');
+        return res.status(401).json({ message: "passwords do not match!" })
+      }
+    });
+  });
 });
 
 /* POST logout */
