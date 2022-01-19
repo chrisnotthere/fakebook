@@ -17,9 +17,9 @@ router.use(getToken);
 
 /* GET all users */
 router.get('/', function (req, res, next) {
-    console.log(req.payload)
-    // list of all users
-    User.find()
+  console.log(req.payload)
+  // list of all users
+  User.find()
     .populate({ path: 'friends', select: 'firstName lastName' })
     .populate({ path: 'friendRequests', select: 'firstName lastName' })
     .exec(function (err, allUsers) {
@@ -37,7 +37,7 @@ router.get('/:id', async (req, res, next) => {
   const posts = await Post.find({ user: req.params.id })
     .sort("-timestamp");
   if (user === null) {
-    return res.status(404).json({ msg: "user not found" });
+    return res.status(404).json({ message: "user not found" });
   }
   // console.log(user);
   // console.log(posts);
