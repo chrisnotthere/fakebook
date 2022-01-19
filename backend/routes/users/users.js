@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var User = require("../../models/user");
+var Post = require("../../models/post");
 // const generateJWT = require('../../utils/generateJWT');
 // const bcrypt = require("bcryptjs");
 const getToken = require('../../utils/getToken')
@@ -34,22 +35,34 @@ router.get('/', function (req, res, next) {
     });
 });
 
-// /* POST logout */
-// router.post('/logout', function (req, res, next) {
-//   res.json({ message: "POST logout of user account - not implemented" })
-// });
+/* GET one user and user's posts */
+router.get('/:id', async (req, res, next) => {
+  //res.json({ message: "GET a specific user - not implemented" })
 
-/* GET one user */
-router.get('/:id', function (req, res, next) {
-  res.json({ message: "GET a specific user - not implemented" })
+  const user = await User.findById(req.params.id);
+  const posts = await Post.find({ user: req.params.id })
+    // .populate("user")
+    // .populate("comments.user")
+    // .populate("comments.text")
+    // .populate("comments.likes")
+    .sort("-timestamp");
+  if (user === null) {
+    return res.status(404).json({ msg: "user not found" });
+  }
+  // console.log(user);
+  // console.log(posts);
+  res.status(200).json({ user, posts });
+
 });
 
 /* PUT update profile details (can only update details of logged in user profile)*/
+// LOW PRIORITY
 router.put('/:id', function (req, res, next) {
   res.json({ message: "PUT edit user details - not implemented" })
 });
 
-/* PUT update profile picture (come back to this after other controllers are done)*/
+/* PUT update profile picture */
+// LOW PRIORITY
 router.put('/:id/image', function (req, res, next) {
   res.json({ message: "POST edit profile pic - not implemented" })
 });
