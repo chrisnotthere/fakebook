@@ -1,15 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const friendsRouter = require('./friends');
 var User = require("../../models/user");
 var Post = require("../../models/post");
-// const generateJWT = require('../../utils/generateJWT');
-// const bcrypt = require("bcryptjs");
-const getToken = require('../../utils/getToken')
-const passport = require('passport');
-// const jwt = require('../../config/JWTconfig')
-
 const { body, validationResult } = require("express-validator");
-const friendsRouter = require('./friends');
+const passport = require('passport');
+const getToken = require('../../utils/getToken')
 
 router.use('/friends', friendsRouter);
 
@@ -37,14 +33,8 @@ router.get('/', function (req, res, next) {
 
 /* GET one user and user's posts */
 router.get('/:id', async (req, res, next) => {
-  //res.json({ message: "GET a specific user - not implemented" })
-
   const user = await User.findById(req.params.id);
   const posts = await Post.find({ user: req.params.id })
-    // .populate("user")
-    // .populate("comments.user")
-    // .populate("comments.text")
-    // .populate("comments.likes")
     .sort("-timestamp");
   if (user === null) {
     return res.status(404).json({ msg: "user not found" });
@@ -52,7 +42,6 @@ router.get('/:id', async (req, res, next) => {
   // console.log(user);
   // console.log(posts);
   res.status(200).json({ user, posts });
-
 });
 
 /* PUT update profile details (can only update details of logged in user profile)*/
@@ -68,6 +57,7 @@ router.put('/:id/image', function (req, res, next) {
 });
 
 /* DELETE user (can only delete own acount)*/
+// LOW PRIORITY
 router.delete('/:id', function (req, res, next) {
   res.json({ message: "DELETE user account - not implemented" })
 });
