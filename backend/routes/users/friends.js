@@ -58,12 +58,12 @@ router.delete('/req/:targetUserId', async (req, res, next) => {
     }
 
     // remove friendRequest 
-    const updatedTargetUserFriendRequests = targetUser.friendRequests.filter((user) => user != req.payload.id);
+    const updatedTargetUserFriendRequests = targetUser.friendRequests.filter((user) => user != currentUserId);
     targetUser.friendRequests = updatedTargetUserFriendRequests;
     const updatedTargetUser = await targetUser.save();
     return res.status(201).json({ message: "Friend request removed successfully.", potentialFriend: updatedTargetUser })
 
-  } catch (error){ 
+  } catch (error) {
     return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
   }
 });
@@ -111,11 +111,28 @@ router.post('/accept/:newFriendId', async (req, res, next) => {
 });
 
 /* POST decline friend request */
-router.post('/decline', async (req, res, next) => {
-  //res.json({ message: "POST decline friend request" })
+router.post('/decline/:rejectedFriendId', async (req, res, next) => {
+  const currentUserId = req.payload.id;
+  const rejectedFriendId = req.params.rejectedFriendId;
+  try {
+    const currentUser = await user.findById(currentUserId);
 
+    // check if request exists
+    if (!currentUser.friendRequests.includes(rejectedFriendId)) {
+      return res.status(400).json({ message: "Friend request not found." })
+    }
 
+    // remove friend request
+    const updatedFriendRequests = currentUser.friendRequests.filter((user) => user != rejectedFriendId);
+    currentUser.friendRequests = updatedFriendRequests;
 
+    // return currentUser's friend requests to confirm request removal
+    const updatedCurrentUser = await currentUser.save();
+    return res.status(201).json({ message: "Friend request declined.", currentUser: updatedCurrentUser })
+
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
 });
 
 /* DELETE remove friend  */
