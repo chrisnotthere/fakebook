@@ -14,48 +14,85 @@ router.use(getToken);
 router.post('/req/:targetUserId', async (req, res, next) => {
   const currentUserId = req.payload.id;
   const targetUserId = req.params.targetUserId;
-
   try {
     const currentUser = await user.findById(currentUserId);
     const targetUser = await user.findById(targetUserId);
-    // console.log(currentUserId, targetUserId);
-    // console.log(targetUser.friendRequests);
 
-    // check currentUser isnt same as targetUser
+    // currentUser is same as targetUser
     if (currentUserId === targetUserId) {
-      return res.status(400).json({ message: "You can not friend request yourself." })
+      return res.status(400).json({ message: "You cannot friend request yourself." })
     }
 
-    // check if currentUser and targetUser are already friends
+    // currentUser and targetUser are already friends
     if (currentUser.friends.includes(targetUserId)) {
       return res.status(400).json({ message: "You can are already friends with this user." })
     }
 
-    // check if currentUser has already sent a friend request
+    // currentUser has already sent a friend request
     if (targetUser.friendRequests.includes(currentUserId)) {
       return res.status(400).json({ message: "You have already sent a friend request." })
     }
 
-    // push currentUser to targetUser friendRequests
+    // add currentUser to targetUser friendRequests
     const updatedTargetUserFriendRequests = [...targetUser.friendRequests, currentUserId];
     targetUser.friendRequests = updatedTargetUserFriendRequests;
     const updatedTargetUser = await targetUser.save();
     return res.status(201).json({ message: "Friend request sent success!", potentialFriend: updatedTargetUser })
 
   } catch (err) {
-    return res.status(500).json({ error: err.message, message: "Could not find user." });
+    return res.status(500).json({ message: "Oops, something went wrong.", error: err.message });
   }
 
 });
 
 /* DELETE cancel friend request */
-router.delete('/req', function (req, res, next) {
-  res.json({ message: "DELETE req - remove friend request" })
+router.delete('/req/:targetUserId', async (req, res, next) => {
+  const currentUserId = req.payload.id;
+  const targetUserId = req.params.targetUserId;
+  try {
+    //const currentUser = await user.findById(currentUserId);
+    const targetUser = await user.findById(targetUserId);
+
+    // check currentUser isnt same as targetUser
+    if (currentUserId === targetUserId) {
+      return res.status(400).json({ message: "You cannot friend request yourself." })
+    }
+
+    // remove friendRequest 
+    const updatedTargetUserFriendRequests = targetUser.friendRequests.filter((user) => user != req.payload.id);
+    targetUser.friendRequests = updatedTargetUserFriendRequests;
+    const updatedTargetUser = await targetUser.save();
+    return res.status(201).json({ message: "Friend request removed successfully.", potentialFriend: updatedTargetUser })
+
+  } catch {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: err.message });
+  }
 });
 
 /* POST accept friend request */
-router.post('/accept', function (req, res, next) {
-  res.json({ message: "POST accept friend request" })
+router.post('/accept', async (req, res, next) => {
+  const currentUserId = req.payload.id;
+  const newFriendUserId = req.params.targetUserId;
+  try {
+    const currentUser = await user.findById(currentUserId);
+    const newFriendUser = await user.findById(newFriendUserId);
+
+    // check if friend request exists
+    if (!currentUser.friendRequests.includes(newFriendUser)) {
+      return res.status(400).json({ message: "Friend request not found." })
+    }
+
+    // remove friend request
+
+    // add currentUser to newFriendUser friend list
+
+    // add newFriendUser to currentUser friend list
+
+    // return currentUser's updated friends list as confirmation
+
+  } catch {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: err.message });
+  }
 });
 
 /* POST decline friend request */
