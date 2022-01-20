@@ -86,10 +86,11 @@ router.post('/accept/:newFriendId', async (req, res, next) => {
       return res.status(400).json({ message: "You are already friends with this user." })
     }
 
-    // remove friend request //this might not be working
+    // remove friend request //**NOTE** this is not working
     const updatedFriendRequests = newFriend.friendRequests.filter((friendRequest) => friendRequest != currentUserId);
     newFriend.friendRequests = updatedFriendRequests;
     const updatednewFriend = await newFriend.save();
+    // await newFriend.save();
 
     // add newFriend to currentUser friend list
     const updatedCurrentUserFriends = [...currentUser.friends, newFriendId];
@@ -136,8 +137,40 @@ router.post('/decline/:rejectedFriendId', async (req, res, next) => {
 });
 
 /* DELETE remove friend  */
-router.delete('/remove', async (req, res, next) => {
-  res.json({ message: "DELETE friend/un-friend" })
+router.delete('/remove/:removedFriendId', async (req, res, next) => {
+  // res.json({ message: "DELETE friend/un-friend" })
+  const currentUserId = req.payload.id;
+  const removedFriendId = req.params.removedFriendId;
+  try {
+    const currentUser = await user.findById(currentUserId);
+    const removedFriend = await user.findById(removedFriendId);
+    // console.log(currentUser, removedFriend)
+    // console.log(currentUser.friends, removedFriend.friends);
+
+    // check if currentUser and removedFriend are actually friends
+    if (!currentUser.friends.includes(removedFriendId)) {
+      return res.status(400).json({ message: "You must be friend to remove a friend." })
+    }
+
+    // remove currentUser from removedFriends friend list
+    const updatedRemovedFriendFriends = removedFriend.friends.filter((user) => user.id != `new ObjectId("${currentUserId}")`);
+    removedFriend.friends = updatedRemovedFriendFriends;
+    console.log(req.payload.id);
+    console.log(updatedRemovedFriendFriends);
+    await removedFriend.save()
+
+    // remove removedFriend from currentUsers friend list
+    const updatedCurrentUserFriends = currentUser.friends.filter((user) => user.id != `new ObjectId("${removedFriendId}")`);
+    currentUser.friends = updatedCurrentUserFriends;
+    await currentUser.save()
+
+    // return currentUser as confirmation of removal
+    const updatedCurrentUser = await user.findById(currentUserId);
+    return res.status(201).json({ message: "Friend removed.", currentUser: updatedCurrentUser })
+
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
 });
 
 module.exports = router;
