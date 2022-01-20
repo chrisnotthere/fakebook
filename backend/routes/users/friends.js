@@ -25,7 +25,7 @@ router.post('/req/:targetUserId', async (req, res, next) => {
 
     // currentUser and targetUser are already friends
     if (currentUser.friends.includes(targetUserId)) {
-      return res.status(400).json({ message: "You can are already friends with this user." })
+      return res.status(400).json({ message: "You are already friends with this user." })
     }
 
     // currentUser has already sent a friend request
@@ -39,10 +39,9 @@ router.post('/req/:targetUserId', async (req, res, next) => {
     const updatedTargetUser = await targetUser.save();
     return res.status(201).json({ message: "Friend request sent success!", potentialFriend: updatedTargetUser })
 
-  } catch (err) {
-    return res.status(500).json({ message: "Oops, something went wrong.", error: err.message });
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
   }
-
 });
 
 /* DELETE cancel friend request */
@@ -64,44 +63,63 @@ router.delete('/req/:targetUserId', async (req, res, next) => {
     const updatedTargetUser = await targetUser.save();
     return res.status(201).json({ message: "Friend request removed successfully.", potentialFriend: updatedTargetUser })
 
-  } catch {
-    return res.status(500).json({ message: "Oops, something went wrong.", error: err.message });
+  } catch (error){ 
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
   }
 });
 
 /* POST accept friend request */
-router.post('/accept', async (req, res, next) => {
+router.post('/accept/:newFriendId', async (req, res, next) => {
   const currentUserId = req.payload.id;
-  const newFriendUserId = req.params.targetUserId;
+  const newFriendId = req.params.newFriendId;
   try {
     const currentUser = await user.findById(currentUserId);
-    const newFriendUser = await user.findById(newFriendUserId);
+    const newFriend = await user.findById(newFriendId);
 
     // check if friend request exists
-    if (!currentUser.friendRequests.includes(newFriendUser)) {
+    if (!currentUser.friendRequests.includes(newFriendId)) {
       return res.status(400).json({ message: "Friend request not found." })
     }
 
-    // remove friend request
+    // check if currentUser and newFriend are already friends
+    if (currentUser.friends.includes(newFriendId)) {
+      return res.status(400).json({ message: "You are already friends with this user." })
+    }
 
-    // add currentUser to newFriendUser friend list
+    // remove friend request //this might not be working
+    const updatedFriendRequests = newFriend.friendRequests.filter((friendRequest) => friendRequest != currentUserId);
+    newFriend.friendRequests = updatedFriendRequests;
+    const updatednewFriend = await newFriend.save();
 
-    // add newFriendUser to currentUser friend list
+    // add newFriend to currentUser friend list
+    const updatedCurrentUserFriends = [...currentUser.friends, newFriendId];
+    currentUser.friends = updatedCurrentUserFriends;
+    const updatedCurrentUser = await currentUser.save()
+
+    // add currentUser to newFriend friend list
+    const updatedNewFriendFriends = [...newFriend.friends, currentUserId];
+    newFriend.friends = updatedNewFriendFriends;
+    const updatedNewFriend = await newFriend.save()
 
     // return currentUser's updated friends list as confirmation
+    const updatedCurrentUserAndFriends = await user.findById(currentUserId).populate('friends');
+    return res.status(201).json({ message: "New friend added..", currentUser: updatedCurrentUserAndFriends })
 
-  } catch {
-    return res.status(500).json({ message: "Oops, something went wrong.", error: err.message });
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
   }
 });
 
 /* POST decline friend request */
-router.post('/decline', function (req, res, next) {
-  res.json({ message: "POST decline friend request" })
+router.post('/decline', async (req, res, next) => {
+  //res.json({ message: "POST decline friend request" })
+
+
+
 });
 
 /* DELETE remove friend  */
-router.delete('/remove', function (req, res, next) {
+router.delete('/remove', async (req, res, next) => {
   res.json({ message: "DELETE friend/un-friend" })
 });
 
