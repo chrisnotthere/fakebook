@@ -29,11 +29,11 @@ UserSchema.virtual('fullname')
     this.lastName = nameParts[1]
   })
 
-// encrypt password before storage
-UserSchema.pre("save", async function (next) {
-  const hash = await bcrypt.hash(this.password, 10);
-  this.password = hash;
-  next();
-});
+// // encrypt password before storage -> this was causing issues
+// UserSchema.pre("save", async function (next) {
+//   const hash = await bcrypt.hash(this.password, 10);
+//   this.password = hash;
+//   next();
+// });
 
 module.exports = mongoose.model("User", UserSchema);
