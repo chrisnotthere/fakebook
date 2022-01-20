@@ -80,7 +80,7 @@ function createusers(cb) {
           'Bunny',
           'pictureofbuggsbunny.jpg',
           'Bugs Bunny is an animated cartoon character, created in the late 1930s by Leon Schlesinger Productions and voiced originally by Mel Blanc. Bugs is best known for his starring roles in the Looney Tunes and Merrie Melodies series of animated short films, produced by Warner Bros.',
-          [users[1], users[2]],
+          [],
           [],
           callback
         );
@@ -93,7 +93,7 @@ function createusers(cb) {
           'Duck',
           'cartoonduck.jpg',
           'Daffy Duck is an animated cartoon character created by Warner Bros. Styled as an anthropomorphic black duck, he has appeared in cartoon series such as Looney Tunes and Merrie Melodies, in which he is usually depicted as a foil for Bugs Bunny.',
-          [users[0], users[2]],
+          [],
           [],
           callback
         );
@@ -106,7 +106,7 @@ function createusers(cb) {
           'Account',
           'testing.jpg',
           'This is a test account. Feel free to take a look around.',
-          [users[0], users[1]],
+          [],
           [],
           callback
         );
