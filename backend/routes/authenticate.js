@@ -11,7 +11,7 @@ const passport = require("passport");
 passport.use(facebookTokenStrategy);
 passport.use(jwt);
 
-router.post( "/facebook/token",
+router.post("/facebook/token",
   passport.authenticate("facebook-token"),
   (req, res) => {
     res.status(201).json({
@@ -28,7 +28,7 @@ router.post( "/facebook/token",
   }
 );
 
-/* POST signup - no need to encrypt the password here, thats done directly in the user model */
+/* POST signup  */
 router.post('/signup',
   //validate user input
   body("email")
@@ -70,6 +70,8 @@ router.post('/signup',
 
       // data is valid, store data as new user in db
       const { email, password, firstName, lastName } = req.body;
+      const hash = await bcrypt.hash(this.password, 10);
+      password = hash;
       const user = new User({ email, password, firstName, lastName })
       await user.save()
       const token = await generateJWT(user);
@@ -78,7 +80,7 @@ router.post('/signup',
   }
 );
 
-/* POST login */
+/* POST login */ //NOTE - something wierd is happenning in here, testing needed...
 router.post('/login',
   //validate user input
   body("email")
