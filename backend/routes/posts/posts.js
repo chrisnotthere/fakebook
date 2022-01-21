@@ -40,7 +40,6 @@ router.post('/',
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
     try {
       const postText = req.body.text;
       const newPost = new Post({ user: req.payload.id, text: postText })
@@ -108,12 +107,12 @@ router.put('/:id/like', async (req, res, next) => {
     if (post.likes.includes(currentUserId)) {
       const postLikes = [...post.likes];
       const updatedPostLikes = postLikes.filter((likeId) => likeId != currentUserId);
-      
+
       post.likes = updatedPostLikes;
       const updatedPost = await post.save()
-      
+
       return res.status(201).json({ message: 'Like removed!', post: updatedPost });
-      
+
     } else {
       // like post if not liked already
       post.likes.push(currentUserId);
@@ -128,7 +127,25 @@ router.put('/:id/like', async (req, res, next) => {
 
 /* DELETE post */
 router.delete('/:id', async (req, res, next) => {
-  res.json({ message: "DELETE post" })
+  try {
+    const currentUserId = req.payload.id;
+    const post = await Post.findById(req.params.id)
+    // check if post exists
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found.' })
+    }
+    // check if currentUser is the post owner
+    if (post.user != currentUserId) {
+      return res.status(401).json({ message: "You may only delete your own posts." });
+    }
+    // delete the post
+    const deletedPost = await Post.findByIdAndDelete(req.params.id);
+    if(deletedPost) {
+      return res.status(201).json({ message: 'Post has been deleted.'})
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
 });
 
 module.exports = router;
