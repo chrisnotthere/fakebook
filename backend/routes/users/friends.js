@@ -144,23 +144,19 @@ router.delete('/remove/:removedFriendId', async (req, res, next) => {
   try {
     const currentUser = await user.findById(currentUserId);
     const removedFriend = await user.findById(removedFriendId);
-    // console.log(currentUser, removedFriend)
-    // console.log(currentUser.friends, removedFriend.friends);
 
     // check if currentUser and removedFriend are actually friends
     if (!currentUser.friends.includes(removedFriendId)) {
-      return res.status(400).json({ message: "You must be friend to remove a friend." })
+      return res.status(400).json({ message: "You must be friends to remove a friend." })
     }
 
     // remove currentUser from removedFriends friend list
-    const updatedRemovedFriendFriends = removedFriend.friends.filter((user) => user.id != `new ObjectId("${currentUserId}")`);
+    const updatedRemovedFriendFriends = removedFriend.friends.filter((user) => user._id != currentUserId);
     removedFriend.friends = updatedRemovedFriendFriends;
-    console.log(req.payload.id);
-    console.log(updatedRemovedFriendFriends);
     await removedFriend.save()
 
     // remove removedFriend from currentUsers friend list
-    const updatedCurrentUserFriends = currentUser.friends.filter((user) => user.id != `new ObjectId("${removedFriendId}")`);
+    const updatedCurrentUserFriends = currentUser.friends.filter((user) => user._id != removedFriendId);
     currentUser.friends = updatedCurrentUserFriends;
     await currentUser.save()
 
