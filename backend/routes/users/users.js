@@ -16,32 +16,38 @@ router.use(
 router.use(getToken);
 
 /* GET all users */
-router.get('/', function (req, res, next) {
-  console.log(req.payload)
-  // list of all users
-  User.find()
-    .populate({ path: 'friends', select: 'firstName lastName' })
-    .populate({ path: 'friendRequests', select: 'firstName lastName' })
-    .exec(function (err, allUsers) {
-      if (err) {
-        return next(err);
-      }
-      // successful, so send data
-      res.status(200).json({ allUsers })
-    });
+router.get('/', async (req, res, next) => {
+  // console.log(req.payload)
+  try {
+    const allUsers = await User.find()
+      .populate({ path: 'friends', select: 'firstName lastName' })
+      // .populate({ path: 'friendRequests', select: 'firstName lastName' });
+
+    return res.status(200).json({ message: "A list of all of the users.", allUsers })
+
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
+
 });
 
 /* GET one user and user's posts */
 router.get('/:id', async (req, res, next) => {
-  const user = await User.findById(req.params.id);
-  const posts = await Post.find({ user: req.params.id })
-    .sort("-timestamp");
-  if (user === null) {
-    return res.status(404).json({ message: "user not found" });
+  try {
+    const user = await User.findById(req.params.id);
+    const posts = await Post.find({ user: req.params.id })
+      .sort("-timestamp");
+      
+    if (user === null) {
+      return res.status(404).json({ message: "user not found" });
+    }
+  
+    return res.status(200).json({ user, posts });
+
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
   }
-  // console.log(user);
-  // console.log(posts);
-  res.status(200).json({ user, posts });
+
 });
 
 /* PUT update profile details (can only update details of logged in user profile)*/
