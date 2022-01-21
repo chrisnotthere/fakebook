@@ -24,7 +24,7 @@ router.get('/', async (req, res, next) => {
       .populate({ path: 'comments', select: 'user text likes' })
       .populate({ path: 'likes', select: 'firstName lastName' })
 
-    return res.status(200).json({ timelinePosts })
+    return res.status(200).json({ timelinePosts, currentUser })
 
   } catch (error) {
     return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
@@ -56,19 +56,74 @@ router.post('/',
     }
   });
 
-/* GET specific post */
+/* GET specific post - must be the creator or a friend to see the post*/
+// NOTE: this requires testing
 router.get('/:id', async (req, res, next) => {
-  res.json({ message: "POST get a single post" })
+  // res.json({ message: "POST get a single post" })
+  try {
+    const currentUserId = req.payload.id;
+    const currentUser = await User.findById(req.payload.id).populate('friends');
+    const post = await Post.findById(req.params.id)
+      .populate({ path: 'user', select: 'firstName lastName' })
+      .populate({ path: 'comments', select: 'user text likes' })
+      .populate({ path: 'likes', select: 'firstName lastName' });
+
+    // check if post exists
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
+    }
+    // console.log('current-----' + currentUser)
+    // console.log('post.user ----------' + post.user.id)
+    // console.log(post.user.id == currentUserId)
+    // console.log(currentUser.friends.includes(post.user.id))
+    // check if currentUser has permission to view post
+    if (post.user.id == currentUserId || currentUser.friends.includes(post.user)) {
+      // return the post 
+      return res.status(200).json({ post })
+
+    } else {
+      return res.status(401).json({ message: "You must be friends with the creator to view this post" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
 });
 
 /* PUT update post */
+// LOW PRIORITY
 router.put('/:id', async (req, res, next) => {
   res.json({ message: "PUT edit post" })
 });
 
 /* PUT like/unlike toggle */
 router.put('/:id/like', async (req, res, next) => {
-  res.json({ message: "PUT toggle like post" })
+  try {
+    const currentUserId = req.payload.id;
+    const post = await Post.findById(req.params.id)
+    // check if post exists
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
+    }
+    //un-like if post already liked
+    if (post.likes.includes(currentUserId)) {
+      const postLikes = [...post.likes];
+      const updatedPostLikes = postLikes.filter((likeId) => likeId != currentUserId);
+      
+      post.likes = updatedPostLikes;
+      const updatedPost = await post.save()
+      
+      return res.status(201).json({ message: 'Like removed!', post: updatedPost });
+      
+    } else {
+      // like post if not liked already
+      post.likes.push(currentUserId);
+      const updatedPost = await post.save()
+
+      return res.status(201).json({ message: 'Post liked!', post: updatedPost })
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
 });
 
 /* DELETE post */
