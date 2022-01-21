@@ -34,7 +34,7 @@ router.post('/',
       await targedPost.save();
 
       const showComment = await Comment.findById(savedComment._id).populate('user');
-      return res.status(201).json({ message: 'Comment saved!', comment: showComment})
+      return res.status(201).json({ message: 'Comment saved!', comment: showComment })
 
     } catch (error) {
       return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
@@ -43,12 +43,43 @@ router.post('/',
 
 /* DELETE comment */
 router.delete('/:id', async (req, res, next) => {
-  res.json({ message: "DELETE comment - not implemented" })
+  // res.json({ message: "DELETE comment - not implemented" })
+  try {
+
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
 });
 
 /* PUT toggle like comment */
 router.put('/:id/like', async (req, res, next) => {
-  res.json({ message: "PUT like/unlike comment" })
+  try {
+    const currentUserId = req.payload.id;
+    const comment = await Comment.findById(req.params.id)
+    // check if comment exists
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found.' })
+    }
+    //un-like if comment already liked
+    if (comment.likes.includes(currentUserId)) {
+      const commentLikes = [...comment.likes];
+      const updatedCommentLikes = commentLikes.filter((likeId) => likeId != currentUserId);
+
+      comment.likes = updatedCommentLikes;
+      const updatedComment = await comment.save()
+
+      return res.status(201).json({ message: 'Like removed!', comment: updatedComment });
+
+    } else {
+      // like comment if not liked already
+      comment.likes.push(currentUserId);
+      const updatedComment = await comment.save()
+
+      return res.status(201).json({ message: 'Comment liked!', comment: updatedComment })
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
 });
 
 module.exports = router;
