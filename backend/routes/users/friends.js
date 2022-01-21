@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
-const user = require('../../models/user');
+const User = require('../../models/user');
 const getToken = require('../../utils/getToken')
 
 // user must have a valid token to access routes below this point
@@ -15,8 +15,8 @@ router.post('/req/:targetUserId', async (req, res, next) => {
   const currentUserId = req.payload.id;
   const targetUserId = req.params.targetUserId;
   try {
-    const currentUser = await user.findById(currentUserId);
-    const targetUser = await user.findById(targetUserId);
+    const currentUser = await User.findById(currentUserId);
+    const targetUser = await User.findById(targetUserId);
 
     // currentUser is same as targetUser
     if (currentUserId === targetUserId) {
@@ -49,8 +49,8 @@ router.delete('/req/:targetUserId', async (req, res, next) => {
   const currentUserId = req.payload.id;
   const targetUserId = req.params.targetUserId;
   try {
-    //const currentUser = await user.findById(currentUserId);
-    const targetUser = await user.findById(targetUserId);
+    //const currentUser = await User.findById(currentUserId);
+    const targetUser = await User.findById(targetUserId);
 
     // check currentUser isnt same as targetUser
     if (currentUserId === targetUserId) {
@@ -73,8 +73,8 @@ router.post('/accept/:newFriendId', async (req, res, next) => {
   const currentUserId = req.payload.id;
   const newFriendId = req.params.newFriendId;
   try {
-    const currentUser = await user.findById(currentUserId);
-    const newFriend = await user.findById(newFriendId);
+    const currentUser = await User.findById(currentUserId);
+    const newFriend = await User.findById(newFriendId);
 
     // check if friend request exists
     if (!currentUser.friendRequests.includes(newFriendId)) {
@@ -103,7 +103,7 @@ router.post('/accept/:newFriendId', async (req, res, next) => {
     const updatedNewFriend = await newFriend.save()
 
     // return currentUser's updated friends list as confirmation
-    const updatedCurrentUserAndFriends = await user.findById(currentUserId).populate('friends');
+    const updatedCurrentUserAndFriends = await User.findById(currentUserId).populate('friends');
     return res.status(201).json({ message: "New friend added..", currentUser: updatedCurrentUserAndFriends })
 
   } catch (error) {
@@ -116,7 +116,7 @@ router.post('/decline/:rejectedFriendId', async (req, res, next) => {
   const currentUserId = req.payload.id;
   const rejectedFriendId = req.params.rejectedFriendId;
   try {
-    const currentUser = await user.findById(currentUserId);
+    const currentUser = await User.findById(currentUserId);
 
     // check if request exists
     if (!currentUser.friendRequests.includes(rejectedFriendId)) {
@@ -142,8 +142,8 @@ router.delete('/remove/:removedFriendId', async (req, res, next) => {
   const currentUserId = req.payload.id;
   const removedFriendId = req.params.removedFriendId;
   try {
-    const currentUser = await user.findById(currentUserId);
-    const removedFriend = await user.findById(removedFriendId);
+    const currentUser = await User.findById(currentUserId);
+    const removedFriend = await User.findById(removedFriendId);
 
     // check if currentUser and removedFriend are actually friends
     if (!currentUser.friends.includes(removedFriendId)) {
@@ -161,7 +161,7 @@ router.delete('/remove/:removedFriendId', async (req, res, next) => {
     await currentUser.save()
 
     // return currentUser as confirmation of removal
-    const updatedCurrentUser = await user.findById(currentUserId);
+    const updatedCurrentUser = await User.findById(currentUserId);
     return res.status(201).json({ message: "Friend removed.", currentUser: updatedCurrentUser })
 
   } catch (error) {
