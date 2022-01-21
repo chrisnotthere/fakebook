@@ -8,7 +8,8 @@ const passport = require('passport');
 const getToken = require('../../utils/getToken')
 const { body, validationResult } = require("express-validator");
 
-router.use('/comments', commentsRouter);
+// router.use('/comments', commentsRouter);
+router.use("/:postId/comments", commentsRouter);
 
 router.use(passport.authenticate(["jwt", "facebook-token"], { session: false }));
 router.use(getToken);
