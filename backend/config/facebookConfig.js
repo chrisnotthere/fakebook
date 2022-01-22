@@ -2,7 +2,6 @@ const FacebookTokenStrategy = require("passport-facebook-token");
 const passport = require("passport");
 const User = require("../models/user");
 
-/////////////////////////UNFINISHED/////////////////////////
 //setting up FacebookTokenStrategy
 module.exports = new FacebookTokenStrategy(
   {
