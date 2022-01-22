@@ -45,7 +45,21 @@ router.post('/',
 router.delete('/:id', async (req, res, next) => {
   // res.json({ message: "DELETE comment - not implemented" })
   try {
-
+    const currentUserId = req.payload.id;
+    const comment = await Comment.findById(req.params.id)
+    // check if comment exists
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found.' })
+    }
+    // check if currentUser is the comment owner
+    if (comment.user != currentUserId) {
+      return res.status(401).json({ message: "You may only delete your own comment." });
+    }
+    // delete the comment
+    const deletedComment = await Comment.findByIdAndDelete(req.params.id);
+    if (deletedComment) {
+      return res.status(201).json({ message: 'Comment has been deleted.', deletedComment })
+    }
   } catch (error) {
     return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
   }
