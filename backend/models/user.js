@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
+const findOrCreate = require('mongoose-findorcreate');
 
 const UserSchema = new Schema({
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true, minlength: 6 },
+  password: { type: String, minlength: 6 },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   picture: { type: String, default: 'anon.jpg' },
@@ -12,7 +13,7 @@ const UserSchema = new Schema({
   //posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
   friendRequests: [{ type: Schema.Types.ObjectId, ref: "User" }],
-  // facebookId: { type: String },
+  facebookId: { type: String },
 });
 
 UserSchema.set('toObject', { virtuals: true })
@@ -35,5 +36,7 @@ UserSchema.virtual('fullname')
 //   this.password = hash;
 //   next();
 // });
+
+UserSchema.plugin(findOrCreate);
 
 module.exports = mongoose.model("User", UserSchema);
