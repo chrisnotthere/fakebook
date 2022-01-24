@@ -7,6 +7,8 @@ const { body, validationResult } = require("express-validator");
 const facebookTokenStrategy = require("../config/facebookConfig");
 const jwt = require('../config/JWTconfig')
 
+//// NOTE - refactor this to use try catch... ////
+
 const passport = require("passport");
 passport.use(facebookTokenStrategy);
 passport.use(jwt);
