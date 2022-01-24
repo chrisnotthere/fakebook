@@ -1,32 +1,32 @@
 export const Users = [
   {
     id:1,
-    profilePicture: "/assets/person/1.png",
+    profilePicture: "/person/1.png",
     username: "Safak Kocaoglu",
   },
   {
     id:2,
-    profilePicture: "/assets/person/2.png",
+    profilePicture: "/person/2.png",
     username: "Janell Shrum",
   },
   {
     id:3,
-    profilePicture: "/assets/person/3.png",
+    profilePicture: "/person/3.png",
     username: "Alex Durden",
   },
   {
     id:4,
-    profilePicture: "/assets/person/4.png",
+    profilePicture: "/person/4.png",
     username: "Dora Hawks",
   },
   {
     id:5,
-    profilePicture: "/assets/person/5.png",
+    profilePicture: "/person/5.png",
     username: "Thomas Holden",
   },
   {
     id:6,
-    profilePicture: "/assets/person/6.png",
+    profilePicture: "/person/6.png",
     username: "Wayne Thomas",
   },
   
@@ -36,7 +36,7 @@ export const Posts = [
   {
     id: 1,
     desc: "Love For All, Hatred For None.",
-    photo: "/assets/post/1.jpg",
+    photo: "/post/1.jpg",
     date: "5 mins ago",
     userId: 1,
     like: 32,
