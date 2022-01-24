@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-// import { Person } from '@material-ui/icons'
 import DashBoard from './pages/dashboard/DashBoard';
+// import NavBar from './components/navbar/NavBar';
+import Profile from './pages/profile/Profile';
+
 
 const App = () => {
 
 
   return (
       <div >
-        <DashBoard />
-        {/* <Person /> */}
+        {/* <NavBar /> */}
+        <Profile />
+        {/* <DashBoard /> */}
       </div>
   );
 }

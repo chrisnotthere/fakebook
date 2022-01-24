@@ -13,6 +13,10 @@
   background-color: wheat;
 }
 
+.rightbarFriendRequests li{
+  margin-bottom: 0.25rem;
+}
+
 .rightbarProfileImgContainer {
   margin-right: 10px;
   position: relative;

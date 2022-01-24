@@ -7,7 +7,6 @@ function Post({ post }) {
   const [like, setLike] = useState(post.like);
   const [isLiked, setIsLiked] = useState(false);
 
-
   const likeHandler = () => {
     // console.log(e);
     setLike(isLiked ? like - 1 : like + 1)
