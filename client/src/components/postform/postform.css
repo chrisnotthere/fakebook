@@ -1,0 +1,26 @@
+.postformTextArea {
+  background-color: rgb(212, 240, 212);
+  padding: 1rem;
+}
+
+.postformTextArea textArea{
+  /* background-color: green; */
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.postformButton {
+  width: 100%;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0.5rem 0;
+  background-color: rgb(67, 204, 67);
+  /* color: white; */
+}
+
+.postformHr {
+  margin: 2rem 0;
+}
