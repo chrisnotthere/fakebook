@@ -37,7 +37,7 @@ function Post({ post }) {
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            <img className="likeIcon" src="/assets/like.png" onClick={likeHandler} alt="" />
+            <img className="likeIcon" src={PF+"/like.png"} onClick={likeHandler} alt="" />
             <span className="postLikeCounter">{like} people like it</span>
           </div>
           <div className="postBottomRight">
