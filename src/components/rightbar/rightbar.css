@@ -1,0 +1,17 @@
+.rightbar {
+  flex: 2;
+}
+
+.rightbarWrapper {
+  padding: 0.5rem 0.5rem 0 0;
+}
+
+.rightbarTitle{
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.rightbarHr {
+  margin: 1rem 0;
+}
