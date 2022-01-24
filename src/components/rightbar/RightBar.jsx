@@ -3,7 +3,7 @@ import { Users } from '../../testData';
 import FriendRequest from "../friendrequest/FriendRequest";
 import Friend from "../friend/Friend";
 
-function RightBar({ profile }) {
+function RightBar({ user }) {
 
   const DashRightbar = () => {
     return (
@@ -18,7 +18,7 @@ function RightBar({ profile }) {
         <h4 className="rightbarTitle">Friends</h4>
         <ul className="rightbarFriends">
           {Users.map(u => (
-            <Friend key={u.id} user={u} />
+            <Friend key={u._id} user={u} />
           ))}
         </ul>
       </>
@@ -28,9 +28,9 @@ function RightBar({ profile }) {
   const ProfileRightbar = () => {
     return (
       <>
-        <h4 className="rightbarTitle">Friends of Safak</h4>
+        <h4 className="rightbarTitle">Friends of {user.firstName}</h4>
         <ul className="rightbarFriends">
-          {Users.map(u => (
+          {user.friends?.map(u => (
             <Friend key={u.id} user={u} />
           ))}
         </ul>
@@ -41,7 +41,7 @@ function RightBar({ profile }) {
   return (
     <div className='rightBar'>
       <div className="rightbarWrapper">
-        {profile ? <ProfileRightbar /> : <DashRightbar />}
+        {user ? <ProfileRightbar /> : <DashRightbar />}
         {/* <ProfileRightbar /> */}
         {/* <DashRightbar /> */}
       </div>
