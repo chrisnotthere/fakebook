@@ -44,7 +44,7 @@ export const Posts = [
   },
   {
     id: 2,
-    photo: "assets/post/2.jpg",
+    photo: "/post/2.jpg",
     date: "15 mins ago",
     userId: 2,
     like: 2,
@@ -53,7 +53,7 @@ export const Posts = [
   {
     id: 3,
     desc: "Every moment is a fresh beginning.",
-    photo: "assets/post/3.jpg",
+    photo: "/post/3.jpg",
     date: "1 hour ago",
     userId: 3,
     like: 61,
@@ -61,7 +61,7 @@ export const Posts = [
   },
   {
     id: 4,
-    photo: "assets/post/4.jpg",
+    photo: "/post/4.jpg",
     date: "4 hours ago",
     userId: 4,
     like: 7,
