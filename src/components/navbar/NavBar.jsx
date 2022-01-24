@@ -1,6 +1,7 @@
 import React from 'react';
 import './navbar.css';
 import { Person, } from '@material-ui/icons'
+import { Link } from 'react-router-dom';
 // import SettingsIcon from '@mui/icons-material/Settings';
 
 function NavBar() {
@@ -8,7 +9,9 @@ function NavBar() {
     <div className='navBarContainer'>
 
       <div className="navBarLeft">
-        <span className="logo">FakeBook</span>
+        <Link to='/' style={{textDecoration:'none'}}>
+          <span className="logo">FakeBook</span>
+        </Link>
       </div>
 
       <div className="navBarRight">
