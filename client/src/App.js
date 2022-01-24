@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import DashBoard from './pages/dashboard/DashBoard';
-// import NavBar from './components/navbar/NavBar';
+import Login from './pages/login/Login';
 import Profile from './pages/profile/Profile';
+import Register from './pages/register/Register';
 
 
 const App = () => {
@@ -9,9 +10,10 @@ const App = () => {
 
   return (
       <div >
-        {/* <NavBar /> */}
-        <Profile />
-        {/* <DashBoard /> */}
+        {/* <Login /> */}
+        {/* <Register /> */}
+        {/* <Profile /> */}
+        <DashBoard />
       </div>
   );
 }
