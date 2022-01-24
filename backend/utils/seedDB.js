@@ -38,8 +38,8 @@ function userCreate(email, password, firstName, lastName, picture, about, friend
   });
 }
 
-function postCreate(user, text, comments, likes, timestamp, cb) {
-  postdetail = { user, text, comments, likes, timestamp };
+function postCreate(user, text, comments, likes, timestamp, image, cb) {
+  postdetail = { user, text, comments, likes, timestamp, image };
 
   const post = new Post(postdetail);
   post.save(function (err) {
@@ -78,7 +78,7 @@ function createusers(cb) {
           '123456',
           'Bugs',
           'Bunny',
-          'pictureofbuggsbunny.jpg',
+          'bugs.jpg',
           'Bugs Bunny is an animated cartoon character, created in the late 1930s by Leon Schlesinger Productions and voiced originally by Mel Blanc. Bugs is best known for his starring roles in the Looney Tunes and Merrie Melodies series of animated short films, produced by Warner Bros.',
           [],
           [],
@@ -91,7 +91,7 @@ function createusers(cb) {
           'daffs1',
           'Daffy',
           'Duck',
-          'cartoonduck.jpg',
+          'daffy.png',
           'Daffy Duck is an animated cartoon character created by Warner Bros. Styled as an anthropomorphic black duck, he has appeared in cartoon series such as Looney Tunes and Merrie Melodies, in which he is usually depicted as a foil for Bugs Bunny.',
           [],
           [],
@@ -104,7 +104,7 @@ function createusers(cb) {
           'blahblah123',
           'Test',
           'Account',
-          'testing.jpg',
+          'anon.png',
           'This is a test account. Feel free to take a look around.',
           [],
           [],
@@ -117,7 +117,7 @@ function createusers(cb) {
   );
 }
 
-// user, text, comments, likes, timestamp
+// user, text, comments, likes, timestamp, image
 function createposts(cb) {
   async.parallel(
     [
@@ -128,25 +128,38 @@ function createposts(cb) {
           [comments[0], comments[1]],
           [users[0], users[1]],
           1642475557488,
+          '',
           callback
-          );
-        },
-        function (callback) {
-          postCreate(
-            users[1],
-            'This is a test.',
-            [],
-            [],
-            1642475557110,
-            callback
-            );
-          },
-        ],
-        // optional callback
-        cb
         );
-      }
-      
+      },
+      function (callback) {
+        postCreate(
+          users[1],
+          'This is a test.',
+          [],
+          [],
+          1642475557110,
+          '',
+          callback
+        );
+      },
+      function (callback) {
+        postCreate(
+          users[1],
+          'Live free and Die Hard.',
+          [],
+          [users[0], users[1], users[2]],
+          1642475557854,
+          'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
+          callback
+        );
+      },
+    ],
+    // optional callback
+    cb
+  );
+}
+
 // user, text, likes, timestamp
 function createcomments(cb) {
   async.series(

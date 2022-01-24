@@ -32,6 +32,25 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+/* GET posts belonging to specific user */
+router.get('/:id', async (req, res, next) => {
+  try {
+    // list of user's posts - (self posts only)
+    const currentUser = await User.findById(req.params.id);
+    const userPosts = await Post.find({ user: req.params.id })
+      .sort("-timestamp")
+      .populate({ path: 'user', select: 'firstName lastName' })
+      .populate({ path: 'comments', select: 'user text likes' })
+      .populate({ path: 'likes', select: 'firstName lastName' })
+
+    return res.status(200).json({ userPosts, currentUser })
+
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
+});
+
+
 /* POST create new post */
 router.post('/',
   body('text', 'Your post must contain text.').trim().isLength({ min: 1 }),
@@ -56,38 +75,38 @@ router.post('/',
     }
   });
 
-/* GET specific post - must be the creator or a friend to see the post*/
-// NOTE: this requires testing
-router.get('/:id', async (req, res, next) => {
-  // res.json({ message: "POST get a single post" })
-  try {
-    const currentUserId = req.payload.id;
-    const currentUser = await User.findById(req.payload.id).populate('friends');
-    const post = await Post.findById(req.params.id)
-      .populate({ path: 'user', select: 'firstName lastName' })
-      .populate({ path: 'comments', select: 'user text likes' })
-      .populate({ path: 'likes', select: 'firstName lastName' });
+// /* GET specific post - must be the creator or a friend to see the post*/
+// // NOTE: this requires testing
+// router.get('/:id', async (req, res, next) => {
+//   // res.json({ message: "POST get a single post" })
+//   try {
+//     const currentUserId = req.payload.id;
+//     const currentUser = await User.findById(req.payload.id).populate('friends');
+//     const post = await Post.findById(req.params.id)
+//       .populate({ path: 'user', select: 'firstName lastName' })
+//       .populate({ path: 'comments', select: 'user text likes' })
+//       .populate({ path: 'likes', select: 'firstName lastName' });
 
-    // check if post exists
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' })
-    }
-    // console.log('current-----' + currentUser)
-    // console.log('post.user ----------' + post.user.id)
-    // console.log(post.user.id == currentUserId)
-    // console.log(currentUser.friends.includes(post.user.id))
-    // check if currentUser has permission to view post
-    if (post.user.id == currentUserId || currentUser.friends.includes(post.user)) {
-      // return the post 
-      return res.status(200).json({ post })
+//     // check if post exists
+//     if (!post) {
+//       return res.status(404).json({ message: 'Post not found' })
+//     }
+//     // console.log('current-----' + currentUser)
+//     // console.log('post.user ----------' + post.user.id)
+//     // console.log(post.user.id == currentUserId)
+//     // console.log(currentUser.friends.includes(post.user.id))
+//     // check if currentUser has permission to view post
+//     if (post.user.id == currentUserId || currentUser.friends.includes(post.user)) {
+//       // return the post 
+//       return res.status(200).json({ post })
 
-    } else {
-      return res.status(401).json({ message: "You must be friends with the creator to view this post" });
-    }
-  } catch (error) {
-    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
-  }
-});
+//     } else {
+//       return res.status(401).json({ message: "You must be friends with the creator to view this post" });
+//     }
+//   } catch (error) {
+//     return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+//   }
+// });
 
 /* PUT update post */
 // LOW PRIORITY
