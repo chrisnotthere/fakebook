@@ -2,8 +2,36 @@ import "./rightbar.css";
 import { Users } from '../../testData';
 import FriendRequest from "../friendrequest/FriendRequest";
 import Friend from "../friend/Friend";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function RightBar({ user }) {
+  const [friends, setFriends] = useState([]);
+  const params = useParams();
+  // console.log(params)
+
+  // check to see if user is on homepage or profile page
+  const isHome = (params) => {
+    for (let key in params) {
+      if (params.hasOwnProperty(key))
+        return false;
+    }
+    return true;
+  }
+
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const friendList = await axios.get(`/users/${params.id}/friendList/`);
+        setFriends(friendList.data);
+        console.log(friends)
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getFriends();
+  }, [user]);
 
   const DashRightbar = () => {
     return (
@@ -30,8 +58,8 @@ function RightBar({ user }) {
       <>
         <h4 className="rightbarTitle">Friends of {user.firstName}</h4>
         <ul className="rightbarFriends">
-          {user.friends?.map(u => (
-            <Friend key={u.id} user={u} />
+          {friends.friendList?.map(u => (
+            <Friend key={u._id} user={u} />
           ))}
         </ul>
       </>
@@ -41,7 +69,7 @@ function RightBar({ user }) {
   return (
     <div className='rightBar'>
       <div className="rightbarWrapper">
-        {user ? <ProfileRightbar /> : <DashRightbar />}
+        {isHome(params) ?  <DashRightbar /> : <ProfileRightbar />}
         {/* <ProfileRightbar /> */}
         {/* <DashRightbar /> */}
       </div>

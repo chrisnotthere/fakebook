@@ -1,21 +1,28 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './friend.css'
 
-function Friend({user}) {
+function Friend({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  console.log(user)
 
   return (
     <div>
-      <li className="rightbarFriend">
-        <div className="rightbarProfileImgContainer">
-          <img
-            className="rightbarProfileImg"
-            src={PF + user.picture}
-            alt="name"
-          />
-        </div>
-        <span className="rightbarUsername">{user.username}</span>
-      </li>
+      <Link to={`/${user._id}`} style={{textDecoration:'none', color:'inherit'}} >
+        <li className="rightbarFriend">
+          <div className="rightbarProfileImgContainer">
+            <img
+              className="rightbarProfileImg"
+              src={user.profilePicture
+                ? PF + user.profilePicture
+                : PF + '/person/' + user.picture}
+              // src={PF + user.profilePicture || user.picture}
+              alt={user.username || user.firstName}
+            />
+          </div>
+          <span className="rightbarUsername">{user.username || user.firstName}</span>
+        </li>
+      </Link>
     </div>
   )
 }
