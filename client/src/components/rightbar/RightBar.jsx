@@ -8,9 +8,8 @@ import axios from "axios";
 
 function RightBar({ user }) {
   const [friends, setFriends] = useState([]);
+  const [friendRequests, setFriendRequests] = useState([]);
   const params = useParams();
-  // console.log(params)
-
   // check to see if user is on homepage or profile page
   const isHome = (params) => {
     for (let key in params) {
@@ -23,29 +22,46 @@ function RightBar({ user }) {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendList = await axios.get(`/users/${params.id}/friendList/`);
+        const friendList = params.id
+        ? await axios.get(`/users/${params.id}/friendList/`)
+        : await axios.get(`/users/${user.id}/friendList/`);
         setFriends(friendList.data);
-        console.log(friends)
       } catch (err) {
         console.log(err);
       }
     };
+    const getFriendRequests = async () => {
+      try {
+        const friendRequestList = await axios.get(`/users/${user.id}/friendRequests/`);
+        setFriendRequests(friendRequestList.data.friendRequestList);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     getFriends();
+    getFriendRequests();
   }, [user]);
+
 
   const DashRightbar = () => {
     return (
       <>
         <h4 className="rightbarTitle">Friend Requests</h4>
         <ul className="rightbarFriendRequests">
-          {Users.map(u => (
-            <FriendRequest key={u.id} user={u} />
+          {friendRequests.map(u => (
+            <FriendRequest key={u._id} user={u} />
           ))}
+
+
         </ul>
         <hr className="rightbarHr" />
         <h4 className="rightbarTitle">Friends</h4>
         <ul className="rightbarFriends">
-          {Users.map(u => (
+          {/* {Users.map(u => (
+            <Friend key={u._id} user={u} />
+          ))} */}
+          {friends.friendList?.map(u => (
             <Friend key={u._id} user={u} />
           ))}
         </ul>
@@ -53,7 +69,7 @@ function RightBar({ user }) {
     );
   };
 
-  const ProfileRightbar = () => {
+  const ProfileRightbar = () => { 
     return (
       <>
         <h4 className="rightbarTitle">Friends of {user.firstName}</h4>
@@ -69,7 +85,7 @@ function RightBar({ user }) {
   return (
     <div className='rightBar'>
       <div className="rightbarWrapper">
-        {isHome(params) ?  <DashRightbar /> : <ProfileRightbar />}
+        {isHome(params) ? <DashRightbar /> : <ProfileRightbar />}
         {/* <ProfileRightbar /> */}
         {/* <DashRightbar /> */}
       </div>

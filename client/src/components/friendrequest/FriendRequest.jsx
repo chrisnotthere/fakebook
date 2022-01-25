@@ -10,11 +10,11 @@ function FriendRequest({user}) {
         <div className="rightbarProfileImgContainer">
           <img
             className="rightbarProfileImg"
-            src={PF + user.profilePicture}
+            src={PF + '/person/' + user.picture}
             alt="name"
           />
         </div>
-        <span className="rightbarUsername">{user.username}</span>
+        <span className="rightbarUsername">{user.firstName}</span>
         <button className="rightbarButton" >Accept</button>
         <button className="rightbarButton" >Decline</button>
       </li>
