@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "./postform.css";
+import axios from "axios";
 
-function PostForm() {
-  const [content, setContent] = React.useState('');
+function PostForm({ user, setUser}) {
+  const [content, setContent] = useState('');
   let data;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('POST the data to API...');
+
+    const newPost = {
+      user: user._id,
+      text: content,
+    };
+
+    try {
+      await axios.post("/posts", newPost);
+      window.location.reload();
+    } catch (err) {}
   }
 
   return (

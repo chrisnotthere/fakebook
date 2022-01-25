@@ -10,7 +10,7 @@ function Friend({user}) {
         <div className="rightbarProfileImgContainer">
           <img
             className="rightbarProfileImg"
-            src={PF + user.profilePicture}
+            src={PF + user.picture}
             alt="name"
           />
         </div>

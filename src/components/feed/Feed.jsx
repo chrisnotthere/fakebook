@@ -7,19 +7,19 @@ import axios from 'axios';
 
 function Feed({ user, setUser }) {
   const [posts, setPosts] = useState([]);
+  // console.log(posts)
 
   useEffect(() => {
     console.log('---render feed---')
     // console.log('feed, user id ->' + userid);
-    console.log('feed, user ----->' + user);
-
+    // console.log(user.token);
 
     // show timeline posts if user is in the dashboard
     // show a specific person's posts if user is viewing person's profile
     const fetchTimeline = async () => {
       const res = user.id
-        ? await axios.get(`posts/${user.id}`, { headers: { "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWYwNjkzNjdjMzQ5MzJiYmU1ZmM0MCIsImlhdCI6MTY0MzA1NDk2ODQ3OSwiZXhwIjoxNjQzMDU1MDU0ODc5fQ.zNO1yEOkzUZhJMMA-n0BWVS2snsVcfBDAuHTyo4s9Sg` } })
-        : await axios.get('posts/', { headers: { "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWYwNjkzNjdjMzQ5MzJiYmU1ZmM0MCIsImlhdCI6MTY0MzA1NDk2ODQ3OSwiZXhwIjoxNjQzMDU1MDU0ODc5fQ.zNO1yEOkzUZhJMMA-n0BWVS2snsVcfBDAuHTyo4s9Sg` } });
+        ? await axios.get(`posts/${user.id}`, { headers: { "Authorization": user.token } })
+        : await axios.get('posts/', { headers: { "Authorization": user.token } });
       // console.log(res.data);
       const timelinePosts = res.data.timelinePosts;
       timelinePosts
@@ -27,15 +27,15 @@ function Feed({ user, setUser }) {
         : setPosts(res.data.userPosts);
     }
     fetchTimeline();
-  }, [user.id])
+  }, [user])
 
   return (
     <div className='feed'>
       <div className="feedWrapper">
-        <h3>{user ? `Welcome back, ${user.firstName}` : ''}</h3>
-        <PostForm />
+        {/* <h3>{user.firstName ? `Welcome back, ${user.firstName}` : ''}</h3> */}
+        <PostForm user={user} setUser={setUser} />
         {posts.map((p) => (
-          <Post key={p._id} post={p} />
+          <Post user={user} setUser={setUser} key={p._id} post={p} />
         ))}
 
 

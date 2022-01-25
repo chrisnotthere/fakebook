@@ -25,6 +25,7 @@ function Login({ user, setUser }) {
         token: result.data.token.token,
         id: result.data.user.id,
         picture: result.data.user.picture,
+        about: result.data.user.about
       };
       axios.defaults.headers.common["Authorization"] =
         result.data.token.token;
