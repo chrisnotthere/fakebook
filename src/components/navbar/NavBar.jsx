@@ -4,12 +4,12 @@ import { Person, } from '@material-ui/icons'
 import { Link } from 'react-router-dom';
 // import SettingsIcon from '@mui/icons-material/Settings';
 
-function NavBar() {
+function NavBar({ user }) {
   return (
     <div className='navBarContainer'>
 
       <div className="navBarLeft">
-        <Link to='/' style={{textDecoration:'none'}}>
+        <Link to='/' style={{ textDecoration: 'none' }}>
           <span className="logo">FakeBook</span>
         </Link>
       </div>
@@ -27,8 +27,9 @@ function NavBar() {
             <span className="navBarIconBadge">1</span>
           </div>
 
-          <img className="navBarProfilePicture" src="/assets/person/1.png" alt="" />
-
+          <Link to={`/${user.id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
+            <img className="navBarProfilePicture" src={"/assets/person/" + user.picture} alt="" />
+          </Link>
         </div>
       </div>
 

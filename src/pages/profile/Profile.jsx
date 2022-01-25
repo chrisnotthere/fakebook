@@ -27,7 +27,7 @@ function Profile() {
 
   return (
     <>
-      <NavBar />
+      <NavBar user={user} setUser={setUser} />
       <div className="profileContainer">
         <UserNav />
         <div className="profileRight">
@@ -52,7 +52,7 @@ function Profile() {
           </div>
           <div className="profileRightBottom">
 
-            <Feed userid={userid.id} />
+            <Feed user={user} />
             <RightBar user={user} />
           </div>
         </div>

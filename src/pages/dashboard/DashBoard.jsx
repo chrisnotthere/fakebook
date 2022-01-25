@@ -5,14 +5,14 @@ import Feed from '../../components/feed/Feed';
 import RightBar from '../../components/rightbar/RightBar';
 import './dashboard.css';
 
-function DashBoard() {
+function DashBoard({ user, setUser}) {
   return (
     <>
-      <NavBar />
+      <NavBar user={user} setUser={setUser} />
       <div className="dashContainer">
-        <UserNav />
-        <Feed />
-        <RightBar />
+        <UserNav user={user} setUser={setUser} />
+        <Feed user={user} setUser={setUser} />
+        <RightBar user={user} setUser={setUser} />
       </div>
     </>
   )
