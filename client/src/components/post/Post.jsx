@@ -31,8 +31,8 @@ function Post({ post, setPost, user, setUser, profileUser }) {
     } catch (err) { }
   };
 
-  console.log(profileUser)
-  console.log(post)
+  // console.log(profileUser)
+  // console.log(post)
 
   return (
     <div className="post">
