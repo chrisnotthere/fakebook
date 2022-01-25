@@ -12,7 +12,7 @@ function Profile({ user, setUser }) {
   const userid = useParams();
 
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  console.log('profile, userid -->', userid.id);
+  // console.log('profile, userid -->', userid.id);
 
   // useEffect(() => {
   //   const fetchUserProfile = async () => {
@@ -23,7 +23,7 @@ function Profile({ user, setUser }) {
   //   fetchUserProfile();
   // }, [])
 
-  console.log(user)
+  // console.log(user)
 
   return (
     <>
