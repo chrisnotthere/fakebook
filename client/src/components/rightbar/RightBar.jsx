@@ -5,10 +5,17 @@ import Friend from "../friend/Friend";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Add, Remove } from "@material-ui/icons";
+import { Button } from "@material-ui/core";
 
 function RightBar({ user }) {
   const [friends, setFriends] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
+  
+  // const [alreadyFriends, setAlreadyFriends] = useState(
+  //   user.friends.includes(profile user)
+  // );
+
   const params = useParams();
   // check to see if user is on homepage or profile page
   const isHome = (params) => {
@@ -19,12 +26,23 @@ function RightBar({ user }) {
     return true;
   }
 
+  // TODO finish this
+  const handleAddFriend = async () => {
+    console.log('clickkkk')
+    try {
+      // if friends, remove friend
+      // if not friends, send friend request
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     const getFriends = async () => {
       try {
         const friendList = params.id
-        ? await axios.get(`/users/${params.id}/friendList/`)
-        : await axios.get(`/users/${user.id}/friendList/`);
+          ? await axios.get(`/users/${params.id}/friendList/`)
+          : await axios.get(`/users/${user.id}/friendList/`);
         setFriends(friendList.data);
       } catch (err) {
         console.log(err);
@@ -69,9 +87,16 @@ function RightBar({ user }) {
     );
   };
 
-  const ProfileRightbar = () => { 
+  const ProfileRightbar = () => {
     return (
       <>
+        {/* TODO, if profile is not current user's profile, show add friend button */}
+        {/* TODO, change button based on current friend status */}
+        <button className="rightBarAddFriend" onClick={() => handleAddFriend()}>
+          Add Friend<Add />
+          {/* {alreadyFriends ? "Remove Friend" : "Add Friend"}
+          {alreadyFriends ? <Remove /> : <Add />} */}
+        </button>
         <h4 className="rightbarTitle">Friends of {user.firstName}</h4>
         <ul className="rightbarFriends">
           {friends.friendList?.map(u => (
