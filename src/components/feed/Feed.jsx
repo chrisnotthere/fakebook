@@ -65,7 +65,7 @@ function Feed({ user, setUser }) {
 
           const res = await axios.get('posts/', { headers: { "Authorization": user.token } });
           setPosts(res.data.timelinePosts)
-          console.log(res.data.timelinePosts)
+          // console.log(res.data.timelinePosts)
 
 
         } catch (err) {
