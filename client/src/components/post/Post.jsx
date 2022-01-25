@@ -7,10 +7,9 @@ import { format } from 'timeago.js';
 import { Link } from "react-router-dom";
 import moment from 'moment'
 
-function Post({ post, setPost, user, setUser }) {
+function Post({ post, setPost, user, setUser, profileUser }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [like, setLike] = useState(post.likes.length);
-  const [isLiked, setIsLiked] = useState(false);
 
   // useEffect(() => {
   //   const fetchUser = async () => {
@@ -20,32 +19,49 @@ function Post({ post, setPost, user, setUser }) {
   //   fetchUser();
   // }, [])
 
+  // console.log('profileUser', profileUser)
+  // console.log('user', user)
+
   const likeHandler = () => {
     try {
       axios.put("/posts/" + post._id + "/like")
-      .then((result) => {  
-        // console.log(result.data.post)
-        setLike(result.data.post.likes.length);
-      });
-    } catch (err) {}
+        .then((result) => {
+          setLike(result.data.post.likes.length);
+        });
+    } catch (err) { }
   };
+
+  console.log(profileUser)
+  console.log(post)
 
   return (
     <div className="post">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`${user.id}`}>
-              <img
+            <Link to={`${post.user.id}`}>
+              {profileUser.firstName
+                ?
+                <img
+                  className="postProfileImg"
+                  src={process.env.REACT_APP_PUBLIC_FOLDER + '/person/' + profileUser.picture}
+                  alt={profileUser.firstName}
+                />
+                : 
+                <img
                 className="postProfileImg"
-                src={process.env.REACT_APP_PUBLIC_FOLDER + '/person/' + user.picture}
+                src={process.env.REACT_APP_PUBLIC_FOLDER + '/person/' + post.user.picture}
                 alt={user.firstName}
               />
+              }
             </Link>
-            <Link to={`${user.id}`} style={{textDecoration:'none', color:'inherit'}}>
-              <span className="postUsername">{user.firstName + ' ' + user.lastName}</span>
+            <Link to={`${profileUser.id || post.user.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              {profileUser.firstName
+                ? <span className="postUsername">{profileUser.firstName + ' ' + profileUser.lastName}</span>
+                : <span className="postUsername">{post.user.firstName + ' ' + post.user.lastName}</span>
+              }
+              {/* //pull info from the postUser */}
             </Link>
-            {/* <span className="postDate">{format(post.timestamp)}</span> */}
             <span className="postDate">{moment(post.timestamp).fromNow()}</span>
           </div>
           <div className="postTopRight">
@@ -59,7 +75,6 @@ function Post({ post, setPost, user, setUser }) {
         <div className="postBottom">
           <div className="postBottomLeft">
             <img className="likeIcon" src={PF + "/like.png"} onClick={() => likeHandler(post._id)} alt="" />
-            {/* <img className="likeIcon" src={PF + "/like.png"} onClick={() => handleLikePost(post._id)} alt="" /> */}
             <span className="postLikeCounter">{like} people like it</span>
           </div>
           <div className="postBottomRight">

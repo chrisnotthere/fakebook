@@ -21,7 +21,7 @@ router.get('/', async (req, res, next) => {
     const currentUser = await User.findById(req.payload.id);
     const timelinePosts = await Post.find({ user: [req.payload.id, ...currentUser.friends] })
       .sort("-timestamp")
-      .populate({ path: 'user', select: 'firstName lastName' })
+      .populate({ path: 'user', select: 'firstName lastName picture' })
       .populate({ path: 'comments', select: 'user text likes' })
       .populate({ path: 'likes', select: 'firstName lastName' })
 
@@ -39,7 +39,7 @@ router.get('/:id', async (req, res, next) => {
     const currentUser = await User.findById(req.params.id);
     const userPosts = await Post.find({ user: req.params.id })
       .sort("-timestamp")
-      .populate({ path: 'user', select: 'firstName lastName' })
+      .populate({ path: 'user', select: 'firstName lastName picture' })
       .populate({ path: 'comments', select: 'user text likes' })
       .populate({ path: 'likes', select: 'firstName lastName' })
 
