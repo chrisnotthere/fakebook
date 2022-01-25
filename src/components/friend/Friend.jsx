@@ -4,7 +4,7 @@ import './friend.css'
 
 function Friend({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  console.log(user)
+  // console.log(user)
 
   return (
     <div>
