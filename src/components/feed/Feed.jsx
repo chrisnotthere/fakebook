@@ -21,10 +21,11 @@ function Feed({ user, setUser }) {
         ? await axios.get(`posts/${user.id}`, { headers: { "Authorization": user.token } })
         : await axios.get('posts/', { headers: { "Authorization": user.token } });
       // console.log(res.data);
-      const timelinePosts = res.data.timelinePosts;
-      timelinePosts
-        ? setPosts(timelinePosts)
-        : setPosts(res.data.userPosts);
+      // const timelinePosts = res.data.timelinePosts;
+      // timelinePosts
+      //   ? setPosts(timelinePosts)
+      //   : setPosts(res.data.userPosts);
+        setPosts(res.data.userPosts)
     }
     fetchTimeline();
   }, [user])

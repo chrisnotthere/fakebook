@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import axios from 'axios';
 import { format } from 'timeago.js';
 import { Link } from "react-router-dom";
+import moment from 'moment'
 
 function Post({ post, setPost, user, setUser }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -44,7 +45,8 @@ function Post({ post, setPost, user, setUser }) {
             <Link to={`${user.id}`} style={{textDecoration:'none', color:'inherit'}}>
               <span className="postUsername">{user.firstName + ' ' + user.lastName}</span>
             </Link>
-            <span className="postDate">{format(post.timestamp)}</span>
+            {/* <span className="postDate">{format(post.timestamp)}</span> */}
+            <span className="postDate">{moment(post.timestamp).fromNow()}</span>
           </div>
           <div className="postTopRight">
             <MoreVert />
