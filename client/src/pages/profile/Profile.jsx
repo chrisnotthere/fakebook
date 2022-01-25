@@ -7,21 +7,21 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams } from "react-router";
 
-function Profile() {
-  const [user, setUser] = useState({});
+function Profile({ user, setUser }) {
+  // const [user, setUser] = useState({});
   const userid = useParams();
 
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   console.log('profile, userid -->', userid.id);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get(`/users/${userid.id}`, { headers: { "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWYwNjkzNjdjMzQ5MzJiYmU1ZmM0MCIsImlhdCI6MTY0MzA1NDk2ODQ3OSwiZXhwIjoxNjQzMDU1MDU0ODc5fQ.zNO1yEOkzUZhJMMA-n0BWVS2snsVcfBDAuHTyo4s9Sg` } });
-      console.log('data -->', res.data);
-      setUser(res.data.user)
-    }
-    fetchUser();
-  }, [])
+  // useEffect(() => {
+  //   const fetchUserProfile = async () => {
+  //     const res = await axios.get(`/users/${userid.id}`, { headers: { "Authorization": user.token } });
+  //     console.log('data -->', res.data);
+  //     setUser(res.data.user)
+  //   }
+  //   fetchUserProfile();
+  // }, [])
 
   console.log(user)
 
