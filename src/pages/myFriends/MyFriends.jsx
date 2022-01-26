@@ -7,6 +7,7 @@ import "./myfriends.css";
 
 function MyFriends({ user, setUser }) {
   const [friends, setFriends] = useState([]);
+  const [removedFriend, setRemovedFriend] = useState(false);
 
   //get friends of user
   useEffect(() => {
@@ -19,9 +20,7 @@ function MyFriends({ user, setUser }) {
       }
     };
     getFriends()
-  }, [])
-
-  console.log(friends);
+  }, [removedFriend])
 
   return (
     <>
@@ -32,7 +31,7 @@ function MyFriends({ user, setUser }) {
           <div className="myFriendsWrapper">
             List of all of my friends...
             {friends.map(u => (
-              <Friend key={u._id} user={u} />
+              <Friend key={u._id} friend={u} myFriends={true} setRemovedFriend={setRemovedFriend} />
             ))}
           </div>
         </div>
