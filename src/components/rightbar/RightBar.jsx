@@ -1,17 +1,16 @@
 import "./rightbar.css";
-// import { Users } from '../../testData';
 import FriendRequest from "../friendrequest/FriendRequest";
 import Friend from "../friend/Friend";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Add, Remove } from "@material-ui/icons";
-// import { Button } from "@material-ui/core";
 
 function RightBar({ user }) {
   const [friends, setFriends] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
   const [profileUser, setProfileUser] = useState([]);
+  const [acceptFriendReq, setAcceptFriendReq] = useState(false);
 
   const params = useParams();
   // check to see if user is on homepage or profile page
@@ -30,7 +29,6 @@ function RightBar({ user }) {
     }
     return false
   }
-  // console.log(isCurrentUserProfile(user, params))
 
   // TODO finish this
   const handleAddFriend = async () => {
@@ -65,7 +63,7 @@ function RightBar({ user }) {
     };
     getFriends();
     getFriendRequests();
-  }, [user]);
+  }, [user, acceptFriendReq]);
 
   //get profile user information, only if currentUser is looking at someone elses profile page
   useEffect(() => {
@@ -83,23 +81,18 @@ function RightBar({ user }) {
     getProfileUser();
   }, [])
 
-  // console.log('profile user -----', profileUser)
-
   const DashRightbar = () => {
     return (
       <>
         <h4 className="rightbarTitle">Friend Requests</h4>
         <ul className="rightbarFriendRequests">
           {friendRequests.map(u => (
-            <FriendRequest key={u._id} user={u} />
+            <FriendRequest key={u._id} friendReq={u} setAcceptFriendReq={setAcceptFriendReq} />
           ))}
         </ul>
         <hr className="rightbarHr" />
         <h4 className="rightbarTitle">Friends</h4>
         <ul className="rightbarFriends">
-          {/* {Users.map(u => (
-            <Friend key={u._id} user={u} />
-          ))} */}
           {friends.friendList?.map(u => (
             <Friend key={u._id} user={u} />
           ))}
@@ -137,8 +130,6 @@ function RightBar({ user }) {
     <div className='rightBar'>
       <div className="rightbarWrapper">
         {isHome(params) ? <DashRightbar /> : <ProfileRightbar />}
-        {/* <ProfileRightbar /> */}
-        {/* <DashRightbar /> */}
       </div>
     </div>
   );
