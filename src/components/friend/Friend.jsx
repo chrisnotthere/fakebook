@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './friend.css'
+import { useParams } from 'react-router-dom';
 
 function Friend({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   // console.log(user)
+  const { id } = useParams();
+  // console.log('params', id)
 
   return (
     <div>

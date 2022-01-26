@@ -4,6 +4,16 @@ import './friendrequest.css'
 function FriendRequest({user}) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
+  console.log('user', user);
+
+  const handleAcceptRequest = () => {
+    console.log(`accept`)
+  }
+
+  const handleDeclineRequest = () => {
+    console.log('decline')
+  }
+
   return (
     <div>
       <li className="rightbarFriendRequest">
@@ -15,8 +25,8 @@ function FriendRequest({user}) {
           />
         </div>
         <span className="rightbarUsername">{user.firstName}</span>
-        <button className="rightbarButton" >Accept</button>
-        <button className="rightbarButton" >Decline</button>
+        <button className="rightbarButton" onClick={() => handleAcceptRequest()} >Accept</button>
+        <button className="rightbarButton" onClick={() => handleDeclineRequest()} >Decline</button>
       </li>
     </div>
   )

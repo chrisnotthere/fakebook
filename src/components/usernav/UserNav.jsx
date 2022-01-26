@@ -1,8 +1,10 @@
 import "./usernav.css";
-import { RssFeed, People, GroupAdd } from '@material-ui/icons'
+import { RssFeed, People, GroupAdd, ExitToApp, SearchRounded, AccountCircle } from '@material-ui/icons'
 import { Link } from "react-router-dom";
 
-function UserNav() {
+function UserNav({ user, setUser }) {
+  // console.log(user)
+
   return (
     <div className="userNav">
       <div className="userNavWrapper">
@@ -13,6 +15,12 @@ function UserNav() {
               <span className="userNavListItemText">Feed</span>
             </li>
           </Link>
+          <Link to={`/${user?.id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
+          <li className="userNavListItem">
+              <AccountCircle className="userNavIcon" />
+              <span className="userNavListItemText">Profile</span>
+            </li>
+          </Link>
           <Link to={'/myFriends'} style={{ textDecoration: 'none', color: 'inherit' }} >
             <li className="userNavListItem">
               <People className="userNavIcon" />
@@ -21,10 +29,14 @@ function UserNav() {
           </Link>
           <Link to={'/findFriends'} style={{ textDecoration: 'none', color: 'inherit' }} >
             <li className="userNavListItem">
-              <People className="userNavIcon" />
+              <SearchRounded className="userNavIcon" />
               <span className="userNavListItemText">Find Friends</span>
             </li>
           </Link>
+          <li className="userNavListItem">
+              <ExitToApp className="userNavIcon" />
+              <span className="userNavListItemText">Logout</span>
+            </li>
         </ul>
         <hr className="userNavHr" />
       </div>

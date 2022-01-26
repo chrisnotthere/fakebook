@@ -1,0 +1,49 @@
+.nonFriends {
+  padding: 0;
+}
+
+.nonFriend {
+  border-radius: 0.5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  background-color: wheat;
+
+  /* margin: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  background-color: rgb(235, 57, 57);
+  color: white;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer; */
+}
+
+.nonFriendProfileImgContainer {
+  margin-right: 10px;
+  position: relative;
+}
+
+.nonFriendProfileImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.nonFriendUsername {
+  margin-right: 1rem;
+}
+
+.nonFriendButton {
+  background-color: violet;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  margin-right: 1rem;
+}
