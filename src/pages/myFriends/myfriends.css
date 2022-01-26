@@ -1,0 +1,16 @@
+.myFriendsContainer {
+  display: flex;
+}
+
+.myFriends {
+  flex: 9;
+  height: calc(100vh - 5rem);
+  background-color: rgb(188, 235, 235);
+  top: 5rem;
+}
+
+.myFriendsWrapper {
+  padding: 1.5rem;
+  background-color: rgb(231, 231, 231);
+}
+
