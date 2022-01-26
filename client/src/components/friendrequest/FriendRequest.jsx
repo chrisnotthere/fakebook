@@ -1,17 +1,20 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import './friendrequest.css'
 
-function FriendRequest({user}) {
+function FriendRequest({ friendReq, setAcceptFriendReq }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
-  console.log('user', user);
-
-  const handleAcceptRequest = () => {
+  const handleAcceptRequest = async() => {
     console.log(`accept`)
-  }
+    try {
+      await axios.post(`/users/friends/accept/${friendReq._id}`);
+      console.log('friend request accepted!')
+      setAcceptFriendReq(true);
 
-  const handleDeclineRequest = () => {
-    console.log('decline')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -20,13 +23,12 @@ function FriendRequest({user}) {
         <div className="rightbarProfileImgContainer">
           <img
             className="rightbarProfileImg"
-            src={PF + '/person/' + user.picture}
+            src={PF + '/person/' + friendReq.picture}
             alt="name"
           />
         </div>
-        <span className="rightbarUsername">{user.firstName}</span>
+        <span className="rightbarUsername">{friendReq.firstName}</span>
         <button className="rightbarButton" onClick={() => handleAcceptRequest()} >Accept</button>
-        <button className="rightbarButton" onClick={() => handleDeclineRequest()} >Decline</button>
       </li>
     </div>
   )

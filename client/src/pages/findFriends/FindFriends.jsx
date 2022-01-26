@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Friend from "../../components/friend/Friend";
 import NavBar from "../../components/navbar/NavBar";
 import NonFriend from "../../components/nonfriend/NonFriend";
 import UserNav from "../../components/usernav/UserNav";
@@ -14,7 +13,6 @@ function FindFriends({ user, setUser }) {
     const getNonFriends = async () => {
       try {
         const nonFriends = await axios.get(`/users/${user.id}/nonFriends/`);
-        console.log(nonFriends.data);
         setNonFriends(nonFriends.data.nonFriends);
       } catch (err) {
         console.log(err);
@@ -22,8 +20,6 @@ function FindFriends({ user, setUser }) {
     };
     getNonFriends()
   }, [])
-
-  // console.log(nonFriends);
 
   return (
     <>
