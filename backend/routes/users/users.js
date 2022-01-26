@@ -54,7 +54,6 @@ router.get('/:id', async (req, res, next) => {
 router.get('/:id/friendList', async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
-
     if (user === null) {
       return res.status(404).json({ message: "user not found" });
     }
@@ -72,11 +71,30 @@ router.get('/:id/friendList', async (req, res, next) => {
     });
 
     return res.status(200).json({ friendList });
-
   } catch (error) {
     return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
   }
+});
 
+/* GET one user's non-friends, all users that are not friends with currentUser */
+router.get('/:id/nonFriends', async (req, res, next) => {
+  try {
+    const currentUser = await User.findById(req.params.id);
+    if (currentUser === null) {
+      return res.status(404).json({ message: "user not found" });
+    }
+
+    const allUsers = await User.find({});
+    
+    const nonFriends = allUsers.filter((user) =>
+      !currentUser.friends.includes(user._id) &&
+      user._id.toString() !== currentUser._id.toString()
+    );
+
+    return res.status(200).json({ nonFriends });
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
 });
 
 /* GET one user's friend requests */
