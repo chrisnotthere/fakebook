@@ -86,21 +86,22 @@ router.post('/accept/:newFriendId', async (req, res, next) => {
       return res.status(400).json({ message: "You are already friends with this user." })
     }
 
-    // remove friend request //**NOTE** this is not working
-    const updatedFriendRequests = newFriend.friendRequests.filter((friendRequest) => friendRequest != currentUserId);
-    newFriend.friendRequests = updatedFriendRequests;
-    const updatednewFriend = await newFriend.save();
-    // await newFriend.save();
+    // remove friend request 
+    const updatedFriendRequests = currentUser.friendRequests.filter((friendRequest) => friendRequest != newFriendId);
+    console.log('fr', currentUser.friendRequests)
+    console.log('nf', newFriendId)
+    currentUser.friendRequests = updatedFriendRequests;
+    await currentUser.save();
 
     // add newFriend to currentUser friend list
     const updatedCurrentUserFriends = [...currentUser.friends, newFriendId];
     currentUser.friends = updatedCurrentUserFriends;
-    const updatedCurrentUser = await currentUser.save()
+    await currentUser.save()
 
     // add currentUser to newFriend friend list
     const updatedNewFriendFriends = [...newFriend.friends, currentUserId];
     newFriend.friends = updatedNewFriendFriends;
-    const updatedNewFriend = await newFriend.save()
+    await newFriend.save()
 
     // return currentUser's updated friends list as confirmation
     const updatedCurrentUserAndFriends = await User.findById(currentUserId).populate('friends');
