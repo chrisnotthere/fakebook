@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Friend from "../../components/friend/Friend";
 import NavBar from "../../components/navbar/NavBar";
+import NonFriend from "../../components/nonfriend/NonFriend";
 import UserNav from "../../components/usernav/UserNav";
 import "./findfriends.css";
 
@@ -22,7 +23,7 @@ function FindFriends({ user, setUser }) {
     getNonFriends()
   }, [])
 
-  console.log(nonFriends);
+  // console.log(nonFriends);
 
   return (
     <>
@@ -33,7 +34,7 @@ function FindFriends({ user, setUser }) {
           <div className="myFriendsWrapper">
             List of all of my non-friends
             {nonFriends.map(u => (
-              <Friend key={u._id} user={u} />
+              <NonFriend key={u._id} nonFriend={u} user={user} />
             ))}
           </div>
         </div>
