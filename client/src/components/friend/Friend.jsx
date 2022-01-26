@@ -1,31 +1,40 @@
+import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './friend.css'
-import { useParams } from 'react-router-dom';
 
-function Friend({ user }) {
+function Friend({ friend, myFriends, setRemovedFriend }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  // console.log(user)
-  const { id } = useParams();
-  // console.log('params', id)
+
+  const handleRemoveFriend = async () => {
+    console.log('remove friend....', friend)
+    try {
+      await axios.delete(`/users/friends/remove/${friend._id}`);
+      setRemovedFriend(true);
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <div>
-      <Link to={`/${user._id}`} style={{textDecoration:'none', color:'inherit'}} >
-        <li className="rightbarFriend">
-          <div className="rightbarProfileImgContainer">
+      <li className="rightbarFriend">
+        <div className="rightbarProfileImgContainer">
+          <Link to={`/${friend._id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
             <img
               className="rightbarProfileImg"
-              src={user.profilePicture
-                ? PF + user.profilePicture
-                : PF + '/person/' + user.picture}
-              // src={PF + user.profilePicture || user.picture}
-              alt={user.username || user.firstName}
+              src={friend.profilePicture
+                ? PF + friend.profilePicture
+                : PF + '/person/' + friend.picture}
+              alt={friend.friendname || friend.firstName}
             />
-          </div>
-          <span className="rightbarUsername">{user.username || user.firstName}</span>
-        </li>
-      </Link>
+          </Link>
+        </div>
+        <Link to={`/${friend._id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
+          <span className="rightbarUsername">{friend.friendname || friend.firstName}</span>
+        </Link>
+        {myFriends && <button className="rightbarButton" onClick={() => handleRemoveFriend()} >Remove Friend</button>}
+      </li>
     </div>
   )
 }
