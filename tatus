@@ -1,0 +1,72 @@
+[1mdiff --git a/client/src/components/rightbar/RightBar.jsx b/client/src/components/rightbar/RightBar.jsx[m
+[1mindex 4c32b32..f6687dd 100644[m
+[1m--- a/client/src/components/rightbar/RightBar.jsx[m
+[1m+++ b/client/src/components/rightbar/RightBar.jsx[m
+[36m@@ -94,7 +94,7 @@[m [mfunction RightBar({ user }) {[m
+         <h4 className="rightbarTitle">Friends</h4>[m
+         <ul className="rightbarFriends">[m
+           {friends.friendList?.map(u => ([m
+[31m-            <Friend key={u._id} user={u} />[m
+[32m+[m[32m            <Friend key={u._id} friend={u} />[m
+           ))}[m
+         </ul>[m
+       </>[m
+[1mdiff --git a/client/src/pages/profile/Profile.jsx b/client/src/pages/profile/Profile.jsx[m
+[1mindex 975e784..ebd183a 100644[m
+[1m--- a/client/src/pages/profile/Profile.jsx[m
+[1m+++ b/client/src/pages/profile/Profile.jsx[m
+[36m@@ -14,17 +14,7 @@[m [mfunction Profile({ user, setUser }) {[m
+   const [profileUser, setProfileUser] = useState([]);[m
+ [m
+   const PF = process.env.REACT_APP_PUBLIC_FOLDER;[m
+[31m-  // console.log('profile, userid -->', userid.id);[m
+[31m-[m
+[31m-  // useEffect(() => {[m
+[31m-  //   const fetchUserProfile = async () => {[m
+[31m-  //     const res = await axios.get(`/users/${userid.id}`, { headers: { "Authorization": user.token } });[m
+[31m-  //     console.log('data -->', res.data);[m
+[31m-  //     setUser(res.data.user)[m
+[31m-  //   }[m
+[31m-  //   fetchUserProfile();[m
+[31m-  // }, [])[m
+[31m-[m
+[32m+[m[41m  [m
+   // check to see if user is on own profile page[m
+   const isCurrentUserProfile = (user, params) => {[m
+     if (user.id === params.id) {[m
+[36m@@ -32,8 +22,11 @@[m [mfunction Profile({ user, setUser }) {[m
+     }[m
+     return false[m
+   }[m
+[31m-[m
+[31m-  // console.log('userid.id', userid.id);[m
+[32m+[m[41m  [m
+[32m+[m[32m  console.log('userid.id', userid.id);[m
+[32m+[m[32m  console.log('profile, userid -->', userid.id);[m
+[32m+[m[32m  // console.log('user', user)[m
+[32m+[m[32m  console.log(isCurrentUserProfile(user, userid))[m
+ [m
+   //get profile user information, only if currentUser is looking at someone elses profile page[m
+   useEffect(() => {[m
+[36m@@ -51,10 +44,6 @@[m [mfunction Profile({ user, setUser }) {[m
+     getProfileUser();[m
+   }, [])[m
+ [m
+[31m-[m
+[31m-  // console.log('user', user)[m
+[31m-  // console.log(isCurrentUserProfile(user, userid))[m
+[31m-[m
+   return ([m
+     <>[m
+       <NavBar user={user} setUser={setUser} />[m
+[36m@@ -100,8 +89,8 @@[m [mfunction Profile({ user, setUser }) {[m
+           </div>[m
+           <div className="profileRightBottom">[m
+ [m
+[31m-            <Feed user={user} />[m
+[31m-            <RightBar user={user} />[m
+[32m+[m[32m            <Feed user={user} setUser={setUser} />[m
+[32m+[m[32m            <RightBar user={user} setUser={setUser} />[m
+           </div>[m
+         </div>[m
+       </div>[m

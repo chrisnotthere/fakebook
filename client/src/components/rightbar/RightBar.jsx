@@ -6,10 +6,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Add, Remove } from "@material-ui/icons";
 
-function RightBar({ user }) {
+function RightBar({ user, profileUser }) {
   const [friends, setFriends] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
-  const [profileUser, setProfileUser] = useState([]);
   const [acceptFriendReq, setAcceptFriendReq] = useState(false);
 
   const params = useParams();
@@ -20,14 +19,6 @@ function RightBar({ user }) {
         return false;
     }
     return true;
-  }
-
-  // check to see if user is on own profile page
-  const isCurrentUserProfile = (user, params) => {
-    if (user.id === params.id) {
-      return true
-    }
-    return false
   }
 
   // TODO finish this
@@ -48,6 +39,7 @@ function RightBar({ user }) {
         const friendList = params.id
           ? await axios.get(`/users/${params.id}/friendList/`)
           : await axios.get(`/users/${user.id}/friendList/`);
+
         setFriends(friendList.data);
       } catch (err) {
         console.log(err);
@@ -65,22 +57,6 @@ function RightBar({ user }) {
     getFriendRequests();
   }, [user, acceptFriendReq]);
 
-  //get profile user information, only if currentUser is looking at someone elses profile page
-  useEffect(() => {
-    const getProfileUser = async () => {
-      // only run if not on own profile page
-      if (!isCurrentUserProfile(user, params)) {
-        try {
-          const profileUser = await axios.get(`/users/${params.id}/`);
-          setProfileUser(profileUser.data.user);
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    }
-    getProfileUser();
-  }, [])
-
   const DashRightbar = () => {
     return (
       <>
@@ -94,7 +70,7 @@ function RightBar({ user }) {
         <h4 className="rightbarTitle">Friends</h4>
         <ul className="rightbarFriends">
           {friends.friendList?.map(u => (
-            <Friend key={u._id} user={u} />
+            <Friend key={u._id} friend={u} />
           ))}
         </ul>
       </>
@@ -112,14 +88,14 @@ function RightBar({ user }) {
           {alreadyFriends ? <Remove /> : <Add />} */}
         </button>
 
-        {isCurrentUserProfile(user, params)
+        {/* {isCurrentUserProfile(user, params)
           ? <h4 className="rightbarTitle">Friends of {user.firstName}</h4>
           : <h4 className="rightbarTitle">Friends of {profileUser.firstName}</h4>
-        }
-
+        } */}
+        <h4 className="rightbarTitle">Friends of {profileUser.firstName}</h4>
         <ul className="rightbarFriends">
           {friends.friendList?.map(u => (
-            <Friend key={u._id} user={u} />
+            <Friend key={u._id} friend={u} />
           ))}
         </ul>
       </>
