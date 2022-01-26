@@ -6,6 +6,8 @@ import axios from 'axios';
 import { format } from 'timeago.js';
 import { Link } from "react-router-dom";
 import moment from 'moment'
+import Comment from "../comment/Comment";
+import CommentForm from '../commentForm/CommentForm'
 
 function Post({ post, setPost, user, setUser, profileUser }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -32,7 +34,7 @@ function Post({ post, setPost, user, setUser, profileUser }) {
   };
 
   // console.log(profileUser)
-  // console.log(post)
+  // console.log(post.comments)
 
   return (
     <div className="post">
@@ -47,12 +49,12 @@ function Post({ post, setPost, user, setUser, profileUser }) {
                   src={process.env.REACT_APP_PUBLIC_FOLDER + '/person/' + profileUser.picture}
                   alt={profileUser.firstName}
                 />
-                : 
+                :
                 <img
-                className="postProfileImg"
-                src={process.env.REACT_APP_PUBLIC_FOLDER + '/person/' + post.user.picture}
-                alt={user.firstName}
-              />
+                  className="postProfileImg"
+                  src={process.env.REACT_APP_PUBLIC_FOLDER + '/person/' + post.user.picture}
+                  alt={user.firstName}
+                />
               }
             </Link>
             <Link to={`${profileUser.id || post.user.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -81,6 +83,11 @@ function Post({ post, setPost, user, setUser, profileUser }) {
             <span className="postCommentText">{post.comments.length} comments</span>
           </div>
         </div>
+        {/* ADD a comment form here, about th comments.... */}
+        <CommentForm post={post} setPost={setPost} user={user} />
+        {post.comments?.map((c) => (
+          <Comment key={c._id} comment={c} user={user} />
+        ))}
       </div>
     </div>
   );
