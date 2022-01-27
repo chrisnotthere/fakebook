@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './register.css'
 
-function Register(user, setUser) {
+function Register({ user, setUser }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -11,93 +11,45 @@ function Register(user, setUser) {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate()
 
-  // const handleSignUp = (e, firstName, lastName, email, password) => {
-  //   e.preventDefault()
-  //   // console.log('sign up!!!!')
-  //   // console.log(email, password)
-  //   axios
-  //     .post("/auth/signup", { firstName, lastName, email, password })
-  //     .then((result) => {
-  //       console.log(result)
-  //       const user = {
-  //         email: result.data.user.email,
-  //         firstName: result.data.user.firstName,
-  //         lastName: result.data.user.lastName,
-  //         token: result.data.token.token,
-  //         id: result.data.user.id,
-  //         picture: result.data.user.picture,
-  //         about: result.data.user.about
-  //       };
-  //       axios.defaults.headers.common["Authorization"] =
-  //         result.data.token.token;
-
-  //       console.log('signup success!')
-  //       setUser(user);
-  //       setEmail('');
-  //       setPassword('');
-  //       setFirstName('');
-  //       setPassword('');
-  //       navigate('/');
-  //     })
-  //     .catch((err) => {
-  //       if (err.response.data.errors) {
-  //         setErrors(err.response.data.errors);
-  //         setTimeout(() => {
-  //           setErrors([]);
-  //         }, 5000);
-  //       } else if (err.response.data.message) {
-  //         setErrors([...errors, { msg: err.response.data.message }]);
-  //         setTimeout(() => {
-  //           setErrors([]);
-  //         }, 5000);
-  //       }
-  //     });
-  // }
-
   const handleSignUp = (e, firstName, lastName, email, password) => {
     e.preventDefault()
-    try {
-      axios
-        .post("/auth/signup", { firstName, lastName, email, password })
-        .then((result) => {
-          const user = {
-            email: result.data.user.email,
-            firstName: result.data.user.firstName,
-            lastName: result.data.user.lastName,
-            token: result.data.token.token,
-            id: result.data.user.id,
-            picture: result.data.user.picture,
-            about: '',
-          };
-          axios.defaults.headers.common["Authorization"] =
-            result.data.token.token;
-          console.log('test 1 -------------------------')
-          console.log(user)
-          setUser(user);
-          console.log('test 2 -------------------------')
-          navigate('/');
-          console.log('test 3 -------------------------')
-        })
-    } catch (err) {
-      console.log(err)
-      if (err.response.data.errors) {
-        setErrors(err.response.data.errors);
-        setTimeout(() => {
-          setErrors([]);
-        }, 3000);
-      } else if (err.response.data.message) {
-        setErrors([
-          ...errors,
-          { msg: err.response.data.message },
-        ]);
-        setTimeout(() => {
-          setErrors([]);
-        }, 3000);
-      }
-    }
-
-  };
-
+    axios
+      .post("/auth/signup", { firstName, lastName, email, password })
+      .then((result) => {
+        console.log('result', result)
+        const newUser = {
+          email: result.data.user.email,
+          firstName: result.data.user.firstName,
+          lastName: result.data.user.lastName,
+          token: result.data.token.token,
+          id: result.data.user.id,
+          picture: result.data.user.picture,
+          about: '',
+        };
+        axios.defaults.headers.common["Authorization"] =
+          result.data.token.token;
+        setUser(newUser);
+        setEmail('');
+        setPassword('');
+        setFirstName('');
+        setPassword('');
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err)
+        if (err.response.data.errors) {
+          setErrors(err.response.data.errors);
+          setTimeout(() => {
+            setErrors([]);
+          }, 5000);
+        } else if (err.response.data.message) {
+          setErrors([...errors, { msg: err.response.data.message }]);
+          setTimeout(() => {
+            setErrors([]);
+          }, 5000);
+        }
+      });
+  }
 
   return (
     <div className='signup'>
