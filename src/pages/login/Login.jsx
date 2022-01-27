@@ -70,7 +70,6 @@ function Login({ user, setUser }) {
               })
               : null}
             <button className="loginButton" >Log In</button>
-            <span className="loginForgot">Forgot Password?</span>
             <Link to={'/register'} style={{ textDecoration: 'none', color: 'inherit' }} >
               <button className="loginRegisterButton">Sign Up</button>
             </Link>
