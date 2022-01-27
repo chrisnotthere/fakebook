@@ -7,6 +7,7 @@ function PostForm({ user, setUser}) {
   let data;
 
   const handleSubmit = async (e) => {
+    console.log(user)
     e.preventDefault();
     console.log('POST the data to API...');
 
