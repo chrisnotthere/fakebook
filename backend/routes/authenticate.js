@@ -66,18 +66,23 @@ router.post('/signup',
         errors: errors.array()
       });
     } else {
-      // check if email is already in use
-      const exists = await User.findOne({ email: req.body.email })
-      if (exists) return res.status(409).json({ message: "A user has already registered with that email." })
+      try {
+        // check if email is already in use
+        const exists = await User.findOne({ email: req.body.email })
+        if (exists) return res.status(409).json({ message: "A user has already registered with that email." })
 
-      // data is valid, store data as new user in db
-      const { email, password, firstName, lastName } = req.body;
-      const hash = await bcrypt.hash(this.password, 10);
-      password = hash;
-      const user = new User({ email, password, firstName, lastName })
-      await user.save()
-      const token = await generateJWT(user);
-      return res.status(201).json({ message: "Sign up successful", user: user, token: token });
+        // data is valid, store data as new user in db
+        var { email, password, firstName, lastName } = req.body;
+        const hash = await bcrypt.hash(password, 10);
+        password = await hash;
+        const user = await new User({ email, password, firstName, lastName })
+        await user.save()
+        const token = await generateJWT(user);
+        return res.status(201).json({ message: "Sign up successful", user: user, token: token });
+
+      } catch (error) {
+        return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+      }
     }
   }
 );
@@ -109,42 +114,46 @@ router.post('/login',
         errors: errors.array()
       });
     } else {
-      // validation passed, proceed to check credentials
-      let { email, password } = req.body;
-      //check if email is in DB
-      User.findOne({ email: email }, (err, user) => {
-        if (err) {
-          console.log('--there was an error--');
-          return res.status(401).json({ message: "there was an error" })
-        }
-        if (!user) {
-          console.log('--incorrect email--');
-          return res.status(401).json({ message: "incorrect email" })
-        }
-
-        bcrypt.compare(password, user.password, (err, response) => {
+      try {
+        // validation passed, proceed to check credentials
+        let { email, password } = req.body;
+        //check if email is in DB
+        User.findOne({ email: email }, (err, user) => {
           if (err) {
-            // handle error
-            console.log('--there was an error!--');
-            return res.status(500).json({ message: "there was an error!" })
+            console.log('--there was an error--');
+            return res.status(401).json({ message: "there was an error" })
           }
-          if (response) {
-            //passwords match, create token and send to client
-            console.log('--passwords match!--');
-            const token = generateJWT(user);
+          if (!user) {
+            console.log('--incorrect email--');
+            return res.status(401).json({ message: "incorrect email" })
+          }
 
-            return res.status(200).json({
-              message: "Login success!",
-              token,
-              user,
-            })
-          } else {
-            // passwords do not match!
-            console.log('--passwords do not match!--');
-            return res.status(401).json({ message: "passwords do not match!" })
-          }
+          bcrypt.compare(password, user.password, (err, response) => {
+            if (err) {
+              // handle error
+              console.log('--there was an error!--');
+              return res.status(500).json({ message: "there was an error!" })
+            }
+            if (response) {
+              //passwords match, create token and send to client
+              console.log('--passwords match!--');
+              const token = generateJWT(user);
+
+              return res.status(200).json({
+                message: "Login success!",
+                token,
+                user,
+              })
+            } else {
+              // passwords do not match!
+              console.log('--passwords do not match!--');
+              return res.status(401).json({ message: "passwords do not match!" })
+            }
+          });
         });
-      });
+      } catch (error) {
+        return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+      }
     }
   }
 );
