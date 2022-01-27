@@ -58,7 +58,7 @@ function NonFriend({ nonFriend, user }) {
           <Link to={`/${nonFriend._id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
             <img
               className="nonFriendProfileImg"
-              src={PF + '/person/' + nonFriend.picture}
+              src={nonFriend.picture}
               alt={nonFriend.firstName}
             />
           </Link>

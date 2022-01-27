@@ -24,8 +24,8 @@ function Friend({ friend, myFriends, setRemovedFriend }) {
             <img
               className="rightbarProfileImg"
               src={friend.profilePicture
-                ? PF + friend.profilePicture
-                : PF + '/person/' + friend.picture}
+                ? friend.profilePicture
+                : friend.picture}
               alt={friend.friendname || friend.firstName}
             />
           </Link>

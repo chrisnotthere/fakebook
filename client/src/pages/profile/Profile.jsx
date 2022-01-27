@@ -40,7 +40,7 @@ function Profile({ user, setUser }) {
               />
               <img
                 className="profileUserImg"
-                src={PF + '/person/' + profileUser.picture}
+                src={profileUser.picture}
                 alt=""
               />
             </div>

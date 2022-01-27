@@ -43,7 +43,7 @@ function Comment({ comment, post }) {
         <div className="commentWrapper">
           <div className="commentPicture">
             {/* {commentUser.picture} */}
-            <img src={PF + '/person/' + commentUser?.picture} alt="" />
+            <img src={commentUser?.picture} alt="" />
           </div>
           <div className="commentContent">
             <div className="commentUsername">
