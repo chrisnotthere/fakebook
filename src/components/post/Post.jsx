@@ -86,7 +86,7 @@ function Post({ post, setPost, user, setUser, profileUser }) {
         {/* ADD a comment form here, about th comments.... */}
         <CommentForm post={post} setPost={setPost} user={user} />
         {post.comments?.map((c) => (
-          <Comment key={c._id} comment={c} user={user} />
+          <Comment key={c._id} comment={c} user={user} post={post} />
         ))}
       </div>
     </div>

@@ -3,14 +3,23 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import "./comment.css";
 
-
-function Comment({ comment }) {
+function Comment({ comment, post }) {
   const [commentUser, setCommentUser] = useState();
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [like, setLike] = useState(comment.likes.length);
+
+  // console.log('comment', comment);
+  // console.log('post', post);
 
   const likeHandler = () => {
-
-  }
+    try {
+      //:postid/comments/:commentid/like
+      axios.put(`/posts/${post._id}/comments/${comment._id}/like`)
+        .then((result) => {
+          setLike(result.data.comment.likes.length);
+        });
+    } catch (err) { }
+  };
 
   useEffect(() => {
     const getCommentUser = async () => {
@@ -24,7 +33,6 @@ function Comment({ comment }) {
     }
     getCommentUser()
     // console.log('commentUser', commentUser)
-
   }, [comment])
 
   // console.log('comment', comment)
@@ -46,7 +54,7 @@ function Comment({ comment }) {
             </div>
             <div className="commentLikes">
               <img className="likeIcon" src={PF + "/like.png"} onClick={() => likeHandler()} alt="" />
-              <p>{comment.likes.length} likes</p>
+              <p>{like} likes</p>
             </div>
           </div>
         </div>
