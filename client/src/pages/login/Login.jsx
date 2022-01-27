@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './login.css'
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Facebook from '../../components/auth/Facebook';
 
 function Login({ user, setUser }) {
   const [email, setEmail] = useState("");
@@ -74,6 +75,7 @@ function Login({ user, setUser }) {
               <button className="loginRegisterButton">Sign Up</button>
             </Link>
             {/* <button className="loginButton">Login with FaceBook</button> */}
+            <Facebook setUser={setUser} />
           </form>
         </div>
       </div>

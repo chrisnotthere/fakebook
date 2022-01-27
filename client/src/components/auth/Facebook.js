@@ -29,6 +29,8 @@ const Facebook = ({ user, setUser }) => {
         facebookId: data.user.facebookId,
       };
       // console.log(user);
+      setUser(user);
+      navigate("/");
     });
   };
 
@@ -40,7 +42,7 @@ const Facebook = ({ user, setUser }) => {
   };
 
   return (
-    <div style={{ width: "100%", margin: "0 8px 8px 8px" }}>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
       <FacebookLogin
         appId="663629001739255"
         // autoLoad={true}
@@ -52,7 +54,6 @@ const Facebook = ({ user, setUser }) => {
             onClick={renderProps.onClick}
             variant="contained"
             color="secondary"
-            style={{ width: "100%" }}
           >
             Log in with Facebook
           </button>
