@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./post.css";
-import { MoreVert } from "@material-ui/icons";
+import { MoreVert, Delete } from "@material-ui/icons";
 import { useEffect } from "react";
 import axios from 'axios';
 import { format } from 'timeago.js';
@@ -13,16 +13,14 @@ function Post({ post, setPost, user, setUser, profileUser }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [like, setLike] = useState(post.likes.length);
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const res = await axios.get(`users/${post.user.id}`, { headers: { "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWYwNjkzNjdjMzQ5MzJiYmU1ZmM0MCIsImlhdCI6MTY0MzA1NDk2ODQ3OSwiZXhwIjoxNjQzMDU1MDU0ODc5fQ.zNO1yEOkzUZhJMMA-n0BWVS2snsVcfBDAuHTyo4s9Sg` } });
-  //     setUser(res.data.user)
-  //   }
-  //   fetchUser();
-  // }, [])
-
-  // console.log('profileUser', profileUser)
-  // console.log('user', user)
+  const handleDeletePost = () => {
+    try{
+      axios.delete(`posts/${post._id}/`)
+      window.location.reload();
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const likeHandler = () => {
     try {
@@ -32,9 +30,6 @@ function Post({ post, setPost, user, setUser, profileUser }) {
         });
     } catch (err) { }
   };
-
-  // console.log(profileUser)
-  // console.log(post.comments)
 
   return (
     <div className="post">
@@ -62,12 +57,15 @@ function Post({ post, setPost, user, setUser, profileUser }) {
                 ? <span className="postUsername">{profileUser.firstName + ' ' + profileUser.lastName}</span>
                 : <span className="postUsername">{post.user.firstName + ' ' + post.user.lastName}</span>
               }
-              {/* //pull info from the postUser */}
             </Link>
             <span className="postDate">{moment(post.timestamp).fromNow()}</span>
           </div>
           <div className="postTopRight">
-            <MoreVert />
+            {user.id === profileUser.id
+              ? <Delete style={{color: 'rgb(235, 57, 57)', cursor: 'pointer'}} onClick ={() => handleDeletePost()} />
+              : <MoreVert />
+            }
+
           </div>
         </div>
         <div className="postCenter">
@@ -83,7 +81,6 @@ function Post({ post, setPost, user, setUser, profileUser }) {
             <span className="postCommentText">{post.comments.length} comments</span>
           </div>
         </div>
-        {/* ADD a comment form here, about th comments.... */}
         <CommentForm post={post} setPost={setPost} user={user} />
         {post.comments?.map((c) => (
           <Comment key={c._id} comment={c} user={user} post={post} />
