@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 // import SettingsIcon from '@mui/icons-material/Settings';
 
 function NavBar({ user }) {
+
+  console.log(user)
   return (
     <div className='navBarContainer'>
 
@@ -28,7 +30,7 @@ function NavBar({ user }) {
           </div>
 
           <Link to={`/${user.id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
-            <img className="navBarProfilePicture" src={"/assets/person/" + user.picture} alt="" />
+            <img className="navBarProfilePicture" src={user.picture} alt="" />
           </Link>
         </div>
       </div>

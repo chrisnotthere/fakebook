@@ -41,13 +41,13 @@ function Post({ post, setPost, user, setUser, profileUser }) {
                 ?
                 <img
                   className="postProfileImg"
-                  src={process.env.REACT_APP_PUBLIC_FOLDER + '/person/' + profileUser.picture}
+                  src={profileUser.picture}
                   alt={profileUser.firstName}
                 />
                 :
                 <img
                   className="postProfileImg"
-                  src={process.env.REACT_APP_PUBLIC_FOLDER + '/person/' + post.user.picture}
+                  src={post.user.picture}
                   alt={user.firstName}
                 />
               }

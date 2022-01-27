@@ -23,7 +23,7 @@ function FriendRequest({ friendReq, setAcceptFriendReq }) {
         <div className="rightbarProfileImgContainer">
           <img
             className="rightbarProfileImg"
-            src={PF + '/person/' + friendReq.picture}
+            src={friendReq.picture}
             alt="name"
           />
         </div>
