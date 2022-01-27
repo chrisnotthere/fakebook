@@ -1,9 +1,17 @@
 import "./usernav.css";
 import { RssFeed, People, GroupAdd, ExitToApp, SearchRounded, AccountCircle } from '@material-ui/icons'
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function UserNav({ user, setUser }) {
   // console.log(user)
+  const navigate = useNavigate();
+
+
+  const handleLogOut = () => {
+    console.log('LOG OUT THE USER');
+    setUser('');
+    navigate('/login');
+  }
 
   return (
     <div className="userNav">
@@ -33,7 +41,7 @@ function UserNav({ user, setUser }) {
               <span className="userNavListItemText">Find Friends</span>
             </li>
           </Link>
-          <li className="userNavListItem">
+          <li className="userNavListItem" onClick={() => handleLogOut()}>
               <ExitToApp className="userNavIcon" />
               <span className="userNavListItemText">Logout</span>
             </li>
