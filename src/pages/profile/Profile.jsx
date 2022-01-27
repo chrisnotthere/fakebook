@@ -46,7 +46,7 @@ function Profile({ user, setUser }) {
             </div>
             <div className="profileInfo">
               <h4 className="profileInfoName">
-                {profileUser.firstName + ' ' + profileUser.firstName}
+                {profileUser.firstName + ' ' + profileUser.lastName}
               </h4>
               <span className="profileInfoDesc">
                 {profileUser.about}
