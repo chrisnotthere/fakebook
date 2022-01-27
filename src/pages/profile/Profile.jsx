@@ -8,13 +8,11 @@ import axios from 'axios';
 import { useParams } from "react-router";
 
 function Profile({ user, setUser }) {
-  // const [user, setUser] = useState({});
   const userid = useParams();
   const [profileUser, setProfileUser] = useState([]);
 
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
-  //get profile user information, only if currentUser is looking at someone elses profile page
   useEffect(() => {
     const getProfileUser = async () => {
       try {
@@ -26,8 +24,6 @@ function Profile({ user, setUser }) {
     }
     getProfileUser();
   }, [])
-
-  console.log('profileUser profile', profileUser);
 
   return (
     <>
