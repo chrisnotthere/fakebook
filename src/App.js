@@ -1,12 +1,12 @@
 import React from 'react';
-import DashBoard from './pages/dashboard/DashBoard';
-import Login from './pages/login/Login';
-import Profile from './pages/profile/Profile';
-import Register from './pages/register/Register';
+import DashBoard from './pages/DashBoard';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
+import Register from './pages/Register';
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import useLocalStorage from './utils/useLocalStorage';
-import MyFriends from './pages/myFriends/MyFriends';
-import FindFriends from './pages/findFriends/FindFriends';
+import MyFriends from './pages/MyFriends';
+import FindFriends from './pages/FindFriends';
 
 const App = () => {
   const [user, setUser] = useLocalStorage('user', '');

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './register.css'
+import { Signup } from '../components/styles/Register.styled';
 
 function Register({ user, setUser }) {
   const [firstName, setFirstName] = useState("");
@@ -52,7 +52,7 @@ function Register({ user, setUser }) {
   }
 
   return (
-    <div className='signup'>
+    <Signup>
       <div className="signupWrapper">
         <div className="signupLeft">
           <h3 className="signupLogo">FakeBook</h3>
@@ -75,13 +75,11 @@ function Register({ user, setUser }) {
                 );
               })
               : null}
-            <button className="signupButton" >Sign Up</button>
-            {/* <button className="signupButton" onClick={navigate('/login')} >Return to Login</button> */}
+            <button className="button" >Sign Up</button>
           </form>
         </div>
       </div>
-
-    </div>
+    </Signup>
   )
 }
 

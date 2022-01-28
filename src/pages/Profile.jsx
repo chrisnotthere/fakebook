@@ -1,11 +1,11 @@
-import NavBar from "../../components/navbar/NavBar";
-import UserNav from "../../components/usernav/UserNav";
-import Feed from "../../components/feed/Feed";
-import RightBar from "../../components/rightbar/RightBar";
-import "./profile.css";
+import NavBar from "../components/navbar/NavBar";
+import UserNav from "../components/usernav/UserNav";
+import Feed from "../components/feed/Feed";
+import RightBar from "../components/rightbar/RightBar";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams } from "react-router";
+import { ProfileContainer } from "../components/styles/Profile.styled";
 
 function Profile({ user, setUser }) {
   const userid = useParams();
@@ -28,7 +28,7 @@ function Profile({ user, setUser }) {
   return (
     <>
       <NavBar user={user} setUser={setUser} />
-      <div className="profileContainer">
+      <ProfileContainer>
         <UserNav />
         <div className="profileRight">
           <div className="profileRightTop">
@@ -59,7 +59,7 @@ function Profile({ user, setUser }) {
             <RightBar user={user} setUser={setUser} profileUser={profileUser} />
           </div>
         </div>
-      </div>
+      </ProfileContainer>
     </>
   );
 }
