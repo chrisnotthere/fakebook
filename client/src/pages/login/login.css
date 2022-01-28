@@ -34,7 +34,7 @@
 }
 
 .loginBox{
-    height: 20rem;
+    height: 25rem;
     padding: 2rem;
     background-color: white;
     border-radius: 1rem;
@@ -66,13 +66,24 @@
     cursor: pointer;
 }
 
+.guestButton{
+  height: 3rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: rgb(53, 157, 175);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
 .loginForgot{
     text-align: center;
     color: #1775ee;
 }
 
 .loginRegisterButton{
-    width: 50%;
+    width: 100%;
     align-self: center;
     height: 3rem;
     border-radius: 1rem;
