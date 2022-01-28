@@ -40,7 +40,7 @@ function Profile({ user, setUser }) {
               />
               <img
                 className="profileUserImg"
-                src={profileUser.picture}
+                src={profileUser.picture || 'https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png'}
                 alt=""
               />
             </div>
