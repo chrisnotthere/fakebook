@@ -3,12 +3,14 @@ import './login.css'
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Facebook from '../../components/auth/Facebook';
+// require('dotenv').config()
 
 function Login({ user, setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate()
+  // const dotenv = require('dotenv');
 
   const handleLogin = (e, email, password) => {
     e.preventDefault();
@@ -47,6 +49,15 @@ function Login({ user, setUser }) {
       });
   }
 
+  const handleGuestLogin = (e) => {
+    e.preventDefault();
+    const email = process.env.REACT_APP_GUEST_EMAIL;
+    const password = process.env.REACT_APP_GUEST_PASSWORD;
+    // console.log(email, password)
+    handleLogin(e, email, password);
+
+  }
+
   return (
     <div className='login'>
       <div className="loginWrapper">
@@ -58,6 +69,7 @@ function Login({ user, setUser }) {
         </div>
         <div className="loginRight">
           <form className="loginBox" onSubmit={(e) => handleLogin(e, email, password)} >
+          {/* <form className="loginBox" > */}
             <input placeholder="Email" className="loginInput" type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
             <input placeholder="Password" className="loginInput" type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
             {errors
@@ -70,15 +82,14 @@ function Login({ user, setUser }) {
               })
               : null}
             <button className="loginButton" >Log In</button>
-            <Link to={'/register'} style={{ textDecoration: 'none', color: 'inherit' }} >
-              <button className="loginRegisterButton">Sign Up</button>
-            </Link>
-            {/* <button className="loginButton">Login with FaceBook</button> */}
+            {/* <Link to={'/register'} style={{ textDecoration: 'none', color: 'inherit', margin: '0 auto', width: '100%' }} > */}
+              <button className="loginRegisterButton" onClick={(e) => navigate('/register')} >Create Account</button>
+            {/* </Link> */}
+            <button className="guestButton" onClick={(e) => handleGuestLogin(e)}>Login as Guest</button>
             <Facebook setUser={setUser} />
           </form>
         </div>
       </div>
-
     </div>
   )
 }
