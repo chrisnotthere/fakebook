@@ -76,6 +76,7 @@ function Register({ user, setUser }) {
               })
               : null}
             <button className="signupButton" >Sign Up</button>
+            {/* <button className="signupButton" onClick={navigate('/login')} >Return to Login</button> */}
           </form>
         </div>
       </div>
