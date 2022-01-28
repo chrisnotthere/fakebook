@@ -30,7 +30,7 @@ function NavBar({ user }) {
           </div>
 
           <Link to={`/${user.id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
-            <img className="navBarProfilePicture" src={user.picture} alt="" />
+            <img className="navBarProfilePicture" src={user.picture || 'https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png'} alt="" />
           </Link>
         </div>
       </div>
