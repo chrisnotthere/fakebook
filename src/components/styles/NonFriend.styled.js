@@ -14,7 +14,10 @@ export const NonFriendContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.offblue};
   margin-bottom: 0.25rem;
   padding: 0.25rem
+}
 
+.nonFriend:hover {
+  background-color: ${({ theme }) => theme.colors.offwhite};
 }
 
 .send {

@@ -45,4 +45,9 @@ export const PostFormContainer = styled.div`
   margin: 2rem 0;
 }
 
+legend {
+  margin: 1rem;
+  font-size: 1.25rem;
+}
+
 `;

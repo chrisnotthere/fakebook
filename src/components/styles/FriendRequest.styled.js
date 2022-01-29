@@ -12,6 +12,10 @@ export const FriendRequestContainer = styled.div`
   padding: 0.25rem;
 }
 
+.rightbarFriendRequest:hover {
+  background-color: ${({ theme }) => theme.colors.offwhite};
+}
+
 .rightbarFriendRequests li{
   margin-bottom: 0.25rem;
 }

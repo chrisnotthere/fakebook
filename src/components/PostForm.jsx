@@ -31,7 +31,7 @@ function PostForm({ user, setUser}) {
 
           <div className='postformTextArea'>
             <textarea
-              placeholder={`What's on your mind, firstName?`}
+              placeholder={`What's on your mind, ${user.firstName}?`}
               required
               defaultValue={data}
               onChange={(e) => setContent(e.target.value)}
