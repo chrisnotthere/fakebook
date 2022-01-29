@@ -49,6 +49,7 @@ const Facebook = ({ user, setUser }) => {
         fields="name,email,picture"
         onClick={componentClicked}
         callback={responseFacebook}
+        icon="fa-facebook"
         render={(renderProps) => (
           <button
             onClick={renderProps.onClick}
