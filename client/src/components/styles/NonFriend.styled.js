@@ -1,26 +1,28 @@
+import styled from 'styled-components'
+
+export const NonFriendContainer = styled.div`
+
 .nonFriends {
   padding: 0;
 }
 
 .nonFriend {
   border-radius: 0.5rem;
-  padding: 0;
-  margin: 0;
   list-style: none;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
-  background-color: wheat;
+  background-color: ${({ theme }) => theme.colors.offblue};
+  margin-bottom: 0.25rem;
+  padding: 0.25rem
 
-  /* margin: 0.5rem;
-  padding: 0.5rem;
-  border: none;
-  background-color: rgb(235, 57, 57);
-  color: white;
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  cursor: pointer; */
+}
+
+.send {
+  background-color: ${({ theme }) => theme.colors.lightgreen};
+}
+
+.cancel {
+  background-color: ${({ theme }) => theme.colors.lightred};
 }
 
 .nonFriendProfileImgContainer {
@@ -40,10 +42,12 @@
 }
 
 .nonFriendButton {
-  background-color: violet;
+  cursor: pointer;
   border: none;
   padding: 0.5rem;
   border-radius: 0.5rem;
   font-weight: 400;
   margin-right: 1rem;
 }
+
+`;

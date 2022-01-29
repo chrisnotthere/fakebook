@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './friend.css'
+import { FriendContainer } from './styles/Friend.styled';
 
 function Friend({ friend, myFriends, setRemovedFriend }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -17,7 +17,7 @@ function Friend({ friend, myFriends, setRemovedFriend }) {
   }
 
   return (
-    <div>
+    <FriendContainer>
       <li className="rightbarFriend">
         <div className="rightbarProfileImgContainer">
           <Link to={`/${friend._id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
@@ -35,7 +35,7 @@ function Friend({ friend, myFriends, setRemovedFriend }) {
         </Link>
         {myFriends && <button className="rightbarButton" onClick={() => handleRemoveFriend()} >Remove Friend</button>}
       </li>
-    </div>
+    </FriendContainer>
   )
 }
 

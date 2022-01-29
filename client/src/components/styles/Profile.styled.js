@@ -1,10 +1,12 @@
 import styled from 'styled-components'
+import { theme } from './Theme';
 
 export const ProfileContainer = styled.div`
   display: flex;
 
   .profileRight{
     flex: 9;
+    background-color: ${({ theme }) => theme.colors.lightblue};
   }
   
   .profileCover{
@@ -28,7 +30,12 @@ export const ProfileContainer = styled.div`
     right: 0;
     margin: auto;
     top: 8rem;
-    border: 3px solid white;
+    border: 2px solid white;
+  }
+
+  .profileRightTop {
+    background-color: ${({ theme }) => theme.colors.offgreen};
+    border-radius: 1rem;
   }
   
   .profileInfo{

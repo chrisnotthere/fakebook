@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const LoginContainer = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: ${({ theme }) => theme.colors.offblue};
+  background-color: ${({ theme }) => theme.colors.offwhite};
   display: flex;
   align-items: center;
   justify-content: center;

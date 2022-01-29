@@ -3,10 +3,9 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './nonfriend.css'
+import { NonFriendContainer } from './styles/NonFriend.styled';
 
 function NonFriend({ nonFriend, user }) {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [sentFriendReq, setSentFriendReq] = useState();
 
   //find out if user has already sent a friend request to nonFriend
@@ -52,7 +51,7 @@ function NonFriend({ nonFriend, user }) {
   }
 
   return (
-    <div>
+    <NonFriendContainer>
       <li className="nonFriend">
         <div className="nonFriendProfileImgContainer">
           <Link to={`/${nonFriend._id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
@@ -70,16 +69,16 @@ function NonFriend({ nonFriend, user }) {
           Send Friend Request
         </button> */}
         {sentFriendReq
-          ? <button className="nonFriendButton" onClick={() => handleCancelRequest()}>
+          ? <button className="nonFriendButton cancel" onClick={() => handleCancelRequest()}>
             Cancel Friend Request
           </button>
           :
-          <button className="nonFriendButton" onClick={() => handleSendFriendRequest()}>
+          <button className="nonFriendButton send" onClick={() => handleSendFriendRequest()}>
             Send Friend Request
           </button>
         }
       </li>
-    </div>
+    </NonFriendContainer>
   )
 }
 

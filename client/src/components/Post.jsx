@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import "./post.css";
 import { MoreVert, Delete } from "@material-ui/icons";
-import { useEffect } from "react";
 import axios from 'axios';
 import { format } from 'timeago.js';
 import { Link } from "react-router-dom";
 import moment from 'moment'
-import Comment from "../comment/Comment";
-import CommentForm from '../commentForm/CommentForm'
+import Comment from "./Comment";
+import CommentForm from './CommentForm'
+import { PostContainer } from "./styles/Post.styled";
 
 function Post({ post, setPost, user, setUser, profileUser }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -32,7 +31,7 @@ function Post({ post, setPost, user, setUser, profileUser }) {
   };
 
   return (
-    <div className="post">
+    <PostContainer>
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
@@ -86,7 +85,7 @@ function Post({ post, setPost, user, setUser, profileUser }) {
           <Comment key={c._id} comment={c} user={user} post={post} />
         ))}
       </div>
-    </div>
+    </PostContainer>
   );
 }
 
