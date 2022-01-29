@@ -1,6 +1,5 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './components/styles/Theme';
 import DashBoard from './pages/DashBoard';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -9,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import useLocalStorage from './utils/useLocalStorage';
 import MyFriends from './pages/MyFriends';
 import FindFriends from './pages/FindFriends';
+import { theme } from './components/styles/Theme';
 
 const App = () => {
   const [user, setUser] = useLocalStorage('user', '');

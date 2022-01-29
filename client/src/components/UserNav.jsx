@@ -7,7 +7,6 @@ function UserNav({ user, setUser }) {
   const navigate = useNavigate();
 
   const handleLogOut = () => {
-    console.log('LOG OUT THE USER');
     setUser('');
     navigate('/login');
   }

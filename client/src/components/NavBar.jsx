@@ -1,10 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { NavBarContainer } from './styles/NavBar.styled';
 
-function NavBar({ user }) {
+function NavBar({ user, setUser }) {
+  const navigate = useNavigate();
 
-  console.log(user)
+  const handleLogOut = () => {
+    setUser('');
+    navigate('/login');
+  }
+
   return (
     <NavBarContainer>
 
@@ -18,7 +23,7 @@ function NavBar({ user }) {
 
         <div className="navBarLinks">
           <span className="navBarLink">Settings</span>
-          <span className="navBarLink">Logout</span>
+          <span className="navBarLink" onClick={() => handleLogOut()}>Logout</span>
         </div>
 
         <div className="navBarIcons">

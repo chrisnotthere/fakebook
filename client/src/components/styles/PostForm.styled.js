@@ -13,6 +13,10 @@ export const PostFormContainer = styled.div`
   align-items: center;
 }
 
+.postformWelcome {
+  font-weight: 500;
+}
+
 .postformTextArea {
   background-color: ${({ theme }) => theme.colors.offgreen};
   border-radius: 1rem;

@@ -21,8 +21,8 @@ const Facebook = ({ user, setUser }) => {
       console.log('api response', data);
       const user = {
         email: data.user.email,
-        first_name: data.user.first_name,
-        last_name: data.user.last_name,
+        firstName: data.user.first_name,
+        lastName: data.user.last_name,
         token: `Bearer ${accessToken}`,
         id: data.user.id,
         profilePicUrl: data.user.profilePicUrl,
