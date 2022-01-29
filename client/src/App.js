@@ -1,4 +1,6 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './components/styles/Theme';
 import DashBoard from './pages/DashBoard';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -12,7 +14,7 @@ const App = () => {
   const [user, setUser] = useLocalStorage('user', '');
 
   return (
-    <div >
+    <ThemeProvider theme={theme} >
       <Router>
         <Routes>
           <Route path="/login" element={<Login user={user} setUser={setUser} />} />
@@ -23,7 +25,7 @@ const App = () => {
           <Route path="/:id" element={<Profile user={user} setUser={setUser} />} />
         </Routes>
       </Router>
-    </div>
+    </ThemeProvider>
   );
 }
 
