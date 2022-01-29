@@ -1,13 +1,15 @@
-.post {
-  width: 100%;
-  border-radius: 10px;
-  /* -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68); */
-  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-  margin: 30px 0;
-}
+import styled from 'styled-components'
+
+export const PostContainer = styled.div`
+
+// width: 100%;
+border-radius: 10px;
+box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+margin: 2rem 0;
+background-color: white;
 
 .postWrapper {
-  padding: 10px;
+  padding: 1rem;
 }
 
 .postTop {
@@ -35,7 +37,7 @@
 }
 
 .postDate{
-    font-size: 1rem;
+    font-size: 0.75rem;
 }
 
 .postCenter{
@@ -47,6 +49,10 @@
     width: 100%;
     max-height: 500px;
     object-fit: contain;
+}
+
+.postText {
+  font-size: 1.1rem;
 }
 
 .postBottom{
@@ -68,7 +74,7 @@
 }
 
 .postLikeCounter{
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .postCommentText{
@@ -76,3 +82,4 @@
     border-bottom: 1px dashed gray;
     font-size: 1rem;
 }
+`;

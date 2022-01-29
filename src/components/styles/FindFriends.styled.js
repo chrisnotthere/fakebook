@@ -9,9 +9,11 @@ export const FindFriendsContainer = styled.div`
   height: calc(100vh - 5rem);
   background-color: ${({ theme }) => theme.colors.lightblue};
   top: 5rem;
+
+.findFriendsWrapper {
+  padding: 1.5rem;
+  // background-color: rgb(231, 231, 231);
+}
+
 `;
 
-export const FindFriendsWrapper = styled.div`
-  padding: 1.5rem;
-  background-color: ${({ theme }) => theme.colors.offwhite};
-`;

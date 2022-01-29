@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import "./commentform.css";
 import axios from "axios";
-import { ContactSupportOutlined } from "@material-ui/icons";
+import { CommentFormContainer } from "./styles/CommentForm.styled";
 
 function CommentForm({ user, setUser, post, setPost}) {
   const [content, setContent] = useState('');
@@ -29,7 +28,7 @@ function CommentForm({ user, setUser, post, setPost}) {
   }
 
   return (
-    <div className='commentform'>
+    <CommentFormContainer>
       <div className="commentformWrapper">
 
         <form className='commentformForm' onSubmit={handleSubmit}>
@@ -45,9 +44,8 @@ function CommentForm({ user, setUser, post, setPost}) {
 
           <button type='submit' className='commentButton'>Comment</button>
         </form>
-        {/* <hr className="commentformHr" /> */}
       </div>
-    </div>
+    </CommentFormContainer>
   );
 }
 

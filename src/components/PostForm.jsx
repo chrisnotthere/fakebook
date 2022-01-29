@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./postform.css";
 import axios from "axios";
+import { PostFormContainer } from "./styles/PostForm.styled";
 
 function PostForm({ user, setUser}) {
   const [content, setContent] = useState('');
@@ -23,7 +23,7 @@ function PostForm({ user, setUser}) {
   }
 
   return (
-    <div className='postform'>
+    <PostFormContainer>
       <div className="postformWrapper">
 
         <form className='postformForm' onSubmit={handleSubmit}>
@@ -40,9 +40,9 @@ function PostForm({ user, setUser}) {
 
           <button type='submit' className='postformButton'>Share</button>
         </form>
-        <hr className="postformHr" />
+        {/* <hr className="postformHr" /> */}
       </div>
-    </div>
+    </PostFormContainer>
   );
 }
 

@@ -1,10 +1,11 @@
-import "./rightbar.css";
-import FriendRequest from "../friendrequest/FriendRequest";
-import Friend from "../friend/Friend";
+import FriendRequest from "./FriendRequest";
+import Friend from "./Friend";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Add, Remove } from "@material-ui/icons";
+import { RightBarContainer } from "./styles/RightBar.styled";
+
 
 function RightBar({ user, profileUser }) {
   const [friends, setFriends] = useState([]);
@@ -59,55 +60,50 @@ function RightBar({ user, profileUser }) {
 
   const DashRightbar = () => {
     return (
-      <>
+      <RightBarContainer>
         <h4 className="rightbarTitle">Friend Requests</h4>
         <ul className="rightbarFriendRequests">
           {friendRequests.map(u => (
             <FriendRequest key={u._id} friendReq={u} setAcceptFriendReq={setAcceptFriendReq} />
           ))}
         </ul>
-        <hr className="rightbarHr" />
+        {/* <hr className="rightbarHr" /> */}
         <h4 className="rightbarTitle">Friends</h4>
         <ul className="rightbarFriends">
           {friends.friendList?.map(u => (
             <Friend key={u._id} friend={u} />
           ))}
         </ul>
-      </>
+      </RightBarContainer>
     );
   };
 
   const ProfileRightbar = () => {
     return (
-      <>
-        {/* TODO, if profile is not current user's profile, show add friend button */}
-        {/* TODO, change button based on current friend status */}
-        <button className="rightBarAddFriend" onClick={() => handleAddFriend()}>
-          Add Friend<Add />
-          {/* {alreadyFriends ? "Remove Friend" : "Add Friend"}
-          {alreadyFriends ? <Remove /> : <Add />} */}
-        </button>
-
-        {/* {isCurrentUserProfile(user, params)
-          ? <h4 className="rightbarTitle">Friends of {user.firstName}</h4>
-          : <h4 className="rightbarTitle">Friends of {profileUser.firstName}</h4>
-        } */}
+      <RightBarContainer>
         <h4 className="rightbarTitle">Friends of {profileUser.firstName}</h4>
         <ul className="rightbarFriends">
           {friends.friendList?.map(u => (
             <Friend key={u._id} friend={u} />
           ))}
         </ul>
-      </>
+      </RightBarContainer>
     )
   }
 
   return (
-    <div className='rightBar'>
-      <div className="rightbarWrapper">
+    // <div className='rightBar' style={{ flex: '3' }}>
+    <div className='rightBar' style={{ width: '15rem' }}>
+      <div className="rightbarWrapper"
+        style={{
+          padding: '0.5rem 0.5rem 0 0',
+          backgroundColor: 'rgb(204, 230, 230)',
+          height: '100%'
+        }}
+      >
         {isHome(params) ? <DashRightbar /> : <ProfileRightbar />}
       </div>
-    </div>
+    </div >
   );
 }
 

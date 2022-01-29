@@ -1,16 +1,15 @@
-.rightbarFriendRequests {
-  padding: 0;
-}
+import styled from 'styled-components'
+
+export const FriendRequestContainer = styled.div`
 
 .rightbarFriendRequest {
   border-radius: 0.5rem;
-  padding: 0;
-  margin: 0;
   list-style: none;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background-color: wheat;
+  background-color: ${({ theme }) => theme.colors.offblue};
+  margin-bottom: 0.25rem;
+  padding: 0.25rem;
 }
 
 .rightbarFriendRequests li{
@@ -18,7 +17,7 @@
 }
 
 .rightbarProfileImgContainer {
-  margin-right: 10px;
+  margin-right: 1rem;
   position: relative;
 }
 
@@ -34,10 +33,13 @@
 }
 
 .rightbarButton {
-  background-color: violet;
+  cursor: pointer;
+  background-color: ${({ theme }) => theme.colors.lightgreen};
   border: none;
   padding: 0.5rem;
   border-radius: 0.5rem;
   font-weight: 400;
   margin-right: 1rem;
 }
+
+`;

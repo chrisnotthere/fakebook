@@ -1,11 +1,10 @@
-import "./usernav.css";
-import { RssFeed, People, GroupAdd, ExitToApp, SearchRounded, AccountCircle } from '@material-ui/icons'
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { RssFeed, People, ExitToApp, SearchRounded, AccountCircle } from '@material-ui/icons'
+import { Link, useNavigate } from "react-router-dom";
+import { UserNavContainer } from './styles/UserNav.styled';
 
 function UserNav({ user, setUser }) {
   // console.log(user)
   const navigate = useNavigate();
-
 
   const handleLogOut = () => {
     console.log('LOG OUT THE USER');
@@ -14,7 +13,7 @@ function UserNav({ user, setUser }) {
   }
 
   return (
-    <div className="userNav">
+    <UserNavContainer>
       <div className="userNavWrapper">
         <ul className="userNavList">
           <Link to={'/'} style={{ textDecoration: 'none', color: 'inherit' }} >
@@ -46,9 +45,9 @@ function UserNav({ user, setUser }) {
               <span className="userNavListItemText">Logout</span>
             </li>
         </ul>
-        <hr className="userNavHr" />
+        {/* <hr className="userNavHr" /> */}
       </div>
-    </div>
+    </UserNavContainer>
   );
 }
 

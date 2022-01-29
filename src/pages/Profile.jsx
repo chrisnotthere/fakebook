@@ -1,7 +1,7 @@
-import NavBar from "../components/navbar/NavBar";
-import UserNav from "../components/usernav/UserNav";
-import Feed from "../components/feed/Feed";
-import RightBar from "../components/rightbar/RightBar";
+import NavBar from "../components/NavBar";
+import UserNav from "../components/UserNav";
+import Feed from "../components/Feed";
+import RightBar from "../components/RightBar";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams } from "react-router";

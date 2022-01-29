@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Friend from "../components/friend/Friend";
-import NavBar from "../components/navbar/NavBar";
-import UserNav from "../components/usernav/UserNav";
-import { StyledDiv, FindFriendsContainer, FindFriendsWrapper } from '../components/styles/FindFriends.styled'
+import Friend from "../components/Friend";
+import NavBar from "../components/NavBar";
+import UserNav from "../components/UserNav";
+import { StyledDiv, FindFriendsContainer } from '../components/styles/FindFriends.styled'
 
 function MyFriends({ user, setUser }) {
   const [friends, setFriends] = useState([]);
@@ -28,12 +28,12 @@ function MyFriends({ user, setUser }) {
       <StyledDiv>
         <UserNav user={user} setUser={setUser} />
         <FindFriendsContainer>
-          <FindFriendsWrapper>
+          <div className="findFriendsWrapper">
             List of all of my friends...
             {friends.map(u => (
               <Friend key={u._id} friend={u} myFriends={true} setRemovedFriend={setRemovedFriend} />
             ))}
-          </FindFriendsWrapper>
+          </div>
         </FindFriendsContainer>
       </StyledDiv>
     </>

@@ -1,9 +1,9 @@
-import "./feed.css";
-import PostForm from "../postform/PostForm";
-import Post from "../post/Post";
+import PostForm from "./PostForm";
+import Post from "./Post";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+import { FeedContainer } from "./styles/Feed.styled";
 
 function Feed({ user, setUser }) {
   const [posts, setPosts] = useState([]);
@@ -61,7 +61,7 @@ function Feed({ user, setUser }) {
   }, [user])
 
   return (
-    <div className='feed'>
+    <FeedContainer>
       <div className="feedWrapper">
         {/* hide 'create post' on profile page */}
         {isHome(params) && <PostForm user={user} setUser={setUser} />}
@@ -71,7 +71,7 @@ function Feed({ user, setUser }) {
         ))}
 
       </div>
-    </div>
+    </FeedContainer>
   );
 }
 
