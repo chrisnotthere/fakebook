@@ -12,6 +12,10 @@ export const FriendContainer = styled.div`
   padding: 0.25rem
 }
 
+.rightbarFriend:hover {
+  background-color: ${({ theme }) => theme.colors.offwhite};
+}
+
 .rightbarProfileImgContainer {
   margin-right: 1rem;
   position: relative;
