@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Signup = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: #d8dde6;
+  background-color: ${({ theme }) => theme.colors.offblue};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,7 +26,7 @@ export const Signup = styled.div`
   .signupLogo {
     font-size: 4rem;
     font-weight: 800;
-    color: rgb(53, 157, 175);
+    color: ${({ theme }) => theme.colors.mainblue};
   }
 
   .signupDesc {
@@ -59,7 +59,7 @@ export const Signup = styled.div`
     height: 3rem;
     border-radius: 1rem;
     border: none;
-    background-color: rgb(53, 157, 175);
+    background-color: ${({ theme }) => theme.colors.mainblue};
     color: white;
     font-size: 1.25rem;
     font-weight: 400;
