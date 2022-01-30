@@ -170,10 +170,6 @@ router.delete('/remove/:removedFriendId', async (req, res, next) => {
   }
 });
 
-
-//// below routes are to populate new users friends and friendRequests
-
-
 // Add users to friendRequest list
 router.post('/populate', async (req, res, next) => {
   const currentUserId = req.payload.id;
@@ -181,8 +177,8 @@ router.post('/populate', async (req, res, next) => {
   try {
     const currentUser = await User.findById(currentUserId);
     const otherUsers = await User.find();
-    otherUserList = otherUsers.filter((u) => u.id != currentUser.id)
-    currentUser.friendRequests = otherUserList.map((u) => u._id)
+    otherUserList = otherUsers.filter((u) => u.id != currentUser.id && u.firstName!= 'FakeBook' );
+    currentUser.friendRequests = otherUserList.map((u) => u._id);
     await currentUser.save();
 
     return res.status(201).json({ message: "Friend Request list populated", currentUser })
@@ -192,7 +188,29 @@ router.post('/populate', async (req, res, next) => {
   }
 });
 
-
 // Add FB Official to friends list
+router.post('/addfriend', async (req, res, next) => {
+  const currentUserId = req.payload.id;
+  try {
+    const currentUser = await User.findById(currentUserId);
+    const FBuser = await User.findOne({ firstName: 'FakeBook' });
+    const FBuserId = FBuser._id;
+
+    // add FBuser to currentUser friend list
+    const updatedCurrentUserFriends = [...currentUser.friends, FBuserId];
+    currentUser.friends = updatedCurrentUserFriends;
+    await currentUser.save();
+
+    // add currentUser to FBuser friend list
+    const updatedFBuserFriends = [...FBuser.friends, currentUserId];
+    FBuser.friends = updatedFBuserFriends;
+    await FBuser.save();
+
+    return res.status(201).json({ message: "FakeBook added to friends!", currentUser, FBuser })
+
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
+});
 
 module.exports = router;
