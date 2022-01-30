@@ -29,6 +29,7 @@ function Register({ user, setUser }) {
         axios.defaults.headers.common["Authorization"] =
           result.data.token.token;
         setUser(newUser);
+        populateFriends();
         setEmail('');
         setPassword('');
         setFirstName('');
@@ -49,6 +50,10 @@ function Register({ user, setUser }) {
           }, 5000);
         }
       });
+  }
+
+  const populateFriends = () => {
+    
   }
 
   return (
