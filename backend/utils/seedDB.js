@@ -23,8 +23,8 @@ var users = []
 var posts = [];
 var comments = [];
 
-function userCreate(email, password, firstName, lastName, picture, about, friends, friendRquests, cb) {
-  userdetail = { email, password, firstName, lastName, picture, about, friends, friendRquests };
+function userCreate(email, password, firstName, lastName, picture, coverPicture, about, friends, friendRquests, cb) {
+  userdetail = { email, password, firstName, lastName, picture, coverPicture, about, friends, friendRquests };
 
   const user = new User(userdetail);
   user.save(function (err) {
@@ -68,7 +68,7 @@ function commentCreate(user, text, likes, timestamp, cb) {
   });
 }
 
-// email, password, firstName, lastName, picture, about, friends, friendRquests
+// email, password, firstName, lastName, picture, coverPicture, about, friends, friendRquests
 function createusers(cb) {
   async.series(
     [
@@ -79,6 +79,7 @@ function createusers(cb) {
           'Bugs',
           'Bunny',
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRktqm_1eM2Ruq4WJlKIzMkGs6wQCWLkDbUVg&usqp=CAU',
+          'https://media.istockphoto.com/vectors/new-york-city-vector-id908141984?k=20&m=908141984&s=612x612&w=0&h=WkWys-vr2PyY1eQnYj1E_7QDb2uwnXNGfqP3E0hU_Qg=',
           'Bugs Bunny is an animated cartoon character, created in the late 1930s by Leon Schlesinger Productions and voiced originally by Mel Blanc. Bugs is best known for his starring roles in the Looney Tunes and Merrie Melodies series of animated short films, produced by Warner Bros.',
           [],
           [],
@@ -92,6 +93,7 @@ function createusers(cb) {
           'Daffy',
           'Duck',
           'http://2.bp.blogspot.com/-g2yqwwzR-lo/T9TtXCI2i0I/AAAAAAAAEqA/9QiEvUMnMm0/s1600/Walt_disney_Daffy_duck_head_wallpaper_1.jpg',
+          'https://content.osgnetworks.tv/petersenshunting/content/photos/looney-tunes-thats-all-folks-770x450.jpg',
           'Daffy Duck is an animated cartoon character created by Warner Bros. Styled as an anthropomorphic black duck, he has appeared in cartoon series such as Looney Tunes and Merrie Melodies, in which he is usually depicted as a foil for Bugs Bunny.',
           [],
           [],
@@ -105,6 +107,7 @@ function createusers(cb) {
           'Elmer',
           'Fudd',
           'https://static.tvtropes.org/pmwiki/pub/images/elmer_fudd.jpg',
+          'https://image.freepik.com/free-vector/empty-background-nature-scene-backgroundry_1308-32605.jpg',
           'Elmer J. Fudd is an animated cartoon character in the Warner Bros. Looney Tunes/Merrie Melodies series and the archenemy of Bugs Bunny. He has one of the more disputed origins in the Warner Bros. cartoon pantheon (second only to Bugs himself).',
           [],
           [],
@@ -118,6 +121,7 @@ function createusers(cb) {
           'Guest',
           'Account',
           'https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png',
+          'https://images.unsplash.com/photo-1586672806791-3a67d24186c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y292ZXIlMjBhcnR8ZW58MHx8MHx8&w=1000&q=80',
           'This is a guest account. Feel free to take a look around.',
           [],
           [],
@@ -131,6 +135,7 @@ function createusers(cb) {
           'FakeBook',
           'Official',
           'https://static.xx.fbcdn.net/rsrc.php/v3/yu/r/-UrAiCz94rq.png',
+          'https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg',
           'The Official FakeBook account.',
           [],
           [],
