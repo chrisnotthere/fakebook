@@ -32,7 +32,7 @@ const Facebook = ({ user, setUser }) => {
       };
       console.log('user1', user);
       setUser(user);
-      //populate friend requests THIS IS NOT WORKING
+      //populate friend requests THIS IS NOT WORKING ////
       populateFriendRequests();
       console.log('user2', user);
       navigate('/');
