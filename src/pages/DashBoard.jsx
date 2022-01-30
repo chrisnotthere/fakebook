@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import UserNav from '../components/UserNav';
 import Feed from '../components/Feed';
 import RightBar from '../components/RightBar';
+import { useNavigate } from 'react-router-dom';
 
 function DashBoard({ user, setUser }) {
+  const navigate = useNavigate();
+
+  // send to login if there is no user in localstorage
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    }
+  });
 
   return (
     <>
