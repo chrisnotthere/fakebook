@@ -170,4 +170,29 @@ router.delete('/remove/:removedFriendId', async (req, res, next) => {
   }
 });
 
+
+//// below routes are to populate new users friends and friendRequests
+
+
+// Add users to friendRequest list
+router.post('/populate', async (req, res, next) => {
+  const currentUserId = req.payload.id;
+  let otherUserList = [];
+  try {
+    const currentUser = await User.findById(currentUserId);
+    const otherUsers = await User.find();
+    otherUserList = otherUsers.filter((u) => u.id != currentUser.id)
+    currentUser.friendRequests = otherUserList.map((u) => u._id)
+    await currentUser.save();
+
+    return res.status(201).json({ message: "Friend Request list populated", currentUser })
+
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
+});
+
+
+// Add FB Official to friends list
+
 module.exports = router;
