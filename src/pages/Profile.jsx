@@ -11,8 +11,6 @@ function Profile({ user, setUser }) {
   const userid = useParams();
   const [profileUser, setProfileUser] = useState([]);
 
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-
   useEffect(() => {
     const getProfileUser = async () => {
       try {
@@ -25,6 +23,9 @@ function Profile({ user, setUser }) {
     getProfileUser();
   }, [])
 
+  // console.log(user)
+  // console.log(profileUser)
+
   return (
     <>
       <NavBar user={user} setUser={setUser} />
@@ -35,7 +36,7 @@ function Profile({ user, setUser }) {
             <div className="profileCover">
               <img
                 className="profileCoverImg"
-                src={user.coverPicture || PF + "/post/1.jpg"}
+                src={profileUser.coverPicture}
                 alt=""
               />
               <img
