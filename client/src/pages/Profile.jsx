@@ -5,11 +5,20 @@ import RightBar from "../components/RightBar";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams } from "react-router";
+import { useNavigate } from 'react-router-dom';
 import { ProfileContainer } from "../components/styles/Profile.styled";
 
 function Profile({ user, setUser }) {
   const userid = useParams();
   const [profileUser, setProfileUser] = useState([]);
+  const navigate = useNavigate();
+
+  // send to login if there is no user in localstorage
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    }
+  });
 
   useEffect(() => {
     const getProfileUser = async () => {
@@ -22,9 +31,6 @@ function Profile({ user, setUser }) {
     }
     getProfileUser();
   }, [])
-
-  // console.log(user)
-  // console.log(profileUser)
 
   return (
     <>

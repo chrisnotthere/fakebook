@@ -4,11 +4,20 @@ import Friend from "../components/Friend";
 import NavBar from "../components/NavBar";
 import UserNav from "../components/UserNav";
 import { StyledDiv, FindFriendsContainer } from '../components/styles/FindFriends.styled'
+import { useNavigate } from 'react-router-dom';
 
 function MyFriends({ user, setUser }) {
   const [friends, setFriends] = useState([]);
   const [removedFriend, setRemovedFriend] = useState(false);
+  const navigate = useNavigate();
 
+  // send to login if there is no user in localstorage
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    }
+  });
+  
   //get friends of user
   useEffect(() => {
     const getFriends = async () => {
