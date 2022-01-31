@@ -37,7 +37,13 @@ function FindFriends({ user, setUser }) {
         <UserNav user={user} setUser={setUser} />
         <FindFriendsContainer>
           <div className='findFriendsWrapper' >
-            List of all of my non-friends
+
+            {nonFriends.length < 1 ?
+              <span className="error">You are friends with all users, nothing new to see here.</span>
+              :
+              <h2>Browse Users</h2>
+            }
+
             {nonFriends.map(u => (
               <NonFriend key={u._id} nonFriend={u} user={user} />
             ))}

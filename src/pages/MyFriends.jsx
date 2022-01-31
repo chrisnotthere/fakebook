@@ -17,7 +17,7 @@ function MyFriends({ user, setUser }) {
       navigate('/login')
     }
   });
-  
+
   //get friends of user
   useEffect(() => {
     const getFriends = async () => {
@@ -38,7 +38,13 @@ function MyFriends({ user, setUser }) {
         <UserNav user={user} setUser={setUser} />
         <FindFriendsContainer>
           <div className="findFriendsWrapper">
-            List of all of my friends...
+
+            {friends.length < 1 ?
+              <span className="error">You have no friends. Try being more social to make the best out of FakeBook.</span>
+              :
+              <h2>Friends</h2>
+            }
+
             {friends.map(u => (
               <Friend key={u._id} friend={u} myFriends={true} setRemovedFriend={setRemovedFriend} />
             ))}
