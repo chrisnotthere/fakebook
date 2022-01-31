@@ -36,7 +36,7 @@ function Profile({ user, setUser }) {
     <>
       <NavBar user={user} setUser={setUser} />
       <ProfileContainer>
-        <UserNav />
+        <UserNav user={user} />
         <div className="profileRight">
           <div className="profileRightTop">
             <div className="profileCover">
