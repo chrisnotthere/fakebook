@@ -11,7 +11,7 @@ function FriendRequest({ friendReq, setAcceptFriendReq }) {
       await axios.post(`/users/friends/accept/${friendReq._id}`);
       console.log('friend request accepted!')
       setAcceptFriendReq(true);
-
+      window.location.reload();
     } catch (err) {
       console.log(err)
     }
