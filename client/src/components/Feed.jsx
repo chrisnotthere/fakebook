@@ -8,8 +8,8 @@ import { FeedContainer } from "./styles/Feed.styled";
 function Feed({ user, setUser }) {
   const [posts, setPosts] = useState([]);
   const [postOwner, setPostOwner] = useState([]);
-  const params = useParams();
   const [profileUser, setProfileUser] = useState([]);
+  const params = useParams();
 
 
   // check to see if user is on homepage or profile page
@@ -64,7 +64,7 @@ function Feed({ user, setUser }) {
       }
     }
     fetchPosts();
-  }, [user])
+  }, [user, params])
 
   return (
     <FeedContainer>

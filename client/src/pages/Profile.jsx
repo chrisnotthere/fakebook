@@ -30,7 +30,7 @@ function Profile({ user, setUser }) {
       }
     }
     getProfileUser();
-  }, [])
+  }, [userid])
 
   return (
     <>

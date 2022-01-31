@@ -3,7 +3,6 @@ import Friend from "./Friend";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Add, Remove } from "@material-ui/icons";
 import { RightBarContainer } from "./styles/RightBar.styled";
 
 
@@ -11,8 +10,8 @@ function RightBar({ user, profileUser }) {
   const [friends, setFriends] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
   const [acceptFriendReq, setAcceptFriendReq] = useState(false);
-
   const params = useParams();
+
   // check to see if user is on homepage or profile page
   const isHome = (params) => {
     for (let key in params) {
@@ -20,17 +19,6 @@ function RightBar({ user, profileUser }) {
         return false;
     }
     return true;
-  }
-
-  // TODO finish this
-  const handleAddFriend = async () => {
-    console.log('clickkkk')
-    try {
-      // if friends, remove friend
-      // if not friends, send friend request
-    } catch (err) {
-      console.log(err);
-    }
   }
 
   // get friends and friend requests
@@ -56,7 +44,7 @@ function RightBar({ user, profileUser }) {
     };
     getFriends();
     getFriendRequests();
-  }, [user, acceptFriendReq]);
+  }, [user, acceptFriendReq, params]);
 
   const DashRightbar = () => {
     return (
