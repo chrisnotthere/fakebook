@@ -62,7 +62,8 @@ router.post('/',
     }
     try {
       const postText = req.body.text;
-      const newPost = new Post({ user: req.payload.id, text: postText })
+      const postImage = req.body.image;
+      const newPost = new Post({ user: req.payload.id, text: postText, image: postImage })
       const savedPost = await newPost.save();
 
       // check if saved post is now in the db
