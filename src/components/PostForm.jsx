@@ -7,7 +7,8 @@ import { BurstMode } from "@material-ui/icons";
 function PostForm({ user, setUser }) {
   // const userid = useParams();
   const [profileUser, setProfileUser] = useState([]);
-  const [content, setContent] = useState('');
+  const [postText, setPostText] = useState('');
+  const [postImage, setPostImage] = useState('');
   let data;
 
   const handleSubmit = async (e) => {
@@ -17,7 +18,8 @@ function PostForm({ user, setUser }) {
 
     const newPost = {
       user: user._id,
-      text: content,
+      text: postText,
+      image: postImage,
     };
 
     try {
@@ -56,7 +58,7 @@ function PostForm({ user, setUser }) {
               placeholder={`What's on your mind, ${profileUser.firstName}?`}
               required
               defaultValue={data}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={(e) => setPostText(e.target.value)}
             />
 
             <div className="imageForm">
@@ -64,7 +66,12 @@ function PostForm({ user, setUser }) {
                 <BurstMode className="imageButtonIcon" />
                 <span className="imageButtonText">Image</span>
               </button>
-              <input className="imageInput hide" type="text" placeholder="Image URL" />
+              <input
+                className="imageInput hide"
+                type="text"
+                placeholder="Image URL"
+                onChange={(e) => setPostImage(e.target.value)}
+              />
             </div>
 
           </div>
