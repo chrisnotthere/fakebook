@@ -73,8 +73,4 @@ export const PostFormContainer = styled.div`
   outline: none;
 }
 
-.hide{
-  display: none;
-}
-
 `;

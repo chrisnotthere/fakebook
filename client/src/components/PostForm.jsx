@@ -2,26 +2,22 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { PostFormContainer } from "./styles/PostForm.styled";
 import { BurstMode } from "@material-ui/icons";
-// import { useParams } from "react-router-dom";
 
 function PostForm({ user, setUser }) {
-  // const userid = useParams();
   const [profileUser, setProfileUser] = useState([]);
   const [postText, setPostText] = useState('');
   const [postImage, setPostImage] = useState('');
+  const [show, setShow] = useState(true);
   let data;
 
   const handleSubmit = async (e) => {
-    console.log(user)
     e.preventDefault();
-    console.log('POST the data to API...');
 
     const newPost = {
       user: user._id,
       text: postText,
       image: postImage,
-    };
-
+    }
     try {
       await axios.post("/posts", newPost);
       window.location.reload();
@@ -30,9 +26,13 @@ function PostForm({ user, setUser }) {
 
   const showImageInput = (e) => {
     e.preventDefault();
-    const input = document.querySelector('.imageInput');
-    input.classList.toggle('hide')
+    setShow(!show);
   }
+
+  const buttonStyle = {
+    opacity: show ? 0 : 1,
+    transition: "all 0.6s ease-out"
+  };
 
   useEffect(() => {
     const getProfileUser = async () => {
@@ -62,12 +62,13 @@ function PostForm({ user, setUser }) {
             />
 
             <div className="imageForm">
-              <button className="imageButton" onClick={(e) => showImageInput(e)}>
+              <button className="imageButton" onClick={showImageInput}>
                 <BurstMode className="imageButtonIcon" />
                 <span className="imageButtonText">Image</span>
               </button>
               <input
-                className="imageInput hide"
+                style={buttonStyle}
+                className="imageInput"
                 type="text"
                 placeholder="Image URL"
                 onChange={(e) => setPostImage(e.target.value)}
