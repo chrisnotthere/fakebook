@@ -6,7 +6,7 @@ const CommentSchema = new Schema({
   text: { type: String, required: true, maxlength: 250 },
   //post: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
-  timestamp: { type: Date, default: Date.now() },  
+  timestamp: { type: Date, default: Date.now },  
 });
 
 CommentSchema.virtual("timeFormated").get(function () {
