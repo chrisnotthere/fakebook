@@ -72,13 +72,13 @@ function Feed({ user, setUser }) {
         {/* hide 'create post' on profile page */}
         {isHome(params) && <PostForm user={user} setUser={setUser} />}
 
-        {(params.id === user.id && posts.length < 1) && <span>Your profile is empty. Try creating a post from the timeline feed.</span>}
+        {(params.id === user.id && posts.length < 1) && <span className="error">Your profile is empty. Try creating a post from the timeline feed.</span>}
 
         {
           isHome(params) ?
-            (params.id !== user.id && posts.length < 1) && <span>You have an empty timeline. Try creating a post or getting some friends to see what they have posted.</span>
+            (params.id !== user.id && posts.length < 1) && <span className="error">You have an empty timeline. Try creating a post or getting some friends to see what they have posted.</span>
             :
-            (params.id !== user.id && posts.length < 1) && <span>This user has not shared any posts yet.</span>
+            (params.id !== user.id && posts.length < 1) && <span className="error">This user has not shared any posts yet.</span>
         }
 
         {posts?.map((p) => (
