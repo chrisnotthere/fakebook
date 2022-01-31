@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { PostFormContainer } from "./styles/PostForm.styled";
+import { BurstMode } from "@material-ui/icons";
 // import { useParams } from "react-router-dom";
 
-function PostForm({ user, setUser}) {
+function PostForm({ user, setUser }) {
   // const userid = useParams();
   const [profileUser, setProfileUser] = useState([]);
   const [content, setContent] = useState('');
@@ -22,7 +23,13 @@ function PostForm({ user, setUser}) {
     try {
       await axios.post("/posts", newPost);
       window.location.reload();
-    } catch (err) {}
+    } catch (err) { }
+  }
+
+  const showImageInput = (e) => {
+    e.preventDefault();
+    const input = document.querySelector('.imageInput');
+    input.classList.toggle('hide')
   }
 
   useEffect(() => {
@@ -51,11 +58,18 @@ function PostForm({ user, setUser}) {
               defaultValue={data}
               onChange={(e) => setContent(e.target.value)}
             />
-          </div>
 
+            <div className="imageForm">
+              <button className="imageButton" onClick={(e) => showImageInput(e)}>
+                <BurstMode className="imageButtonIcon" />
+                <span className="imageButtonText">Image</span>
+              </button>
+              <input className="imageInput hide" type="text" placeholder="Image URL" />
+            </div>
+
+          </div>
           <button type='submit' className='postformButton'>Share</button>
         </form>
-        {/* <hr className="postformHr" /> */}
       </div>
     </PostFormContainer>
   );

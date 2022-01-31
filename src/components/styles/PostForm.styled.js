@@ -20,7 +20,7 @@ export const PostFormContainer = styled.div`
 .postformTextArea {
   background-color: ${({ theme }) => theme.colors.offgreen};
   border-radius: 1rem;
-  padding: 1rem;
+  padding: 2rem 2rem 4rem 2rem;
   height: 5rem;
   width 100%
 }
@@ -45,13 +45,36 @@ export const PostFormContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.maingreen};
 }
 
-.postformHr {
-  margin: 2rem 0;
+.imageButton {
+  width: 6rem;
+  border: 1px white solid;
+  padding: 0.55rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 0.5rem 0;
+  background-color: ${({ theme }) => theme.colors.offgreen};
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-legend {
-  margin: 1rem;
-  font-size: 1.25rem;
+.imageForm {
+  display: flex;
+  align-items: center;
+}
+
+.imageInput {
+  width: 16rem;
+  border-radius: 0.5rem;
+  height: 2.5rem;
+  border: none;
+  resize: none;
+  outline: none;
+}
+
+.hide{
+  display: none;
 }
 
 `;
