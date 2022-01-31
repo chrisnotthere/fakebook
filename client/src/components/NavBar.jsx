@@ -34,7 +34,9 @@ function NavBar({ user, setUser }) {
 
       <div className="navBarRight">
         <div className="navBarLinks">
-          <span className="navBarLink">Settings</span>
+          <Link to='/settings' style={{ textDecoration: 'none', color: 'inherit' }}>
+            <span className="navBarLink">Settings</span>
+          </Link>
           <span className="navBarLink" onClick={() => handleLogOut()}>Logout</span>
         </div>
 
