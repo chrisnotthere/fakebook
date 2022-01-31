@@ -10,7 +10,7 @@ background-color: ${({ theme }) => theme.colors.lightblue};
     padding: 1.5rem;
   }
 
-  span {
+  .error {
     color: ${({ theme }) => theme.colors.mainred};
   }
 
