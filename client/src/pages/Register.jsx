@@ -40,6 +40,7 @@ function Register({ user, setUser }) {
         setFirstName('');
         setPassword('');
         navigate('/');
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err)
