@@ -8,8 +8,8 @@ export const theme = {
     maingreen: 'rgb(98, 192, 79)',
     lightgreen: 'rgb(136, 196, 124)',
 
+    mainred: 'rgb(222, 60, 60)',
     lightred: 'rgb(222, 131, 155)',
-
 
     offwhite: 'rgb(231, 231, 231)',
     offblue: 'rgb(194, 216, 237)',

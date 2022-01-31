@@ -10,4 +10,8 @@ background-color: ${({ theme }) => theme.colors.lightblue};
     padding: 1.5rem;
   }
 
+  span {
+    color: ${({ theme }) => theme.colors.mainred};
+  }
+
 `;
