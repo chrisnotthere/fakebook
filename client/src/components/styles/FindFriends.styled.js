@@ -15,5 +15,9 @@ export const FindFriendsContainer = styled.div`
   // background-color: rgb(231, 231, 231);
 }
 
+.error {
+  color: ${({ theme }) => theme.colors.mainred};
+}
+
 `;
 
