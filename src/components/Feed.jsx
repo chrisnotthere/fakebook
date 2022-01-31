@@ -11,6 +11,7 @@ function Feed({ user, setUser }) {
   const params = useParams();
   const [profileUser, setProfileUser] = useState([]);
 
+
   // check to see if user is on homepage or profile page
   const isHome = (params) => {
     for (let key in params) {
@@ -19,6 +20,11 @@ function Feed({ user, setUser }) {
     }
     return true;
   }
+
+  // console.log('isHome?', isHome(params))
+  // console.log('is this currentUser profile?', params.id === user.id)
+  // console.log('posts', posts.length)
+  // console.log((params.id !== user.id && posts.length < 1))
 
   //get profile user information
   useEffect(() => {
@@ -50,8 +56,8 @@ function Feed({ user, setUser }) {
       } else {
         //if on profile page, pull only that user's posts
         try {
-            const res = await axios.get(`posts/${params.id}`, { headers: { "Authorization": user.token } })
-            setPosts(res.data.userPosts)
+          const res = await axios.get(`posts/${params.id}`, { headers: { "Authorization": user.token } })
+          setPosts(res.data.userPosts)
         } catch (err) {
           console.log(err)
         }
@@ -65,6 +71,15 @@ function Feed({ user, setUser }) {
       <div className="feedWrapper">
         {/* hide 'create post' on profile page */}
         {isHome(params) && <PostForm user={user} setUser={setUser} />}
+
+        {(params.id === user.id && posts.length < 1) && <span>Your profile is empty. Try creating a post from the timeline feed.</span>}
+
+        {
+          isHome(params) ?
+            (params.id !== user.id && posts.length < 1) && <span>You have an empty timeline. Try creating a post or getting some friends to see what they have posted.</span>
+            :
+            (params.id !== user.id && posts.length < 1) && <span>This user has not shared any posts yet.</span>
+        }
 
         {posts?.map((p) => (
           <Post user={user} setUser={setUser} key={p._id} post={p} profileUser={profileUser} postOwner={postOwner} />
