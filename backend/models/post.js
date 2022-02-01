@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "User" },
   text: { type: String, required: true, maxlength: 1000 },
-  // image: { type: String },
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
   timestamp: { type: Date, default: Date.now },  

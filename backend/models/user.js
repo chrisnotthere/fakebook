@@ -11,7 +11,6 @@ const UserSchema = new Schema({
   picture: { type: String, default: 'https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png' },
   coverPicture: { type: String, default: 'https://media.istockphoto.com/photos/background-of-galaxy-and-stars-picture-id1035676256?k=20&m=1035676256&s=612x612&w=0&h=Dnu8uhnGg1ZgzaEduBnTI-ixFAM-XU-whKQqAsjYnGs=' },
   about: { type: String, maxlength: 350 },
-  //posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
   friendRequests: [{ type: Schema.Types.ObjectId, ref: "User" }],
   facebookId: { type: String },
@@ -31,12 +30,12 @@ UserSchema.virtual('fullname')
     this.lastName = nameParts[1]
   })
 
-// // encrypt password before storage -> this was causing issues
-// UserSchema.pre("save", async function (next) {
-//   const hash = await bcrypt.hash(this.password, 10);
-//   this.password = hash;
-//   next();
-// });
+// encrypt password before storage -> this may be causing issues during development
+UserSchema.pre("save", async function (next) {
+  const hash = await bcrypt.hash(this.password, 10);
+  this.password = hash;
+  next();
+});
 
 UserSchema.plugin(findOrCreate);
 
