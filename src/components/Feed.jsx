@@ -7,10 +7,8 @@ import { FeedContainer } from "./styles/Feed.styled";
 
 function Feed({ user, setUser }) {
   const [posts, setPosts] = useState([]);
-  const [postOwner, setPostOwner] = useState([]);
   const [profileUser, setProfileUser] = useState([]);
   const params = useParams();
-
 
   // check to see if user is on homepage or profile page
   const isHome = (params) => {
@@ -20,11 +18,6 @@ function Feed({ user, setUser }) {
     }
     return true;
   }
-
-  // console.log('isHome?', isHome(params))
-  // console.log('is this currentUser profile?', params.id === user.id)
-  // console.log('posts', posts.length)
-  // console.log((params.id !== user.id && posts.length < 1))
 
   //get profile user information
   useEffect(() => {
@@ -41,11 +34,9 @@ function Feed({ user, setUser }) {
 
   //get posts
   useEffect(() => {
-    console.log('---render feed---')
-    // show timeline posts if user is in the dashboard
-    // show a specific person's posts if user is viewing person's profile
+    console.log('---render feed---');
     const fetchPosts = async () => {
-      //if on dash, pull timeline posts
+      //if on dashboard, show timeline posts
       if (isHome(params)) {
         try {
           const res = await axios.get('posts/', { headers: { "Authorization": user.token } });
@@ -69,6 +60,7 @@ function Feed({ user, setUser }) {
   return (
     <FeedContainer>
       <div className="feedWrapper">
+        
         {/* hide 'create post' on profile page */}
         {isHome(params) && <PostForm user={user} setUser={setUser} />}
 
@@ -82,7 +74,7 @@ function Feed({ user, setUser }) {
         }
 
         {posts?.map((p) => (
-          <Post user={user} setUser={setUser} key={p._id} post={p} profileUser={profileUser} postOwner={postOwner} />
+          <Post user={user} setUser={setUser} key={p._id} post={p} profileUser={profileUser} />
         ))}
 
       </div>

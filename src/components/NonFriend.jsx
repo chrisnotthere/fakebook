@@ -9,7 +9,7 @@ function NonFriend({ nonFriend, user }) {
   const [sentFriendReq, setSentFriendReq] = useState();
 
   //find out if user has already sent a friend request to nonFriend
-  //set button to 'send req' or 'req pending' depending on result
+  //set button to 'send friend request' or 'cancel friend request' depending on result
   useEffect(() => {
     const findRequestStatus = async () => {
       try {
@@ -25,13 +25,12 @@ function NonFriend({ nonFriend, user }) {
         console.log(err)
       }
     }
+
     findRequestStatus();
 
   }, [nonFriend.id, user.id])
 
-
   const handleSendFriendRequest = async () => {
-    console.log('send friend request to ' + nonFriend.firstName)
     try {
       await axios.post(`/users/friends/req/${nonFriend.id}`);
       setSentFriendReq(true)
@@ -41,7 +40,6 @@ function NonFriend({ nonFriend, user }) {
   }
 
   const handleCancelRequest = async () => {
-    console.log('Canceling Friend Request');
     try {
       await axios.delete(`/users/friends/req/${nonFriend.id}`);
       setSentFriendReq(false)
@@ -53,6 +51,7 @@ function NonFriend({ nonFriend, user }) {
   return (
     <NonFriendContainer>
       <li className="nonFriend">
+
         <div className="nonFriendProfileImgContainer">
           <Link to={`/${nonFriend._id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
             <img
@@ -62,14 +61,14 @@ function NonFriend({ nonFriend, user }) {
             />
           </Link>
         </div>
+
         <Link to={`/${nonFriend._id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
           <span className="nonFriendUsername">{nonFriend.firstName}</span>
         </Link>
-        {/* <button className="nonFriendButton" onClick={() => handleSendFriendRequest()}>
-          Send Friend Request
-        </button> */}
+
         {sentFriendReq
-          ? <button className="nonFriendButton cancel" onClick={() => handleCancelRequest()}>
+          ?
+          <button className="nonFriendButton cancel" onClick={() => handleCancelRequest()}>
             Cancel Friend Request
           </button>
           :
@@ -77,6 +76,7 @@ function NonFriend({ nonFriend, user }) {
             Send Friend Request
           </button>
         }
+
       </li>
     </NonFriendContainer>
   )

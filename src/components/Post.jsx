@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { MoreVert, Delete } from "@material-ui/icons";
 import axios from 'axios';
-import { format } from 'timeago.js';
 import { Link } from "react-router-dom";
 import moment from 'moment'
 import Comment from "./Comment";
@@ -34,6 +33,7 @@ function Post({ post, setPost, user, setUser, profileUser }) {
     <PostContainer>
       <div className="postWrapper">
         <div className="postTop">
+
           <div className="postTopLeft">
             <Link to={`${post.user.id}`}>
               {profileUser.firstName
@@ -59,18 +59,21 @@ function Post({ post, setPost, user, setUser, profileUser }) {
             </Link>
             <span className="postDate">{moment(post.timestamp).fromNow()}</span>
           </div>
+
           <div className="postTopRight">
             {user.id === profileUser.id
               ? <Delete style={{color: 'rgb(235, 57, 57)', cursor: 'pointer'}} onClick ={() => handleDeletePost()} />
               : <MoreVert />
             }
-
           </div>
+
         </div>
+
         <div className="postCenter">
           <span className="postText">{post?.text}</span>
           <img className="postImg" src={post.image} alt='' />
         </div>
+
         <div className="postBottom">
           <div className="postBottomLeft">
             <img className="likeIcon" src={PF + "/like.png"} onClick={() => likeHandler(post._id)} alt="" />
@@ -80,10 +83,12 @@ function Post({ post, setPost, user, setUser, profileUser }) {
             <span className="postCommentText">{post.comments.length} comments</span>
           </div>
         </div>
+
         <CommentForm post={post} setPost={setPost} user={user} />
         {post.comments?.map((c) => (
           <Comment key={c._id} comment={c} user={user} post={post} />
         ))}
+
       </div>
     </PostContainer>
   );

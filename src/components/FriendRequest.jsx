@@ -6,10 +6,8 @@ import { FriendRequestContainer } from './styles/FriendRequest.styled';
 function FriendRequest({ friendReq, setAcceptFriendReq }) {
 
   const handleAcceptRequest = async () => {
-    console.log(`accept`)
     try {
       await axios.post(`/users/friends/accept/${friendReq._id}`);
-      console.log('friend request accepted!')
       setAcceptFriendReq(true);
       window.location.reload();
     } catch (err) {
@@ -20,6 +18,7 @@ function FriendRequest({ friendReq, setAcceptFriendReq }) {
   return (
     <FriendRequestContainer>
       <li className="rightbarFriendRequest">
+
         <div className="rightbarProfileImgContainer">
           <Link to={`/${friendReq._id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
             <img
@@ -29,10 +28,12 @@ function FriendRequest({ friendReq, setAcceptFriendReq }) {
             />
           </Link>
         </div>
+        
         <Link to={`/${friendReq._id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
           <span className="rightbarUsername">{friendReq.firstName}</span>
         </Link>
         <button className="rightbarButton" onClick={() => handleAcceptRequest()} >Accept</button>
+
       </li>
     </FriendRequestContainer>
   )

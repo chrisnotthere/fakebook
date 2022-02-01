@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { RightBarContainer } from "./styles/RightBar.styled";
 
-
 function RightBar({ user, profileUser }) {
   const [friends, setFriends] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
@@ -55,7 +54,6 @@ function RightBar({ user, profileUser }) {
             <FriendRequest key={u._id} friendReq={u} setAcceptFriendReq={setAcceptFriendReq} />
           ))}
         </ul>
-        {/* <hr className="rightbarHr" /> */}
         <h4 className="rightbarTitle">Friends</h4>
         <ul className="rightbarFriends">
           {friends.friendList?.map(u => (
@@ -80,8 +78,8 @@ function RightBar({ user, profileUser }) {
   }
 
   return (
-    // <div className='rightBar' style={{ flex: '3' }}>
     <div className='rightBar' style={{ width: '15rem' }}>
+
       <div className="rightbarWrapper"
         style={{
           padding: '0.5rem 0.5rem 0 0',
@@ -91,6 +89,7 @@ function RightBar({ user, profileUser }) {
       >
         {isHome(params) ? <DashRightbar /> : <ProfileRightbar />}
       </div>
+      
     </div >
   );
 }

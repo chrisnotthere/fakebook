@@ -6,22 +6,15 @@ function CommentForm({ user, setUser, post, setPost}) {
   const [content, setContent] = useState('');
   let data;
 
-  // console.log(post._id)
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('POST the data to API...');
-    console.log('post', post._id)
-    console.log('user', user)
     const newComment = {
       user: user._id,
       text: content,
     };
-
     try {
       await axios.post(`/posts/${post._id}/comments`, newComment);
       window.location.reload();
-
     } catch (err) {
       console.log(err);
     }
@@ -30,7 +23,6 @@ function CommentForm({ user, setUser, post, setPost}) {
   return (
     <CommentFormContainer>
       <div className="commentformWrapper">
-
         <form className='commentformForm' onSubmit={handleSubmit}>
 
           <div className='commentformTextArea'>
@@ -41,8 +33,8 @@ function CommentForm({ user, setUser, post, setPost}) {
               onChange={(e) => setContent(e.target.value)}
             />
           </div>
-
           <button type='submit' className='commentButton'>Comment</button>
+
         </form>
       </div>
     </CommentFormContainer>

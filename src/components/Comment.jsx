@@ -8,7 +8,6 @@ function Comment({ comment, post }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [like, setLike] = useState(comment.likes.length);
 
-
   const likeHandler = () => {
     try {
       axios.put(`/posts/${post._id}/comments/${comment._id}/like`)
@@ -21,7 +20,6 @@ function Comment({ comment, post }) {
   useEffect(() => {
     const getCommentUser = async () => {
       try {
-        //fetch the comment owner profile picture, using comment.user
         const commentUser = await axios.get(`/users/${comment.user}`)
         setCommentUser(commentUser.data.user)
       } catch (err) {
@@ -33,12 +31,13 @@ function Comment({ comment, post }) {
 
   return (
     <CommentContainer>
-      {/* <hr className="commentHr" /> */}
       <div className="comment">
         <div className="commentWrapper">
+
           <div className="commentPicture">
             <img src={commentUser?.picture} alt="" />
           </div>
+          
           <div className="commentContent">
             <div className="commentUsername">
               {commentUser?.firstName + ' ' + commentUser?.lastName}
@@ -51,6 +50,7 @@ function Comment({ comment, post }) {
               <p>{like} likes</p>
             </div>
           </div>
+
         </div>
       </div>
     </CommentContainer>
