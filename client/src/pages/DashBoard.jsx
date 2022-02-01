@@ -9,14 +9,15 @@ import axios from 'axios';
 function DashBoard({ user, setUser }) {
   const navigate = useNavigate();
 
-  // populate facebook users friendRequests
+  // populate users friendRequests **NOT WORKING 500 server error**
   useEffect(() => {
-
     const populateFriendRequests = async () => {
       console.log('user.id', user.id)
       try {
         const api = await axios.get(`/users/${user.id}`)
         const currentUser = api.data.user;
+        console.log(currentUser.friends.length)
+        console.log(currentUser.friendRequests.length)
 
         // populate friendRequests if user has no friends and no friend requests
         if (((!currentUser.friends.length > 0) && (!currentUser.friendRequests.length > 0))) {
@@ -27,8 +28,8 @@ function DashBoard({ user, setUser }) {
         console.log(err)
       }
     }
-    // only run when user has a facebookId
-    if (!!user.facebookId) {
+    // only run when user has a facebookId or logging into guest account
+    if (!!user.facebookId || user.email === 'guest@gmail.com' ) {
       populateFriendRequests()
     }
   }, []);
