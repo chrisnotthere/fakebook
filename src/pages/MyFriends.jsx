@@ -48,6 +48,7 @@ function MyFriends({ user, setUser }) {
             {friends.map(u => (
               <Friend key={u._id} friend={u} myFriends={true} setRemovedFriend={setRemovedFriend} />
             ))}
+            
           </div>
         </FindFriendsContainer>
       </StyledDiv>

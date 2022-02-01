@@ -47,6 +47,7 @@ function FindFriends({ user, setUser }) {
             {nonFriends.map(u => (
               <NonFriend key={u._id} nonFriend={u} user={user} />
             ))}
+            
           </div>
         </FindFriendsContainer>
       </StyledDiv>

@@ -36,9 +36,12 @@ function Profile({ user, setUser }) {
     <>
       <NavBar user={user} setUser={setUser} />
       <ProfileContainer>
+
         <UserNav user={user} setUser={setUser} />
+
         <div className="profileRight">
           <div className="profileRightTop">
+
             <div className="profileCover">
               <img
                 className="profileCoverImg"
@@ -51,6 +54,7 @@ function Profile({ user, setUser }) {
                 alt=""
               />
             </div>
+
             <div className="profileInfo">
               <h4 className="profileInfoName">
                 {profileUser.firstName + ' ' + profileUser.lastName}
@@ -60,12 +64,14 @@ function Profile({ user, setUser }) {
               </span>
             </div>
           </div>
-          <div className="profileRightBottom">
 
+          <div className="profileRightBottom">
             <Feed user={user} setUser={setUser} />
             <RightBar user={user} setUser={setUser} profileUser={profileUser} />
           </div>
+          
         </div>
+
       </ProfileContainer>
     </>
   );

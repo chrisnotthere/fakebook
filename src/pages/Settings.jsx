@@ -1,12 +1,8 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import UserNav from "../components/UserNav";
 import { SettingsContainer } from '../components/styles/Settings.styled'
-import { useNavigate } from 'react-router-dom';
 
 function Settings({ user, setUser }) {
-
 
   return (
     <>
