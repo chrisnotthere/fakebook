@@ -49,7 +49,8 @@ function PostForm({ user, setUser }) {
   return (
     <PostFormContainer>
       <div className="postformWrapper">
-        <h2 className="postformWelcome" >Welcome, {profileUser.firstName}</h2>
+
+        <h2 className="postformWelcome" >Hello, {profileUser.firstName}</h2>
         <form className='postformForm' onSubmit={handleSubmit}>
           <legend>Create a post</legend>
 
@@ -78,6 +79,7 @@ function PostForm({ user, setUser }) {
           </div>
           <button type='submit' className='postformButton'>Share</button>
         </form>
+
       </div>
     </PostFormContainer>
   );
