@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const LoginContainer = styled.div`
+
   width: 100vw;
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.offwhite};
@@ -33,7 +34,7 @@ export const LoginContainer = styled.div`
     font-size: 1.25rem;
   }
   
-  .loginBox{
+  .loginBox {
     height: 25rem;
     padding: 2rem;
     background-color: white;
@@ -43,7 +44,7 @@ export const LoginContainer = styled.div`
     justify-content: space-between;
   }
   
-  .loginInput{
+  .loginInput {
     height: 3rem;
     border-radius: 1rem;
     border: 1px solid gray;
@@ -51,11 +52,11 @@ export const LoginContainer = styled.div`
     padding-left: 1rem;
   }
   
-  .loginInput:focus{
+  .loginInput:focus {
     outline: none;
   }
   
-  .button{
+  .button {
     height: 3rem;
     border-radius: 1rem;
     border: none;
@@ -66,7 +67,7 @@ export const LoginContainer = styled.div`
     cursor: pointer;
   }
   
-  .register{
+  .register {
     background-color: ${({ theme }) => theme.colors.maingreen};
   }
 

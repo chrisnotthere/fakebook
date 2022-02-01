@@ -17,7 +17,6 @@ export const CommentContainer = styled.div`
   }
 
   .commentUsername {
-    /* font-size: 1.25rem; */
     font-weight: 500;
   }
 

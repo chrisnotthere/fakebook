@@ -1,26 +1,26 @@
 import styled from 'styled-components'
-import { theme } from './Theme';
 
 export const ProfileContainer = styled.div`
+
   display: flex;
 
-  .profileRight{
+  .profileRight {
     flex: 9;
     background-color: ${({ theme }) => theme.colors.lightblue};
   }
   
-  .profileCover{
+  .profileCover {
     height: 20rem;
     position: relative;
   }
   
-  .profileCoverImg{
+  .profileCoverImg {
     width: 100%;
     height: 20rem;
     object-fit: cover;
   }
   
-  .profileUserImg{
+  .profileUserImg {
     width: 10rem;
     height: 10rem;
     border-radius: 50%;
@@ -38,25 +38,25 @@ export const ProfileContainer = styled.div`
     border-radius: 1rem;
   }
   
-  .profileInfo{
+  .profileInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
   
-  .profileInfoName{
+  .profileInfoName {
     font-size: 2.5rem;
     font-weight: 500;
   }
   
-  .profileInfoDesc{
+  .profileInfoDesc {
     font-weight: 300;
     width: 80%;
     margin-bottom: 0.25rem;
   }
   
-  .profileRightBottom{
+  .profileRightBottom {
     display: flex;
   }
   
