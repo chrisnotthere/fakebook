@@ -1,5 +1,5 @@
 {
-  "proxy": "http://localhost:3030/",
+  "proxy": "https://fakebook-mernapp.herokuapp.com/",
   "name": "client",
   "version": "0.1.0",
   "engines": {
