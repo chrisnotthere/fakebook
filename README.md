@@ -1,29 +1,34 @@
 # FakeBook
 
-FakeBook is a Facebook clone made with Node/Express, React, and MongoDB. 
+FakeBook is a Facebook clone made with Node/Express, React, and MongoDB. The purpose of this project is to use a number of technologies together in one application.
 
-The purpose of this project is to put a number of technologies together in one application.
-
-## Technologies used ##
-* JWT
-* MongoDB/Mongoose
-* Passport.js
-* 
+This is a solution to a [project](https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs/lessons/odin-book) on The Odin Project full-stack web development course.
 
 ## Features ##
-* Login/Authentication
+* Sign up and login with email
 * Login with Facebook account
 * Create posts
+* Delete posts
 * Like/Unlike
 * Comment
 * Send/Accept friend requests
-* Timeline
+* Timeline shows friends posts
+* Profile shows self posts and friends list
 
-### TODO ###
-* Edit user info/settings
+## Technologies ##
+* JSON web token authentication
+* REST api
+* MongoDB/Mongoose database modeling
+* Passport.js
+* Styled Components
+
+
+#### TODO ####
+* Edit user info page
 * Dark mode
-* 
+* Responsive design
 
-### Known Issues ###
-* Auto populate friend requests not working
-* 
+#### Known Issues ####
+* Auto populate friend requests for sign in with Facebook
+
+#### Thank you for reading. Any feedback is appreciated. ####
