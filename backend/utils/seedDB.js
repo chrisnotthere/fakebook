@@ -211,7 +211,7 @@ function createposts(cb) {
           'What a view!',
           [],
           [users[0], users[1], users[2], users[4]],
-          1642475557254,
+          1642495557254,
           'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
           callback
         );
@@ -222,7 +222,7 @@ function createposts(cb) {
           'Just wait till I get my hands on that scwewy wabbit and that scwewball duck!',
           [comments[2], comments[3]],
           [users[2]],
-          1642475557488,
+          1502475557488,
           '',
           callback
         );
@@ -244,7 +244,7 @@ function createposts(cb) {
           'Common sense is like deodorant. The people who need it most never use it.',
           [comments[5], comments[6]],
           [users[0], users[1], users[2], users[4], users[3], users[7]],
-          1642421557990,
+          1142421557990,
           '',
           callback
         );
@@ -255,7 +255,7 @@ function createposts(cb) {
           'Permit me to introduce myself. I am Pepe Le Pew, your lover.',
           [],
           [users[0]],
-          1642311957990,
+          1542311957990,
           '',
           callback
         );
