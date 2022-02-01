@@ -79,8 +79,8 @@ function createusers(cb) {
           'Bugs',
           'Bunny',
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRktqm_1eM2Ruq4WJlKIzMkGs6wQCWLkDbUVg&usqp=CAU',
-          'https://media.istockphoto.com/vectors/new-york-city-vector-id908141984?k=20&m=908141984&s=612x612&w=0&h=WkWys-vr2PyY1eQnYj1E_7QDb2uwnXNGfqP3E0hU_Qg=',
-          'Bugs Bunny is an animated cartoon character, created in the late 1930s by Leon Schlesinger Productions and voiced originally by Mel Blanc. Bugs is best known for his starring roles in the Looney Tunes and Merrie Melodies series of animated short films, produced by Warner Bros.',
+          'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/MA_00086499__ftn7gq.jpg',
+          'Dont take life too seriously. Youll never get out alive!',
           [],
           [],
           callback
@@ -94,7 +94,7 @@ function createusers(cb) {
           'Duck',
           'http://2.bp.blogspot.com/-g2yqwwzR-lo/T9TtXCI2i0I/AAAAAAAAEqA/9QiEvUMnMm0/s1600/Walt_disney_Daffy_duck_head_wallpaper_1.jpg',
           'https://content.osgnetworks.tv/petersenshunting/content/photos/looney-tunes-thats-all-folks-770x450.jpg',
-          'Daffy Duck is an animated cartoon character created by Warner Bros. Styled as an anthropomorphic black duck, he has appeared in cartoon series such as Looney Tunes and Merrie Melodies, in which he is usually depicted as a foil for Bugs Bunny.',
+          'I am a duck bent on self-preservation.',
           [],
           [],
           callback
@@ -108,7 +108,7 @@ function createusers(cb) {
           'Fudd',
           'https://static.tvtropes.org/pmwiki/pub/images/elmer_fudd.jpg',
           'https://image.freepik.com/free-vector/empty-background-nature-scene-backgroundry_1308-32605.jpg',
-          'Elmer J. Fudd is an animated cartoon character in the Warner Bros. Looney Tunes/Merrie Melodies series and the archenemy of Bugs Bunny. He has one of the more disputed origins in the Warner Bros. cartoon pantheon (second only to Bugs himself).',
+          'Youll never take me alive!',
           [],
           [],
           callback
@@ -142,6 +142,48 @@ function createusers(cb) {
           callback
         );
       },
+      function (callback) {
+        userCreate(
+          'pepe@gmail.com',
+          '123456',
+          'Pepé',
+          'Le Pew',
+          'https://pbs.twimg.com/profile_images/755933246433538048/BxFTTi_d_400x400.jpg',
+          'https://www.messynessychic.com/wp-content/uploads/2017/07/19388634_10207472213283522_3655420329281554494_o.jpg',
+          'You know, eet eez possible to be too attractive!',
+          [],
+          [],
+          callback
+        );
+      },
+      function (callback) {
+        userCreate(
+          'stan@gmail.com',
+          '123456',
+          'Stan',
+          'Podolak',
+          'https://www.personality-database.com/profile_images/65611.png',
+          'https://www.julienslive.com/images/lot/3867/386701_0.jpg?1634123065',
+          'Well, I may not be very tall, but... Im slow.',
+          [],
+          [],
+          callback
+        );
+      },
+      function (callback) {
+        userCreate(
+          'bill@gmail.com',
+          '123456',
+          'Bill',
+          'Murray',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPVW7ABVxPngexH4R9XWNg9JTpU2IfI057bw&usqp=CAU',
+          'https://media.audleytravel.com/-/media/images/home/north-asia-and-russia/japan/places/tokyo_bay_japan_1017419.jpg',
+          '',
+          [],
+          [],
+          callback
+        );
+      },
     ],
     // optional callback
     cb
@@ -166,10 +208,10 @@ function createposts(cb) {
       function (callback) {
         postCreate(
           users[0],
-          'Live free and Die Hard.',
+          'What a view!',
           [],
           [users[0], users[1], users[2], users[4]],
-          1642475557854,
+          1642475557254,
           'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
           callback
         );
@@ -193,6 +235,28 @@ function createposts(cb) {
           [users[0], users[1], users[2], users[4]],
           1642475557990,
           'https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495__480.jpg',
+          callback
+        );
+      },
+      function (callback) {
+        postCreate(
+          users[7],
+          'Common sense is like deodorant. The people who need it most never use it.',
+          [comments[5], comments[6]],
+          [users[0], users[1], users[2], users[4], users[3], users[7]],
+          1642421557990,
+          '',
+          callback
+        );
+      },
+      function (callback) {
+        postCreate(
+          users[5],
+          'Permit me to introduce myself. I am Pepe Le Pew, your lover.',
+          [],
+          [users[0]],
+          1642311957990,
+          '',
           callback
         );
       },
@@ -248,6 +312,24 @@ function createcomments(cb) {
           "Be vewy vewy quiet, I’m hunting wabbits!, He-e-e-e-e!",
           [],
           1642475557999,
+          callback
+        );
+      },
+      function (callback) {
+        commentCreate(
+          users[5],
+          "What are you trying to say??",
+          [],
+          1642475557920,
+          callback
+        );
+      },
+      function (callback) {
+        commentCreate(
+          users[6],
+          "LOL!",
+          [users[0], users[1], users[2]],
+          1642475569999,
           callback
         );
       },
