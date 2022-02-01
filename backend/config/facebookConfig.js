@@ -2,7 +2,6 @@ const FacebookTokenStrategy = require("passport-facebook-token");
 const passport = require("passport");
 const User = require("../models/user");
 
-//setting up FacebookTokenStrategy
 module.exports = new FacebookTokenStrategy(
   {
     clientID: process.env.FACEBOOK_APP_ID,
@@ -25,7 +24,6 @@ module.exports = new FacebookTokenStrategy(
   }
 );
 
-// https://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize
 passport.serializeUser(function (user, done) {
   console.log(`--serialize user--`);
   done(null, user.id);
