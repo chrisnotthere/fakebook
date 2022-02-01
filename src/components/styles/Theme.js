@@ -1,4 +1,3 @@
-
 export const theme = {
 
   colors: {
@@ -16,5 +15,4 @@ export const theme = {
     offgreen: 'rgb(221, 250, 215)',
 
   }
-
 }
