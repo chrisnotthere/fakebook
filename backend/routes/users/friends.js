@@ -157,6 +157,7 @@ router.delete('/remove/:removedFriendId', async (req, res, next) => {
 });
 
 /* POST add users to friendRequest list  */
+// this is causing issues, cant login after this
 router.post('/populate', async (req, res, next) => {
   const currentUserId = req.payload.id;
   let otherUserList = [];
@@ -164,10 +165,13 @@ router.post('/populate', async (req, res, next) => {
     const currentUser = await User.findById(currentUserId);
     const otherUsers = await User.find();
     otherUserList = otherUsers.filter((u) => u.id != currentUser.id );
-    currentUser.friendRequests = otherUserList.map((u) => u._id);
+    otherUserListIds = otherUserList.map((u) => u._id);
+
+    const updatedFriendRequests = [...currentUser.friendRequests, otherUserListIds];
+    currentUser.friendRequests = updatedFriendRequests;
     await currentUser.save();
 
-    return res.status(201).json({ message: 'Friend Request list populated', currentUser })
+    return res.status(201).json({ message: 'Friend Request list populated', currentUser });
 
   } catch (error) {
     return res.status(500).json({ message: 'Oops, something went wrong.', error: error.message });

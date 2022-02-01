@@ -128,6 +128,8 @@ router.post('/login',
           }
 
           bcrypt.compare(password, user.password, (err, response) => {
+            // console.log('password---', password)
+            // console.log('user.password---', user.password)
             if (err) {
               console.log('--there was an error!--');
               return res.status(500).json({ message: "there was an error!" })

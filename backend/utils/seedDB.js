@@ -291,7 +291,7 @@ function createcomments(cb) {
       function (callback) {
         commentCreate(
           users[0],
-          "For shame, doc. Hunting rabbits with an elephant gun. Why don’t you shoot yourself an elephant?",
+          "For shame, doc. Hunting rabbits with an elephant gun. Why dont you shoot yourself an elephant?",
           [users[0], users[1]],
           1642475557299,
           callback
@@ -309,7 +309,7 @@ function createcomments(cb) {
       function (callback) {
         commentCreate(
           users[2],
-          "Be vewy vewy quiet, I’m hunting wabbits!, He-e-e-e-e!",
+          "Be vewy vewy quiet, Im hunting wabbits!, He-e-e-e-e!",
           [],
           1642475557999,
           callback

@@ -30,12 +30,12 @@ UserSchema.virtual('fullname')
     this.lastName = nameParts[1]
   })
 
-// encrypt password before storage -> this may be causing issues during development
-UserSchema.pre("save", async function (next) {
-  const hash = await bcrypt.hash(this.password, 10);
-  this.password = hash;
-  next();
-});
+// // encrypt password before storage -> this may be causing issues during development
+// UserSchema.pre("save", async function (next) {
+//   const hash = await bcrypt.hash(this.password, 10);
+//   this.password = hash;
+//   next();
+// });
 
 UserSchema.plugin(findOrCreate);
 
