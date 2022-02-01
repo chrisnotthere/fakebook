@@ -9,6 +9,8 @@ function Login({ user, setUser }) {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate()
+  // const [isGuest, setIsGuest] = useState('');
+  var isGuest ='false';
 
   const handleLogin = (e, email, password) => {
     e.preventDefault();
@@ -27,6 +29,10 @@ function Login({ user, setUser }) {
         axios.defaults.headers.common["Authorization"] =
           result.data.token.token;
         setUser(user);
+        // console.log(isGuest)
+        if (isGuest === 'true') {
+          populateFriendRequests();
+        }
         setEmail("");
         setPassword("");
         navigate("/");
@@ -48,9 +54,21 @@ function Login({ user, setUser }) {
 
   const handleGuestLogin = (e) => {
     e.preventDefault();
+    // console.log('guest login')
+    // setIsGuest(true);
+    isGuest = 'true';
     const email = process.env.REACT_APP_GUEST_EMAIL;
     const password = process.env.REACT_APP_GUEST_PASSWORD;
     handleLogin(e, email, password);
+  }
+
+  const populateFriendRequests = async () => {
+    // console.log('pop friendReqs')
+    try {
+      await axios.post(`/users/friends/populate`);
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
