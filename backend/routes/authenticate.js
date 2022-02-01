@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
-var User = require("../models/user");
+const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const generateJWT = require('../utils/generateJWT');
-const { body, validationResult } = require("express-validator");
 const facebookTokenStrategy = require("../config/facebookConfig");
 const jwt = require('../config/JWTconfig')
-
-//// NOTE - refactor this to use try catch... ////
+const User = require("../models/user");
 
 const passport = require("passport");
 passport.use(facebookTokenStrategy);
@@ -32,7 +30,7 @@ router.post("/facebook/token",
 
 /* POST signup  */
 router.post('/signup',
-  //validate user input
+  //validate user input with express-validator
   body("email")
     .trim()
     .isEmail()
@@ -69,7 +67,9 @@ router.post('/signup',
       try {
         // check if email is already in use
         const exists = await User.findOne({ email: req.body.email })
-        if (exists) return res.status(409).json({ message: "A user has already registered with that email." })
+        if (exists) {
+          return res.status(409).json({ message: "A user has already registered with that email." })
+        } 
 
         // data is valid, store data as new user in db
         var { email, password, firstName, lastName } = req.body;
@@ -87,7 +87,7 @@ router.post('/signup',
   }
 );
 
-/* POST login */ //NOTE - something wierd is happenning in here, testing needed...
+/* POST login */
 router.post('/login',
   //validate user input
   body("email")
@@ -100,7 +100,6 @@ router.post('/login',
     .isLength({ min: 6 })
     .escape()
     .withMessage("Password must be at least 6 characters long."),
-
 
   async (req, res, next) => {
     // extract the validation errors from request.
@@ -115,9 +114,9 @@ router.post('/login',
       });
     } else {
       try {
-        // validation passed, proceed to check credentials
+        // proceed to check credentials
         let { email, password } = req.body;
-        //check if email is in DB
+        // check if email is in DB
         User.findOne({ email: email }, (err, user) => {
           if (err) {
             console.log('--there was an error--');
@@ -130,7 +129,6 @@ router.post('/login',
 
           bcrypt.compare(password, user.password, (err, response) => {
             if (err) {
-              // handle error
               console.log('--there was an error!--');
               return res.status(500).json({ message: "there was an error!" })
             }
@@ -138,12 +136,8 @@ router.post('/login',
               //passwords match, create token and send to client
               console.log('--passwords match!--');
               const token = generateJWT(user);
+              return res.status(200).json({ message: "Login success!", token, user })
 
-              return res.status(200).json({
-                message: "Login success!",
-                token,
-                user,
-              })
             } else {
               // passwords do not match!
               console.log('--passwords do not match!--');
@@ -163,8 +157,7 @@ router.post('/testuser', function (req, res, next) {
   // find user that matches .env test user credentials
   const email = process.env.TEST_EMAIL;
   const password = process.env.TEST_PASSWORD;
-  console.log(email, password);
-  //check if email is in DB
+  // check if email is in DB
   User.findOne({ email: email }, (err, user) => {
     if (err) {
       console.log('--there was an error--');
@@ -177,20 +170,16 @@ router.post('/testuser', function (req, res, next) {
 
     bcrypt.compare(password, user.password, (err, response) => {
       if (err) {
-        // handle error
         console.log('--there was an error!--');
         return res.status(500).json({ message: "there was an error!" })
       }
       if (response) {
-        //passwords match, create token and send to client
+        // passwords match, create token and send to client
         console.log('--passwords match!--');
         const token = generateJWT(user);
 
-        return res.status(200).json({
-          message: "Login success!",
-          token,
-          user,
-        })
+        return res.status(200).json({ message: "Login success!", token, user })
+
       } else {
         // passwords do not match!
         console.log('--passwords do not match!--');

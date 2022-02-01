@@ -1,16 +1,13 @@
-var express = require('express');
-var router = express.Router({ mergeParams: true });
-const passport = require('passport');
-const User = require('../../models/user');
-const Comment = require('../../models/comment');
-const Post = require('../../models/post');
-const getToken = require('../../utils/getToken')
+const express = require('express');
+const router = express.Router({ mergeParams: true });
 const { body, validationResult } = require("express-validator");
+const passport = require('passport');
+const getToken = require('../../utils/getToken')
+const Post = require('../../models/post');
+const Comment = require('../../models/comment');
 
 // user must have a valid token to access routes below this point
-router.use(
-  passport.authenticate(["jwt", "facebook-token"], { session: false })
-);
+router.use(passport.authenticate(["jwt", "facebook-token"], { session: false }));
 router.use(getToken);
 
 /* POST comment */
@@ -41,9 +38,8 @@ router.post('/',
     }
   });
 
-/* DELETE comment */
+/* DELETE comment (not used) */
 router.delete('/:id', async (req, res, next) => {
-  // res.json({ message: "DELETE comment - not implemented" })
   try {
     const currentUserId = req.payload.id;
     const comment = await Comment.findById(req.params.id)

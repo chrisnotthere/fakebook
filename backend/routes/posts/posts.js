@@ -1,23 +1,20 @@
-var express = require('express');
-var router = express.Router();
-const commentsRouter = require('./comments');
-var Post = require("../../models/post");
-var User = require("../../models/user");
-var Comment = require("../../models/comment");
+const express = require('express');
+const router = express.Router();
+const { body, validationResult } = require("express-validator");
 const passport = require('passport');
 const getToken = require('../../utils/getToken')
-const { body, validationResult } = require("express-validator");
+const Post = require("../../models/post");
+const User = require("../../models/user");
+const commentsRouter = require('./comments');
 
-// router.use('/comments', commentsRouter);
 router.use("/:postId/comments", commentsRouter);
-
+// user must have a valid token to access routes
 router.use(passport.authenticate(["jwt", "facebook-token"], { session: false }));
 router.use(getToken);
 
-/* GET timeline posts */
+/* GET timeline posts (self posts and posts of friends) */
 router.get('/', async (req, res, next) => {
   try {
-    // list of timeline posts - (self posts and posts of friends)
     const currentUser = await User.findById(req.payload.id);
     const timelinePosts = await Post.find({ user: [req.payload.id, ...currentUser.friends] })
       .sort("-timestamp")
@@ -35,7 +32,6 @@ router.get('/', async (req, res, next) => {
 /* GET posts belonging to specific user */
 router.get('/:id', async (req, res, next) => {
   try {
-    // list of user's posts - (self posts only)
     const currentUser = await User.findById(req.params.id);
     const userPosts = await Post.find({ user: req.params.id })
       .sort("-timestamp")
@@ -55,7 +51,6 @@ router.get('/:id', async (req, res, next) => {
 router.post('/',
   body('text', 'Your post must contain text.').trim().isLength({ min: 1 }),
   async (req, res, next) => {
-    // check that the post contains text
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -68,52 +63,16 @@ router.post('/',
 
       // check if saved post is now in the db
       const foundPost = await Post.findById(savedPost._id);
-      if (foundPost) return res.status(201).json({ message: 'Post saved!', foundPost });
-      else res.status(500).json({ message: "Oops, something went wrong." });
-
+      if (foundPost) {
+        return res.status(201).json({ message: 'Post saved!', foundPost });
+      } else {
+        return res.status(500).json({ message: "Oops, something went wrong." });
+      }
     } catch (error) {
       return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
     }
   });
 
-// /* GET specific post - must be the creator or a friend to see the post*/
-// // NOTE: this requires testing
-// router.get('/:id', async (req, res, next) => {
-//   // res.json({ message: "POST get a single post" })
-//   try {
-//     const currentUserId = req.payload.id;
-//     const currentUser = await User.findById(req.payload.id).populate('friends');
-//     const post = await Post.findById(req.params.id)
-//       .populate({ path: 'user', select: 'firstName lastName' })
-//       .populate({ path: 'comments', select: 'user text likes' })
-//       .populate({ path: 'likes', select: 'firstName lastName' });
-
-//     // check if post exists
-//     if (!post) {
-//       return res.status(404).json({ message: 'Post not found' })
-//     }
-//     // console.log('current-----' + currentUser)
-//     // console.log('post.user ----------' + post.user.id)
-//     // console.log(post.user.id == currentUserId)
-//     // console.log(currentUser.friends.includes(post.user.id))
-//     // check if currentUser has permission to view post
-//     if (post.user.id == currentUserId || currentUser.friends.includes(post.user)) {
-//       // return the post 
-//       return res.status(200).json({ post })
-
-//     } else {
-//       return res.status(401).json({ message: "You must be friends with the creator to view this post" });
-//     }
-//   } catch (error) {
-//     return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
-//   }
-// });
-
-/* PUT update post */
-// LOW PRIORITY
-router.put('/:id', async (req, res, next) => {
-  res.json({ message: "PUT edit post" })
-});
 
 /* PUT like/unlike toggle */
 router.put('/:id/like', async (req, res, next) => {
@@ -124,11 +83,11 @@ router.put('/:id/like', async (req, res, next) => {
     if (!post) {
       return res.status(404).json({ message: 'Post not found' })
     }
-    //un-like if post already liked
+    // un-like if post already liked
     if (post.likes.includes(currentUserId)) {
       const postLikes = [...post.likes];
       const updatedPostLikes = postLikes.filter((likeId) => likeId != currentUserId);
-
+      
       post.likes = updatedPostLikes;
       const updatedPost = await post.save()
 
@@ -161,8 +120,8 @@ router.delete('/:id', async (req, res, next) => {
     }
     // delete the post
     const deletedPost = await Post.findByIdAndDelete(req.params.id);
-    if(deletedPost) {
-      return res.status(201).json({ message: 'Post has been deleted.'})
+    if (deletedPost) {
+      return res.status(201).json({ message: 'Post has been deleted.' })
     }
   } catch (error) {
     return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });

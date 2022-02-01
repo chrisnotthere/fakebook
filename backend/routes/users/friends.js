@@ -1,13 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const passport = require('passport');
-const User = require('../../models/user');
 const getToken = require('../../utils/getToken')
+const User = require('../../models/user');
 
-// user must have a valid token to access routes below this point
-router.use(
-  passport.authenticate(['jwt', 'facebook-token'], { session: false })
-);
+// user must have a valid token to access routes
+router.use(passport.authenticate(['jwt', 'facebook-token'], { session: false }));
 router.use(getToken);
 
 /* POST friend request */
@@ -18,17 +16,14 @@ router.post('/req/:targetUserId', async (req, res, next) => {
     const currentUser = await User.findById(currentUserId);
     const targetUser = await User.findById(targetUserId);
 
-    // currentUser is same as targetUser
     if (currentUserId === targetUserId) {
       return res.status(400).json({ message: 'You cannot friend request yourself.' })
     }
 
-    // currentUser and targetUser are already friends
     if (currentUser.friends.includes(targetUserId)) {
       return res.status(400).json({ message: 'You are already friends with this user.' })
     }
 
-    // currentUser has already sent a friend request
     if (targetUser.friendRequests.includes(currentUserId)) {
       return res.status(400).json({ message: 'You have already sent a friend request.' })
     }
@@ -37,7 +32,7 @@ router.post('/req/:targetUserId', async (req, res, next) => {
     const updatedTargetUserFriendRequests = [...targetUser.friendRequests, currentUserId];
     targetUser.friendRequests = updatedTargetUserFriendRequests;
     const updatedTargetUser = await targetUser.save();
-    return res.status(201).json({ message: 'Friend request sent success!', potentialFriend: updatedTargetUser })
+    return res.status(201).json({ message: 'Friend request sent!', potentialFriend: updatedTargetUser })
 
   } catch (error) {
     return res.status(500).json({ message: 'Oops, something went wrong.', error: error.message });
@@ -49,10 +44,8 @@ router.delete('/req/:targetUserId', async (req, res, next) => {
   const currentUserId = req.payload.id;
   const targetUserId = req.params.targetUserId;
   try {
-    //const currentUser = await User.findById(currentUserId);
     const targetUser = await User.findById(targetUserId);
 
-    // check currentUser isnt same as targetUser
     if (currentUserId === targetUserId) {
       return res.status(400).json({ message: 'You cannot friend request yourself.' })
     }
@@ -61,7 +54,7 @@ router.delete('/req/:targetUserId', async (req, res, next) => {
     const updatedTargetUserFriendRequests = targetUser.friendRequests.filter((user) => user != currentUserId);
     targetUser.friendRequests = updatedTargetUserFriendRequests;
     const updatedTargetUser = await targetUser.save();
-    return res.status(201).json({ message: 'Friend request removed successfully.', potentialFriend: updatedTargetUser })
+    return res.status(201).json({ message: 'Friend request removed.', potentialFriend: updatedTargetUser })
 
   } catch (error) {
     return res.status(500).json({ message: 'Oops, something went wrong.', error: error.message });
@@ -76,20 +69,16 @@ router.post('/accept/:newFriendId', async (req, res, next) => {
     const currentUser = await User.findById(currentUserId);
     const newFriend = await User.findById(newFriendId);
 
-    // check if friend request exists
     if (!currentUser.friendRequests.includes(newFriendId)) {
       return res.status(400).json({ message: 'Friend request not found.' })
     }
 
-    // check if currentUser and newFriend are already friends
     if (currentUser.friends.includes(newFriendId)) {
       return res.status(400).json({ message: 'You are already friends with this user.' })
     }
 
     // remove friend request 
     const updatedFriendRequests = currentUser.friendRequests.filter((friendRequest) => friendRequest != newFriendId);
-    console.log('fr', currentUser.friendRequests)
-    console.log('nf', newFriendId)
     currentUser.friendRequests = updatedFriendRequests;
     await currentUser.save();
 
@@ -112,14 +101,13 @@ router.post('/accept/:newFriendId', async (req, res, next) => {
   }
 });
 
-/* POST decline friend request */
+/* POST decline friend request (not used) */
 router.post('/decline/:rejectedFriendId', async (req, res, next) => {
   const currentUserId = req.payload.id;
   const rejectedFriendId = req.params.rejectedFriendId;
   try {
     const currentUser = await User.findById(currentUserId);
 
-    // check if request exists
     if (!currentUser.friendRequests.includes(rejectedFriendId)) {
       return res.status(400).json({ message: 'Friend request not found.' })
     }
@@ -139,14 +127,12 @@ router.post('/decline/:rejectedFriendId', async (req, res, next) => {
 
 /* DELETE remove friend  */
 router.delete('/remove/:removedFriendId', async (req, res, next) => {
-  // res.json({ message: 'DELETE friend/un-friend' })
   const currentUserId = req.payload.id;
   const removedFriendId = req.params.removedFriendId;
   try {
     const currentUser = await User.findById(currentUserId);
     const removedFriend = await User.findById(removedFriendId);
 
-    // check if currentUser and removedFriend are actually friends
     if (!currentUser.friends.includes(removedFriendId)) {
       return res.status(400).json({ message: 'You must be friends to remove a friend.' })
     }
@@ -170,44 +156,18 @@ router.delete('/remove/:removedFriendId', async (req, res, next) => {
   }
 });
 
-// Add users to friendRequest list
+/* POST add users to friendRequest list  */
 router.post('/populate', async (req, res, next) => {
   const currentUserId = req.payload.id;
   let otherUserList = [];
   try {
     const currentUser = await User.findById(currentUserId);
     const otherUsers = await User.find();
-    // otherUserList = otherUsers.filter((u) => u.id != currentUser.id && u.firstName!= 'FakeBook' );
     otherUserList = otherUsers.filter((u) => u.id != currentUser.id );
     currentUser.friendRequests = otherUserList.map((u) => u._id);
     await currentUser.save();
 
     return res.status(201).json({ message: 'Friend Request list populated', currentUser })
-
-  } catch (error) {
-    return res.status(500).json({ message: 'Oops, something went wrong.', error: error.message });
-  }
-});
-
-// Add FB Official to friends list
-router.post('/addfriend', async (req, res, next) => {
-  const currentUserId = req.payload.id;
-  try {
-    const currentUser = await User.findById(currentUserId);
-    const FBuser = await User.findOne({ firstName: 'FakeBook' });
-    const FBuserId = FBuser._id;
-
-    // add FBuser to currentUser friend list
-    const updatedCurrentUserFriends = [...currentUser.friends, FBuserId];
-    currentUser.friends = updatedCurrentUserFriends;
-    await currentUser.save();
-
-    // add currentUser to FBuser friend list
-    const updatedFBuserFriends = [...FBuser.friends, currentUserId];
-    FBuser.friends = updatedFBuserFriends;
-    await FBuser.save();
-
-    return res.status(201).json({ message: 'FakeBook added to friends!', currentUser, FBuser })
 
   } catch (error) {
     return res.status(500).json({ message: 'Oops, something went wrong.', error: error.message });
