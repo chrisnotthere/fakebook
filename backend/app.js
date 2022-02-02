@@ -18,18 +18,6 @@ const postRouter = require('./routes/posts/posts');
 const app = express();
 
 app.use(bodyParser.json());
-
-// define routes
-app.use('/auth', authRouter);
-app.use('/users', userRouter);
-app.use('/posts', postRouter);
-
-// handle 404 
-app.use(function (req, res, next) {
-  res.status(404);
-  res.send('404: File Not Found');
-});
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -41,13 +29,23 @@ app.use(helmet());        // helps protect against vulnerabilites
 const whitelist = ['http://localhost:3000', 'https://chrisnotthere.github.io'];
 const corsOptions = {
   credentials: true, // This is important.
-  origin: (origin, callback) => {
-    if(whitelist.includes(origin))
-      return callback(null, true)
-      callback(new Error('Not allowed by CORS'));
+  origin: true,
+  // origin: (origin, callback) => {
+    //   if(whitelist.includes(origin))
+    //     return callback(null, true)
+    //     callback(new Error('Not allowed by CORS'));
+    // }
   }
-}
-app.use(cors(corsOptions));
-
-
+  app.use(cors(corsOptions));
+  
+  // define routes
+  app.use('/auth', authRouter);
+  app.use('/users', userRouter);
+  app.use('/posts', postRouter);
+  // handle 404 
+  app.use(function (req, res, next) {
+    res.status(404);
+    res.send('404: File Not Found');
+  });
+  
 module.exports = app;
