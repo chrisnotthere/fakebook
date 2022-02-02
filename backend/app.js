@@ -26,26 +26,20 @@ app.use(cookieParser());
 app.use(compression());   // compress all routes
 app.use(helmet());        // helps protect against vulnerabilites
 
-const whitelist = ['http://localhost:3000', 'https://chrisnotthere.github.io'];
 const corsOptions = {
   credentials: true, // This is important.
   origin: true,
-  // origin: (origin, callback) => {
-    //   if(whitelist.includes(origin))
-    //     return callback(null, true)
-    //     callback(new Error('Not allowed by CORS'));
-    // }
-  }
-  app.use(cors(corsOptions));
-  
-  // define routes
-  app.use('/auth', authRouter);
-  app.use('/users', userRouter);
-  app.use('/posts', postRouter);
-  // handle 404 
-  app.use(function (req, res, next) {
-    res.status(404);
-    res.send('404: File Not Found');
-  });
-  
+}
+app.use(cors(corsOptions));
+
+// define routes
+app.use('/auth', authRouter);
+app.use('/users', userRouter);
+app.use('/posts', postRouter);
+// handle 404 
+app.use(function (req, res, next) {
+  res.status(404);
+  res.send('404: File Not Found');
+});
+
 module.exports = app;
