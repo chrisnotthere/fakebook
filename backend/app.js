@@ -34,8 +34,20 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors);
+// app.use(cors);
 app.use(compression());   // compress all routes
 app.use(helmet());        // helps protect against vulnerabilites
+
+const whitelist = ['http://localhost:3000', 'https://chrisnotthere.github.io'];
+const corsOptions = {
+  credentials: true, // This is important.
+  origin: (origin, callback) => {
+    if(whitelist.includes(origin))
+      return callback(null, true)
+      callback(new Error('Not allowed by CORS'));
+  }
+}
+app.use(cors(corsOptions));
+
 
 module.exports = app;
