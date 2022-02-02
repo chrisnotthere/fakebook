@@ -30,6 +30,8 @@ This is a solution to a [project](https://www.theodinproject.com/paths/full-stac
 * At times features like create post, like, accept friend request return 401:Unauthorized
   * Sometimes this is fixed after a refresh or logout/login
 * Auto populate friend requests for sign in with Facebook and Guest Account not working
+* Too many database calls. I hope to learn about caching to remedy this
+* Logging too verbose, this may be a security concern
 
 #### TODO ####
 * Jest unit testing
