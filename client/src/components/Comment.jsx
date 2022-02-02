@@ -49,7 +49,8 @@ function Comment({ comment, post }) {
             </div>
             <div className="commentLikes">
               {/* <img className="likeIcon" src={PF + "/like.png"} onClick={() => likeHandler()} alt="" /> */}
-              <img className="likeIcon" src={likeIcon} onClick={() => likeHandler()} alt="" />
+              {/* <img className="likeIcon" src={likeIcon} onClick={() => likeHandler()} alt="" /> */}
+              <img className="likeIcon" src={"/assets/like.png"} onClick={() => likeHandler()} alt="" />
               <p>{like} likes</p>
             </div>
           </div>
