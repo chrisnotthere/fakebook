@@ -9,11 +9,11 @@ import CommentForm from './CommentForm'
 import { PostContainer } from "./styles/Post.styled";
 
 function Post({ post, setPost, user, setUser, profileUser }) {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [like, setLike] = useState(post.likes.length);
 
   const handleDeletePost = () => {
-    try{
+    try {
       axios.delete(`posts/${post._id}/`)
       window.location.reload();
     } catch (err) {
@@ -63,7 +63,7 @@ function Post({ post, setPost, user, setUser, profileUser }) {
 
           <div className="postTopRight">
             {user.id === profileUser.id
-              ? <Delete style={{color: 'rgb(235, 57, 57)', cursor: 'pointer'}} onClick ={() => handleDeletePost()} />
+              ? <Delete style={{ color: 'rgb(235, 57, 57)', cursor: 'pointer' }} onClick={() => handleDeletePost()} />
               : <MoreVert />
             }
           </div>
@@ -77,7 +77,8 @@ function Post({ post, setPost, user, setUser, profileUser }) {
 
         <div className="postBottom">
           <div className="postBottomLeft">
-            <img className="likeIcon" src={PF + "/like.png"} onClick={() => likeHandler(post._id)} alt="" />
+            <img className="likeIcon" src={'/assets/like.png'} onClick={() => likeHandler(post._id)} alt="" />
+            {/* <img className="likeIcon" src={PF + "/like.png"} onClick={() => likeHandler(post._id)} alt="" /> */}
             <span className="postLikeCounter">{like} people like it</span>
           </div>
           <div className="postBottomRight">

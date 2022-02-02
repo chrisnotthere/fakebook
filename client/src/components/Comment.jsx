@@ -6,7 +6,7 @@ import { CommentContainer } from "./styles/Comment.styled";
 
 function Comment({ comment, post }) {
   const [commentUser, setCommentUser] = useState();
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [like, setLike] = useState(comment.likes.length);
 
   const likeHandler = () => {
@@ -47,7 +47,8 @@ function Comment({ comment, post }) {
               {comment.text}
             </div>
             <div className="commentLikes">
-              <img className="likeIcon" src={PF + "/like.png"} onClick={() => likeHandler()} alt="" />
+              {/* <img className="likeIcon" src={PF + "/like.png"} onClick={() => likeHandler()} alt="" /> */}
+              <img className="likeIcon" src={"/assets/like.png"} onClick={() => likeHandler()} alt="" />
               <p>{like} likes</p>
             </div>
           </div>
