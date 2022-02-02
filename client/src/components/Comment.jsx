@@ -5,14 +5,14 @@ import { useEffect } from "react";
 import { CommentContainer } from "./styles/Comment.styled";
 // import likeIcon from '../../public/assets/like.png'
 
-function Comment({ comment, post }) {
+function Comment({ comment, post, user }) {
   const [commentUser, setCommentUser] = useState();
   // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [like, setLike] = useState(comment.likes.length);
 
   const likeHandler = () => {
     try {
-      axios.put(`/posts/${post._id}/comments/${comment._id}/like`)
+      axios.put(`/posts/${post._id}/comments/${comment._id}/like`, { headers: { "Authorization": user.token } })
         .then((result) => {
           setLike(result.data.comment.likes.length);
         });
@@ -22,7 +22,7 @@ function Comment({ comment, post }) {
   useEffect(() => {
     const getCommentUser = async () => {
       try {
-        const commentUser = await axios.get(`/users/${comment.user}`)
+        const commentUser = await axios.get(`/users/${comment.user}`, { headers: { "Authorization": user.token } })
         setCommentUser(commentUser.data.user)
       } catch (err) {
         console.log(err)
@@ -50,7 +50,7 @@ function Comment({ comment, post }) {
             <div className="commentLikes">
               {/* <img className="likeIcon" src={PF + "/like.png"} onClick={() => likeHandler()} alt="" /> */}
               {/* <img className="likeIcon" src={likeIcon} onClick={() => likeHandler()} alt="" /> */}
-              <img className="likeIcon" src={"/assets/like.png"} onClick={() => likeHandler()} alt="" />
+              <img className="likeIcon" src={"/fakebook/assets/like.png"} onClick={() => likeHandler()} alt="" />
               <p>{like} likes</p>
             </div>
           </div>

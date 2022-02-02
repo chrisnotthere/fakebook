@@ -4,11 +4,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FriendContainer } from './styles/Friend.styled';
 
-function Friend({ friend, myFriends, setRemovedFriend }) {
+function Friend({ friend, myFriends, setRemovedFriend, user }) {
 
   const handleRemoveFriend = async () => {
     try {
-      await axios.delete(`/users/friends/remove/${friend._id}`);
+      await axios.delete(`/users/friends/remove/${friend._id}`, { headers: { "Authorization": user.token } });
       setRemovedFriend(true);
     } catch (err) {
       console.log(err)

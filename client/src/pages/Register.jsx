@@ -59,7 +59,7 @@ function Register({ user, setUser }) {
 
   const populateFriendRequests = async () => {
     try {
-      await axios.post(`/users/friends/populate`);
+      await axios.post(`/users/friends/populate`, { headers: { "Authorization": user.token } });
     } catch (err) {
       console.log(err)
     }

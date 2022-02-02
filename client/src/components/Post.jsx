@@ -15,7 +15,7 @@ function Post({ post, setPost, user, setUser, profileUser }) {
 
   const handleDeletePost = () => {
     try {
-      axios.delete(`posts/${post._id}/`)
+      axios.delete(`posts/${post._id}/`, { headers: { "Authorization": user.token } })
       window.location.reload();
     } catch (err) {
       console.log(err)
@@ -24,7 +24,7 @@ function Post({ post, setPost, user, setUser, profileUser }) {
 
   const likeHandler = () => {
     try {
-      axios.put("/posts/" + post._id + "/like")
+      axios.put("/posts/" + post._id + "/like", { headers: { "Authorization": user.token } })
         .then((result) => {
           setLike(result.data.post.likes.length);
         });
@@ -79,7 +79,7 @@ function Post({ post, setPost, user, setUser, profileUser }) {
         <div className="postBottom">
           <div className="postBottomLeft">
             {/* <img className="likeIcon" src={likeIcon} onClick={() => likeHandler(post._id)} alt="" /> */}
-            <img className="likeIcon" src={"/assets/like.png"} onClick={() => likeHandler(post._id)} alt="" />
+            <img className="likeIcon" src={"/fakebook/assets/like.png"} onClick={() => likeHandler(post._id)} alt="" />
             {/* <span className="postLikeCounter">{like} people like it</span> */}
           </div>
           <div className="postBottomRight">

@@ -23,7 +23,7 @@ function MyFriends({ user, setUser }) {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendList = await axios.get(`/users/${user.id}/friendList/`);
+        const friendList = await axios.get(`/users/${user.id}/friendList/`, { headers: { "Authorization": user.token } });
         setFriends(friendList.data.friendList);
       } catch (err) {
         console.log(err);

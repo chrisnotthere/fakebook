@@ -4,11 +4,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FriendRequestContainer } from './styles/FriendRequest.styled';
 
-function FriendRequest({ friendReq, setAcceptFriendReq }) {
+function FriendRequest({ friendReq, setAcceptFriendReq, user }) {
 
   const handleAcceptRequest = async () => {
     try {
-      await axios.post(`/users/friends/accept/${friendReq._id}`);
+      await axios.post(`/users/friends/accept/${friendReq._id}`, { headers: { "Authorization": user.token } });
       setAcceptFriendReq(true);
       window.location.reload();
     } catch (err) {

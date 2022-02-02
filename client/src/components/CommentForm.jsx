@@ -14,7 +14,7 @@ function CommentForm({ user, setUser, post, setPost}) {
       text: content,
     };
     try {
-      await axios.post(`/posts/${post._id}/comments`, newComment);
+      await axios.post(`/posts/${post._id}/comments`, { headers: { "Authorization": user.token } }, newComment);
       window.location.reload();
     } catch (err) {
       console.log(err);

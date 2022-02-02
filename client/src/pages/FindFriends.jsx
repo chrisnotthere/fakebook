@@ -22,7 +22,7 @@ function FindFriends({ user, setUser }) {
   useEffect(() => {
     const getNonFriends = async () => {
       try {
-        const nonFriends = await axios.get(`/users/${user.id}/nonFriends/`);
+        const nonFriends = await axios.get(`/users/${user.id}/nonFriends/`, { headers: { "Authorization": user.token } });
         setNonFriends(nonFriends.data.nonFriends);
       } catch (err) {
         console.log(err);

@@ -20,7 +20,7 @@ function PostForm({ user, setUser }) {
       image: postImage,
     }
     try {
-      await axios.post("/posts", newPost);
+      await axios.post("/posts", { headers: { "Authorization": user.token } }, newPost);
       window.location.reload();
     } catch (err) { }
   }

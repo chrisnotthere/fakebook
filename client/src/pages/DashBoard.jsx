@@ -15,14 +15,14 @@ function DashBoard({ user, setUser }) {
     const populateFriendRequests = async () => {
       console.log('user.id', user.id)
       try {
-        const api = await axios.get(`/users/${user.id}`)
+        const api = await axios.get(`/users/${user.id}`, { headers: { "Authorization": user.token } })
         const currentUser = api.data.user;
         console.log(currentUser.friends.length)
         console.log(currentUser.friendRequests.length)
 
         // populate friendRequests if user has no friends and no friend requests
         if (((!currentUser.friends.length > 0) && (!currentUser.friendRequests.length > 0))) {
-          await axios.post(`/users/friends/populate`);
+          await axios.post(`/users/friends/populate`, { headers: { "Authorization": user.token } });
           window.location.reload();
         }
       } catch (err) {

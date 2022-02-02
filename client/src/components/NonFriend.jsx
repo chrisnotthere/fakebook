@@ -14,7 +14,7 @@ function NonFriend({ nonFriend, user }) {
   useEffect(() => {
     const findRequestStatus = async () => {
       try {
-        const nonFriendUser = await axios.get(`/users/${nonFriend.id}`);
+        const nonFriendUser = await axios.get(`/users/${nonFriend.id}`, { headers: { "Authorization": user.token } });
         const nonFriendUserFriendRequests = nonFriendUser.data.user.friendRequests;
 
         if (nonFriendUserFriendRequests.includes(user.id)) {
@@ -33,7 +33,7 @@ function NonFriend({ nonFriend, user }) {
 
   const handleSendFriendRequest = async () => {
     try {
-      await axios.post(`/users/friends/req/${nonFriend.id}`);
+      await axios.post(`/users/friends/req/${nonFriend.id}`, { headers: { "Authorization": user.token } });
       setSentFriendReq(true)
     } catch (err) {
       console.log(err);
@@ -42,7 +42,7 @@ function NonFriend({ nonFriend, user }) {
 
   const handleCancelRequest = async () => {
     try {
-      await axios.delete(`/users/friends/req/${nonFriend.id}`);
+      await axios.delete(`/users/friends/req/${nonFriend.id}`, { headers: { "Authorization": user.token } });
       setSentFriendReq(false)
     } catch (err) {
       console.log(err);

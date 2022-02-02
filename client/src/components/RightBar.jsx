@@ -26,8 +26,8 @@ function RightBar({ user, profileUser }) {
     const getFriends = async () => {
       try {
         const friendList = params.id
-          ? await axios.get(`/users/${params.id}/friendList/`)
-          : await axios.get(`/users/${user.id}/friendList/`);
+          ? await axios.get(`/users/${params.id}/friendList/`, { headers: { "Authorization": user.token } })
+          : await axios.get(`/users/${user.id}/friendList/`, { headers: { "Authorization": user.token } });
 
         setFriends(friendList.data);
       } catch (err) {
@@ -36,7 +36,7 @@ function RightBar({ user, profileUser }) {
     };
     const getFriendRequests = async () => {
       try {
-        const friendRequestList = await axios.get(`/users/${user.id}/friendRequests/`);
+        const friendRequestList = await axios.get(`/users/${user.id}/friendRequests/`, { headers: { "Authorization": user.token } });
         setFriendRequests(friendRequestList.data.friendRequestList);
       } catch (err) {
         console.log(err);
@@ -52,13 +52,13 @@ function RightBar({ user, profileUser }) {
         <h4 className="rightbarTitle">Friend Requests</h4>
         <ul className="rightbarFriendRequests">
           {friendRequests.map(u => (
-            <FriendRequest key={u._id} friendReq={u} setAcceptFriendReq={setAcceptFriendReq} />
+            <FriendRequest key={u._id} friendReq={u} setAcceptFriendReq={setAcceptFriendReq} user={user} />
           ))}
         </ul>
         <h4 className="rightbarTitle">Friends</h4>
         <ul className="rightbarFriends">
           {friends.friendList?.map(u => (
-            <Friend key={u._id} friend={u} />
+            <Friend key={u._id} friend={u} user={user} />
           ))}
         </ul>
       </RightBarContainer>
@@ -71,7 +71,7 @@ function RightBar({ user, profileUser }) {
         <h4 className="rightbarTitle">Friends of {profileUser.firstName}</h4>
         <ul className="rightbarFriends">
           {friends.friendList?.map(u => (
-            <Friend key={u._id} friend={u} />
+            <Friend key={u._id} friend={u} user={user} />
           ))}
         </ul>
       </RightBarContainer>
