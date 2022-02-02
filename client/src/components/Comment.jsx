@@ -3,7 +3,7 @@ import axios from '../utils/axios'
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { CommentContainer } from "./styles/Comment.styled";
-import likeIcon from '../../public/assets/like.png'
+// import likeIcon from '../../public/assets/like.png'
 
 function Comment({ comment, post }) {
   const [commentUser, setCommentUser] = useState();

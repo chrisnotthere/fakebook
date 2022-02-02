@@ -7,7 +7,7 @@ import moment from 'moment'
 import Comment from "./Comment";
 import CommentForm from './CommentForm'
 import { PostContainer } from "./styles/Post.styled";
-import likeIcon from '../../public/assets/like.png'
+// import likeIcon from '../../public/assets/like.png'
 
 function Post({ post, setPost, user, setUser, profileUser }) {
   // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -78,7 +78,7 @@ function Post({ post, setPost, user, setUser, profileUser }) {
 
         <div className="postBottom">
           <div className="postBottomLeft">
-            <img className="likeIcon" src={likeIcon} onClick={() => likeHandler(post._id)} alt="" />
+            {/* <img className="likeIcon" src={likeIcon} onClick={() => likeHandler(post._id)} alt="" /> */}
             <img className="likeIcon" src={"/assets/like.png"} onClick={() => likeHandler(post._id)} alt="" />
             {/* <span className="postLikeCounter">{like} people like it</span> */}
           </div>
