@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import axios from '../utils/axios'
 import { useEffect, useState } from "react";
 import Friend from "../components/Friend";
 import NavBar from "../components/NavBar";

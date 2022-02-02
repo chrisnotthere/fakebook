@@ -4,7 +4,8 @@ import UserNav from '../components/UserNav';
 import Feed from '../components/Feed';
 import RightBar from '../components/RightBar';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '../utils/axios'
 
 function DashBoard({ user, setUser }) {
   const navigate = useNavigate();

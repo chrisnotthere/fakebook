@@ -8,7 +8,8 @@ const Facebook = ({ user, setUser }) => {
   const handleFBLogin = (accessToken) => {
     const url = '/auth/facebook/token';
     fetch(url, {
-      method: 'POST',
+      method: 'POST', 
+      mode: 'cors',
       // credentials: 'include',
       headers: {
         'Content-Type': 'application/json',

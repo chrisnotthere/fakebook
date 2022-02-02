@@ -2,7 +2,8 @@ import FriendRequest from "./FriendRequest";
 import Friend from "./Friend";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import axios from '../utils/axios'
 import { RightBarContainer } from "./styles/RightBar.styled";
 
 function RightBar({ user, profileUser }) {

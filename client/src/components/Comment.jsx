@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import axios from '../utils/axios'
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { CommentContainer } from "./styles/Comment.styled";

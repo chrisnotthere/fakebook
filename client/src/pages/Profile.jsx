@@ -3,7 +3,8 @@ import UserNav from "../components/UserNav";
 import Feed from "../components/Feed";
 import RightBar from "../components/RightBar";
 import { useState, useEffect } from "react";
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '../utils/axios'
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import { ProfileContainer } from "../components/styles/Profile.styled";

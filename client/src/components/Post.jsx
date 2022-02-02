@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MoreVert, Delete } from "@material-ui/icons";
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '../utils/axios'
 import { Link } from "react-router-dom";
 import moment from 'moment'
 import Comment from "./Comment";

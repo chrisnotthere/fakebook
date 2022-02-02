@@ -1,7 +1,8 @@
 import PostForm from "./PostForm";
 import Post from "./Post";
 import { useState, useEffect } from "react";
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '../utils/axios'
 import { useParams } from "react-router-dom";
 import { FeedContainer } from "./styles/Feed.styled";
 

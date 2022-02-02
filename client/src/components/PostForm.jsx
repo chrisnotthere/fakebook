@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import axios from '../utils/axios'
 import { PostFormContainer } from "./styles/PostForm.styled";
 import { BurstMode } from "@material-ui/icons";
 
