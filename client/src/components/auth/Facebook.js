@@ -1,32 +1,48 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { useNavigate } from 'react-router-dom';
+import axios from '../utils/axios'
 
 const Facebook = ({ user, setUser }) => {
   const navigate = useNavigate();
 
   const handleFBLogin = (accessToken) => {
-    const url = '/auth/facebook/token';
-    fetch(url, {
-      method: 'POST', 
-      mode: 'cors',
-      // credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
-      }
-    }).then((result) => {
-      return result.json();
-    }).then(function (data) {
-      console.log('api response', data);
+    // const url = '/auth/facebook/token';
+    // fetch(url, {
+    //   method: 'POST',
+    //   mode: 'cors',
+    //   // credentials: 'include',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': `Bearer ${accessToken}`
+    //   }
+    // }).then((result) => {
+    //   return result.json();
+    // }).then(function (data) {
+    //   console.log('api response', data);
+    //   const user = {
+    //     email: data.user.email,
+    //     firstName: data.user.firstName,
+    //     lastName: data.user.lastName,
+    //     token: `Bearer ${accessToken}`,
+    //     id: data.user.id,
+    //     picture: data.user.picture,
+    //     facebookId: data.user.facebookId,
+    //   };
+    //   setUser(user);
+    //   navigate('/');
+    // });
+
+    axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    axios.post("/auth/facebook/token").then((result) => {
       const user = {
-        email: data.user.email,
-        firstName: data.user.firstName,
-        lastName: data.user.lastName,
+        email: result.data.user.email,
+        firstName: result.data.user.firstName,
+        lastName: result.data.user.lastName,
         token: `Bearer ${accessToken}`,
-        id: data.user.id,
-        picture: data.user.picture,
-        facebookId: data.user.facebookId,
+        id: result.data.user.id,
+        picture: result.data.user.picture,
+        facebookId: result.data.user.facebookId,
       };
       setUser(user);
       navigate('/');
