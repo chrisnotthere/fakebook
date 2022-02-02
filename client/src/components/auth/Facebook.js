@@ -1,7 +1,7 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { useNavigate } from 'react-router-dom';
-import axios from '../utils/axios'
+import axios from '../../utils/axios'
 
 const Facebook = ({ user, setUser }) => {
   const navigate = useNavigate();
