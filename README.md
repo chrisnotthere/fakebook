@@ -1,6 +1,6 @@
 # FakeBook
 
-[Live server](https://chrisnotthere.github.io/fakebook/login)
+[Live server](https://chrisnotthere.github.io/fakebook)
 
 FakeBook is a Facebook clone made with Node/Express, React, and MongoDB. The purpose of this project is to use a number of technologies together in one application.
 
