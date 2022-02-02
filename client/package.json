@@ -1,5 +1,4 @@
 {
-  "proxy": "https://fakebook-mernapp.herokuapp.com/",
   "homepage": "https://chrisnotthere.github.io/fakebook/",
   "name": "client",
   "version": "0.1.0",
