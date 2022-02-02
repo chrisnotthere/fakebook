@@ -1,13 +1,10 @@
-// import axios from "axios";
 import axios from '../utils/axios'
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { CommentContainer } from "./styles/Comment.styled";
-// import likeIcon from '../../public/assets/like.png'
 
 function Comment({ comment, post, user }) {
   const [commentUser, setCommentUser] = useState();
-  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [like, setLike] = useState(comment.likes.length);
 
   const likeHandler = () => {
@@ -48,8 +45,6 @@ function Comment({ comment, post, user }) {
               {comment.text}
             </div>
             <div className="commentLikes">
-              {/* <img className="likeIcon" src={PF + "/like.png"} onClick={() => likeHandler()} alt="" /> */}
-              {/* <img className="likeIcon" src={likeIcon} onClick={() => likeHandler()} alt="" /> */}
               <img className="likeIcon" src={"/fakebook/assets/like.png"} onClick={() => likeHandler()} alt="" />
               <p>{like} likes</p>
             </div>

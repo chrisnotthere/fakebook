@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { MoreVert, Delete } from "@material-ui/icons";
-// import axios from 'axios';
 import axios from '../utils/axios'
 import { Link } from "react-router-dom";
 import moment from 'moment'
 import Comment from "./Comment";
 import CommentForm from './CommentForm'
 import { PostContainer } from "./styles/Post.styled";
-// import likeIcon from '../../public/assets/like.png'
 
 function Post({ post, setPost, user, setUser, profileUser }) {
-  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [like, setLike] = useState(post.likes.length);
 
   const handleDeletePost = () => {
@@ -78,9 +75,8 @@ function Post({ post, setPost, user, setUser, profileUser }) {
 
         <div className="postBottom">
           <div className="postBottomLeft">
-            {/* <img className="likeIcon" src={likeIcon} onClick={() => likeHandler(post._id)} alt="" /> */}
             <img className="likeIcon" src={"/fakebook/assets/like.png"} onClick={() => likeHandler(post._id)} alt="" />
-            {/* <span className="postLikeCounter">{like} people like it</span> */}
+            <p>{like} likes</p>
           </div>
           <div className="postBottomRight">
             <span className="postCommentText">{post.comments.length} comments</span>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
 import axios from '../utils/axios'
 import { PostFormContainer } from "./styles/PostForm.styled";
 import { BurstMode } from "@material-ui/icons";
@@ -20,7 +19,7 @@ function PostForm({ user, setUser }) {
       image: postImage,
     }
     try {
-      await axios.post("/posts", { headers: { "Authorization": user.token } }, newPost);
+      await axios.post("/posts", newPost, { headers: { "Authorization": user.token } });
       window.location.reload();
     } catch (err) { }
   }
