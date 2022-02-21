@@ -6,6 +6,12 @@ export const PostFormContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 12rem;
+  }
+
+  .postformForm legend {
+    margin: 1rem 0;
+    font-size: 1.5rem;
   }
 
   .postformWelcome {
@@ -16,14 +22,14 @@ export const PostFormContainer = styled.div`
     background-color: ${({ theme }) => theme.colors.offgreen};
     border-radius: 1rem;
     padding: 2rem 2rem 4rem 2rem;
-    height: 5rem;
+    height: 8rem;
     width 100%
   }
 
   .postformTextArea textArea {
     width: 100%;
     border-radius: 0.5rem;
-    height: 4rem;
+    height: 6rem;
     border: none;
     resize: none;
     outline: none;
