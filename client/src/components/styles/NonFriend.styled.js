@@ -10,10 +10,14 @@ export const NonFriendContainer = styled.div`
     border-radius: 0.5rem;
     list-style: none;
     display: flex;
+    gap: 1.5rem;
     align-items: center;
+    flex-direction: column;
+    display: in-line;
+    width: 25rem;
     background-color: ${({ theme }) => theme.colors.offblue};
-    margin-bottom: 0.25rem;
-    padding: 0.25rem
+    margin: 0.25rem;
+    padding: 1.25rem;
   }
 
   .nonFriend:hover {
@@ -34,9 +38,9 @@ export const NonFriendContainer = styled.div`
   }
 
   .nonFriendProfileImg {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 125px;
+    height: 125px;
+    border-radius: 30%;
     object-fit: cover;
   }
 
