@@ -34,8 +34,9 @@ This is a solution to a [project](https://www.theodinproject.com/paths/full-stac
 * Logging too verbose, this may be a security concern
 
 #### TODO ####
+* Add edit user info page -> PUT /users/:id - edit user details
+* Fix auto populate friend requests -> POST /friends/populate
 * Jest unit testing
-* Add edit user info page
 * Responsive design
 
 
