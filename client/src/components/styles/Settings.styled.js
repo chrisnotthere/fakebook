@@ -12,4 +12,15 @@ export const SettingsContainer = styled.div`
     top: 5rem;
   }
 
+  .settings-form {
+
+  }
+
+  .settings-form-inputs {
+    display:flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 50%;
+  }
+
 `;
