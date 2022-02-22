@@ -4,6 +4,8 @@ import { SettingsContainer } from '../components/styles/Settings.styled'
 
 function Settings({ user, setUser }) {
 
+  console.log(user);
+
   return (
     <>
       <NavBar user={user} setUser={setUser} />

@@ -23,6 +23,7 @@ function Login({ user, setUser }) {
           token: result.data.token.token,
           id: result.data.user.id,
           picture: result.data.user.picture,
+          coverPicture: result.data.user.coverPicture,
           about: result.data.user.about
         };
         axios.defaults.headers.common["Authorization"] =

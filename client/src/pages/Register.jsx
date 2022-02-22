@@ -25,6 +25,7 @@ function Register({ user, setUser }) {
           token: result.data.token.token,
           id: result.data.user.id,
           picture: result.data.user.picture,
+          coverPicture: result.data.user.coverPicture,
           about: '',
         };
 
