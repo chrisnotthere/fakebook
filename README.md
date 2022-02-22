@@ -34,11 +34,10 @@ This is a solution to a [project](https://www.theodinproject.com/paths/full-stac
 * Logging too verbose, this may be a security concern
 
 #### TODO ####
-* Add edit user info page -> PUT /users/:id - edit user details
+* Add edit user info page -> PUT /users/:id 
 * Fix auto populate friend requests -> POST /friends/populate
+* Delete account -> DELETE /users/:id
 * Jest unit testing
 * Responsive design
-
-
 
 #### Thank you for reading. Any feedback is appreciated. ####
