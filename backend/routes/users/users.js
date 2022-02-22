@@ -115,12 +115,30 @@ router.get('/:id/friendRequests', async (req, res, next) => {
   }
 });
 
-/* PUT update profile details (can only update details of logged in user profile) */
-router.put('/:id', function (req, res, next) {
-  res.json({ message: "PUT edit user details - not implemented" })
+/* PUT update profile details */
+router.put('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (user === null) {
+      return res.status(404).json({ message: "user not found" });
+    }
+    
+    const { firstName, lastName, picture, coverPicture, about } = req.body;
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.picture = picture;
+    user.coverPicture = coverPicture;
+    user.about = about;
+
+    const updatedUser = await user.save();
+    return res.status(200).json({ message: "User details updated.", updatedUser });
+
+  } catch (error) {
+    return res.status(500).json({ message: "Oops, something went wrong.", error: error.message });
+  }
 });
 
-/* DELETE user (can only delete own acount) */
+/* DELETE user (can only delete own account) */
 router.delete('/:id', function (req, res, next) {
   res.json({ message: "DELETE user account - not implemented" })
 });
